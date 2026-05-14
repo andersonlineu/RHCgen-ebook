@@ -1,0 +1,48 @@
+# Discussão
+
+O RHCgen demonstrou ser uma ferramenta eficiente para a automação e padronização do processamento de dados do Registro Hospitalar de Câncer no Brasil, ao consolidar 5.394.771 registros provenientes de 24 arquivos anuais (2000–2023) em uma única base analítica estruturada em 4,61 minutos e com consumo de aproximadamente 2,01 GB de memória. Esse resultado evidencia a viabilidade técnica do pacote para o manejo de grandes volumes de dados epidemiológicos em saúde, corroborando o potencial das ferramentas de ciência de dados de código aberto para transformar fluxos de trabalho em pesquisa em saúde pública [@lowndes2017; @chan2018].
+
+## Vantagens em relação ao TabWin
+
+A utilização da linguagem R como plataforma de desenvolvimento mostrou-se adequada para os objetivos propostos. Diferentemente do **TabWin** — ferramenta amplamente utilizada no contexto do DATASUS, mas restrita ao sistema operacional Windows e com capacidades analíticas limitadas —, o RHCgen:
+
+- Opera em **ambiente multiplataforma** (Windows, Linux, macOS)
+- Integra-se nativamente ao **ecossistema estatístico do R**
+- Elimina a necessidade de exportação dos dados para análises complementares
+
+Esse aspecto é relevante porque a dependência de etapas manuais de exportação e recodificação constitui uma fonte recorrente de erros e inconsistências no processamento de sistemas de informação em saúde no Brasil [@jorge2010].
+
+## Posicionamento no ecossistema de pacotes para dados do SUS
+
+Nesse sentido, o RHCgen se alinha a iniciativas brasileiras anteriores voltadas à superação dessas limitações, como o *microdatasus* [@saldanha2019] e o *Rtabnetsp* [@morais2021], ampliando o conjunto de ferramentas disponíveis para o processamento de dados do SUS em R.
+
+## Contribuição para a qualidade dos dados
+
+O RHCgen, ao automatizar a análise de completude e classificar as variáveis segundo critérios validados, oferece ao pesquisador um **diagnóstico imediato da qualidade do banco**, favorecendo decisões informadas sobre:
+
+- A viabilidade de determinadas análises
+- A necessidade de estratégias de imputação ou restrição de subgrupos
+- A comparabilidade entre períodos históricos
+
+Mudanças estruturais nas fichas do RHC ao longo do período analisado podem contribuir para a incompatibilidade entre registros históricos e regras de validação mais recentes. Esse padrão reflete a heterogeneidade estrutural dos arquivos anuais — um dos principais desafios identificados no desenvolvimento do RHCgen — e reforça a necessidade de ferramentas que realizem harmonização das bases, como a função `lerarquivoDBF()`.
+
+O fato de o RHCgen **quantificar e estratificar inconsistências temporais por tipo de verificação** representa um avanço metodológico concreto em relação ao processamento convencional, que em geral não contempla essa camada de validação de forma automatizada e reprodutível.
+
+## Ciência aberta e reprodutibilidade
+
+Do ponto de vista da contribuição para a ciência aberta e para a reprodutibilidade da pesquisa em oncologia, o RHCgen alinha-se a um movimento mais amplo de valorização de ferramentas de código aberto no contexto da saúde pública [@lowndes2017; @jalal2017]. A disponibilização do pacote no GitHub, acompanhada de guia de uso acessível, **reduz a barreira de entrada para pesquisadores** sem formação específica em ciência de dados, democratizando o acesso a uma base de dados com mais de cinco milhões de registros oncológicos de relevância nacional.
+
+Iniciativas análogas, como o *microdatasus* e o *Rtabnetsp*, demonstraram que pacotes R voltados a dados do SUS têm ampla adoção pela comunidade científica brasileira [@saldanha2019; @morais2021], o que sugere potencial similar para o RHCgen.
+
+## Limitações
+
+Algumas limitações do estudo merecem ser reconhecidas:
+
+**Download manual dos arquivos**
+: A plataforma IRHC não disponibiliza acesso remoto automatizado via FTP ou API, impondo uma etapa não automatizável que pode constituir obstáculo para usuários menos familiarizados com o processo de coleta de dados.
+
+**Dados recentes em fase de validação**
+: Os registros mais recentes do IRHC podem ainda estar em fase de validação, com maior proporção de campos incompletos ou revisados, o que pode afetar a qualidade de análises baseadas nos anos mais próximos da data de extração.
+
+**Requisitos de memória**
+: O consumo de 2,01 GB de memória RAM pode representar limitação em ambientes computacionais com recursos reduzidos.

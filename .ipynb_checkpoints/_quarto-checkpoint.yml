@@ -1,0 +1,80 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "RHCgen"
+  subtitle: "Um Pacote R para Automação, Padronização e Avaliação da Qualidade dos Dados do Registro Hospitalar de Câncer no Brasil"
+  author:
+    - name: "Anderson Lineu Siqueira dos Santos"
+      orcid: "0000-0002-1703-9310"
+      affiliations:
+        - "Escola Nacional de Saúde Pública Sergio Arouca, Fundação Oswaldo Cruz, Rio de Janeiro, Brasil"
+    - name: "Tatyellen Natasha da Costa Oliveira"
+      orcid: "0000-0002-4781-3952"
+      affiliations:
+        - "Escola Nacional de Saúde Pública Sergio Arouca, Fundação Oswaldo Cruz, Rio de Janeiro, Brasil"
+        - "Seção de Ensino e Informação Científica, Instituto Evandro Chagas, Ananindeua, PA, Brasil"
+    - name: "Raphael de Freitas Saldanha"
+      orcid: "0000-0003-0652-8466"
+      affiliations:
+        - "Instituto de Comunicação e Informação Científica e Tecnológica em Saúde, Fundação Oswaldo Cruz, Rio de Janeiro, RJ, Brasil"
+    - name: "Raquel de Vasconcellos Carvalhaes de Oliveira"
+      orcid: "0000-0001-9387-8645"
+      affiliations:
+        - "Instituto Nacional de Infectologia, Fundação Oswaldo Cruz, Rio de Janeiro, RJ, Brasil"
+  date: "2026-05-01"
+  date-format: "DD/MM/YYYY"
+  doi: "10.5281/zenodo.19962293"
+  language: pt
+  repo-url: https://github.com/andersonlineu/RHCgen
+  repo-actions: [issue]
+  downloads: [pdf]
+  search: true
+  sidebar:
+    logo: "logo.png"
+    search: true
+  chapters:
+    - index.qmd
+    - 01-introducao.qmd
+    - 02-fonte-dados.qmd
+    - 03-desenvolvimento.qmd
+    - 04-pipeline.qmd
+    - 05-funcoes-leitura.qmd
+    - 06-padronizacao.qmd
+    - 07-recodificacao.qmd
+    - 08-harmonizacao-territorial.qmd
+    - 09-codigos-clinicos.qmd
+    - 10-qualidade.qmd
+    - 11-aplicacao.qmd
+    - 12-discussao.qmd
+    - 13-conclusao.qmd
+    - referencias.qmd
+
+bibliography: references.bib
+lang: pt-BR
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    code-link: true
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    highlight-style: github
+    code-copy: true
+    link-external-icon: true
+    link-external-newwindow: true
+  pdf:
+    documentclass: scrbook
+    classoption: ["oneside"]
+    papersize: a4
+    toc: true
+    number-sections: true
+    colorlinks: true
+    lang: pt-BR
+    include-in-header:
+      text: |
+        \usepackage[brazil]{babel}

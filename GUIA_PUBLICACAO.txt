@@ -1,0 +1,191 @@
+# Guia de Publicação do RHCgen Book no GitHub Pages
+
+Este guia descreve, passo a passo, como instalar o Quarto, renderizar o e-book
+e publicá-lo gratuitamente no GitHub Pages — exatamente como o e-book
+"Sistemas de Informação em Saúde no Brasil" de Raphael Saldanha.
+
+---
+
+## 1. Instalar o Quarto
+
+Acesse https://quarto.org/docs/get-started/ e baixe o instalador para o seu
+sistema operacional (Windows, macOS ou Linux).
+
+Após a instalação, verifique no terminal:
+
+    quarto --version
+
+Você verá algo como: 1.6.x
+
+---
+
+## 2. Estrutura dos arquivos
+
+Após descompactar ou clonar este repositório, você terá:
+
+    rhcgen-book/
+    ├── _quarto.yml                  ← configuração principal do livro
+    ├── references.bib               ← referências bibliográficas (BibTeX)
+    ├── index.qmd                    ← página inicial (Bem-vindo)
+    ├── 01-introducao.qmd
+    ├── 02-fonte-dados.qmd
+    ├── 03-desenvolvimento.qmd
+    ├── 04-pipeline.qmd
+    ├── 05-funcoes-leitura.qmd
+    ├── 06-padronizacao.qmd
+    ├── 07-recodificacao.qmd
+    ├── 08-harmonizacao-territorial.qmd
+    ├── 09-codigos-clinicos.qmd
+    ├── 10-qualidade.qmd
+    ├── 11-aplicacao.qmd
+    ├── 12-discussao.qmd
+    ├── 13-conclusao.qmd
+    └── referencias.qmd
+
+Opcionalmente, adicione um arquivo `logo.png` na raiz do projeto para aparecer
+no topo da barra lateral.
+
+---
+
+## 3. Renderizar o e-book localmente
+
+Abra o terminal dentro da pasta `rhcgen-book/` e execute:
+
+    quarto render
+
+O Quarto vai gerar o site HTML dentro da pasta `docs/`.
+Para visualizar no navegador:
+
+    quarto preview
+
+O e-book abrirá automaticamente em http://localhost:4200 com atualização
+automática ao editar os arquivos.
+
+---
+
+## 4. Criar o repositório no GitHub
+
+1. Acesse https://github.com e faça login na sua conta.
+2. Clique em "New repository".
+3. Dê o nome que preferir (ex: `RHCgen-book` ou `rhcgen-documentacao`).
+4. Deixe como "Public" (necessário para GitHub Pages gratuito).
+5. NÃO marque "Add a README file" (para evitar conflito).
+6. Clique em "Create repository".
+
+---
+
+## 5. Enviar os arquivos para o GitHub
+
+No terminal, dentro da pasta `rhcgen-book/`:
+
+    # Inicializar git
+    git init
+
+    # Adicionar todos os arquivos
+    git add .
+
+    # Fazer o primeiro commit
+    git commit -m "Primeiro commit: estrutura do e-book RHCgen"
+
+    # Conectar ao repositório criado (substitua SEU_USUARIO e NOME_REPO)
+    git remote add origin https://github.com/SEU_USUARIO/NOME_REPO.git
+
+    # Enviar para o GitHub
+    git branch -M main
+    git push -u origin main
+
+---
+
+## 6. Ativar o GitHub Pages
+
+1. No repositório do GitHub, clique em "Settings" (aba superior).
+2. No menu lateral esquerdo, clique em "Pages".
+3. Em "Source", selecione: Branch → "main" | Folder → "/docs".
+4. Clique em "Save".
+
+Após alguns minutos, o site estará disponível em:
+
+    https://SEU_USUARIO.github.io/NOME_REPO/
+
+---
+
+## 7. Atualizar o e-book
+
+Sempre que quiser atualizar o conteúdo:
+
+    # 1. Edite os arquivos .qmd desejados
+
+    # 2. Renderize novamente
+    quarto render
+
+    # 3. Envie as alterações para o GitHub
+    git add .
+    git commit -m "Descreva o que foi alterado"
+    git push
+
+O site será atualizado automaticamente em alguns minutos.
+
+---
+
+## 8. Personalização recomendada
+
+### Adicionar logo
+Coloque um arquivo `logo.png` na raiz do projeto. Ele aparecerá no topo da
+barra lateral do e-book.
+
+### Alterar o tema de cores
+No arquivo `_quarto.yml`, a seção `format > html > theme` controla as cores:
+- Modo claro: `flatly` (azul) — pode trocar por `cosmo`, `lumen`, `journal`
+- Modo escuro: `darkly` — pode trocar por `solar`, `cyborg`, `slate`
+
+Veja todos os temas disponíveis em: https://bootswatch.com/
+
+### Adicionar ícones ORCID
+Para que os ícones ORCID apareçam na página inicial, instale a extensão:
+
+    quarto add schochastics/academicons
+
+E use no texto: {{< ai orcid >}}
+
+Se preferir não usar a extensão, substitua {{< ai orcid >}} por simplesmente
+o símbolo de link: 🔗
+
+---
+
+## 9. Automatizar a publicação (opcional, avançado)
+
+Para publicar automaticamente a cada push no GitHub, crie o arquivo:
+
+    .github/workflows/publish.yml
+
+Com o seguinte conteúdo:
+
+    name: Publish Book
+    on:
+      push:
+        branches: [main]
+    jobs:
+      build-deploy:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v4
+          - uses: quarto-dev/quarto-actions/setup@v2
+          - name: Render and Publish
+            uses: quarto-dev/quarto-actions/publish@v2
+            with:
+              target: gh-pages
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+Com essa configuração, o e-book será renderizado e publicado automaticamente
+pelo GitHub toda vez que você fizer um push — sem precisar rodar
+`quarto render` localmente.
+
+---
+
+## Dúvidas e recursos
+
+- Documentação do Quarto Books: https://quarto.org/docs/books/
+- GitHub Pages: https://pages.github.com/
+- Exemplo de referência (e-book do Raphael): https://rfsaldanha.github.io/sis/
+- Código-fonte do exemplo: https://github.com/rfsaldanha/sis

@@ -1,0 +1,722 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "RHCgen",
+    "section": "",
+    "text": "Bem-vindo\nEsta nota técnica descreve o RHCgen, um pacote computacional de acesso aberto implementado na linguagem R, voltado à automação, padronização e avaliação da qualidade dos dados do Registro Hospitalar de Câncer (RHC) no Brasil.\nO pacote está disponível no GitHub: github.com/andersonlineu/RHCgen\nUm guia de uso está disponível em: andersonlineu.github.io/GuiaRHCgen",
+    "crumbs": [
+      "Bem-vindo"
+    ]
+  },
+  {
+    "objectID": "index.html#como-citar",
+    "href": "index.html#como-citar",
+    "title": "RHCgen",
+    "section": "Como citar",
+    "text": "Como citar\n\nSantos, A. L. S. dos., Oliveira, T. N. da C., Saldanha, R. de F., & Oliveira, R. de V. C. de. (2026). RHCgen: Um Pacote R para Automação, Padronização e Avaliação da Qualidade dos Dados do Registro Hospitalar de Câncer no Brasil. Zenodo. https://doi.org/10.5281/zenodo.19962293\n\n\nBibTeX\n@techreport{santos_rhcgen_2026,\n  author    = {Santos, Anderson Lineu Siqueira dos and\n               Oliveira, Tatyellen Natasha da Costa and\n               Saldanha, Raphael de Freitas and\n               Oliveira, Raquel de Vasconcellos Carvalhaes de},\n  title     = {{RHCgen}: Um Pacote {R} para Automação, Padronização e\n               Avaliação da Qualidade dos Dados do Registro Hospitalar\n               de Câncer no Brasil},\n  year      = {2026},\n  doi       = {10.5281/zenodo.19962293},\n  publisher = {Zenodo}\n}",
+    "crumbs": [
+      "Bem-vindo"
+    ]
+  },
+  {
+    "objectID": "index.html#resumo",
+    "href": "index.html#resumo",
+    "title": "RHCgen",
+    "section": "Resumo",
+    "text": "Resumo\nIntrodução: O Registro Hospitalar de Câncer (RHC) reúne dados clínicos e assistenciais de pacientes oncológicos atendidos em hospitais habilitados pelo Sistema Único de Saúde no Brasil, constituindo uma base estratégica para a vigilância e a pesquisa em oncologia. Contudo, a ausência de ferramentas padronizadas para seu processamento, aliada à heterogeneidade estrutural e semântica dos arquivos disponibilizados, impõe barreiras significativas à sua utilização em larga escala e de forma reprodutível.\nObjetivo: Descrever um pacote computacional de acesso aberto, implementado na linguagem R, voltado à automação, padronização do processamento e avaliação da qualidade dos dados do Registro Hospitalar de Câncer no Brasil.\nMétodos: Estudo metodológico que descreve o desenvolvimento do pacote RHCgen, implementado em R com o auxílio dos pacotes usethis, devtools e roxygen2. O pacote foi estruturado como um pipeline automatizado de extração, transformação e carga (ETL), composto por funções modulares para leitura e consolidação de arquivos no formato .dbf, padronização estrutural, variações semânticas e recodificação de variáveis, além de avaliação de completude e consistência dos dados.\nResultados: O processamento de 24 arquivos nacionais do RHC (2000–2023) resultou em uma base analítica consolidada com 5.394.771 registros e 59 variáveis, com tempo de execução de 4,61 minutos e consumo aproximado de 2,01 GB de memória RAM.\nConclusão: O RHCgen oferece uma solução padronizada, reprodutível e de acesso aberto para o processamento de dados do RHC, contribuindo para ampliar a produção científica baseada no RHC e fortalecer a vigilância oncológica no Brasil.\nPalavras-chave: Registros Hospitalares de Câncer; Processamento de Dados; Reprodutibilidade dos Resultados; Sistemas de Informação em Saúde; Neoplasias; Linguagem R; RHCgen.",
+    "crumbs": [
+      "Bem-vindo"
+    ]
+  },
+  {
+    "objectID": "index.html#sobre-os-autores",
+    "href": "index.html#sobre-os-autores",
+    "title": "RHCgen",
+    "section": "Sobre os autores",
+    "text": "Sobre os autores\nAnderson Lineu Siqueira dos Santos  Escola Nacional de Saúde Pública Sergio Arouca, Fundação Oswaldo Cruz, Rio de Janeiro, Brasil.\nTatyellen Natasha da Costa Oliveira  Escola Nacional de Saúde Pública Sergio Arouca, Fundação Oswaldo Cruz; Instituto Evandro Chagas, Ananindeua, PA, Brasil.\nRaphael de Freitas Saldanha  Instituto de Comunicação e Informação Científica e Tecnológica em Saúde, Fundação Oswaldo Cruz, Rio de Janeiro, RJ, Brasil.\nRaquel de Vasconcellos Carvalhaes de Oliveira  Instituto Nacional de Infectologia, Fundação Oswaldo Cruz, Rio de Janeiro, RJ, Brasil.",
+    "crumbs": [
+      "Bem-vindo"
+    ]
+  },
+  {
+    "objectID": "01-introducao.html",
+    "href": "01-introducao.html",
+    "title": "1  Introdução",
+    "section": "",
+    "text": "Nos últimos anos, observa-se aumento da quantidade de pesquisas que envolvem bases de dados de câncer, a fim de melhor compreender a dinâmica da evolução, tratamento e prevenção da doença (Bray et al. 2024). Iniciativas como o Global Cancer Observatory, o Cancer Incidence in Five Continents e o CANCER TODAY possuem abrangência global e disponibilizam dados sobre incidência, mortalidade e prevalência de câncer em 185 países e mais de 300 regiões no mundo (SEER 2025; Cancer Today 2025). Em níveis locais, bases de dados norte-americanas como o Surveillance, Epidemiology, and End Results do National Cancer Institute e o National Cancer Database reúnem dados de mais de 1.500 hospitais, cobrindo cerca de 48% da população dos EUA (SEER 2025; ACS 2025). Na Europa, o European Cancer Information System, operado pela Comissão Europeia, coleta dados abrangentes de incidência, mortalidade e sobrevivência do câncer, permitindo análises comparativas entre regiões e subsidiando políticas de saúde pública eficazes (EORTC 2017; ECIS 2025).\nO Brasil dispõe de duas bases de dados específicas para o registro de informações sobre câncer: os Registros de Câncer de Base Populacional (RCBP) e os Registros Hospitalares de Câncer (RHC), ambos mantidos pelo Instituto Nacional do Câncer (INCA). Enquanto o RCBP registra a ocorrência e as características dos casos novos na população, o RHC reúne informações clínicas e terapêuticas de pacientes atendidos em hospitais habilitados na Atenção Especializada em Oncologia do Sistema Único de Saúde (SUS). Os RHC são responsáveis pela coleta, armazenamento, processamento, análise e divulgação contínua desses dados, incluindo informações sobre identificação, características demográficas, diagnóstico, tratamento e evolução dos tumores. Obrigatórios em hospitais que atendem pacientes com câncer no SUS, esses registros subsidiam a gestão hospitalar, o acompanhamento clínico e a avaliação da qualidade da assistência e dos desfechos dos tratamentos (INCA 2000).\nNo contexto da análise de dados em saúde no Brasil, destaca-se a ferramenta TabWin, desenvolvida pelo DATASUS (Brasil 2025), que desempenha um papel fundamental ao permitir a tabulação e o tratamento desses dados. Entretanto, apesar da sua capacidade de leitura de arquivos no formato DBC, construção de tabelas, indicadores, gráficos e mapas, o TabWin é restrito ao sistema operacional Windows e tem capacidades analíticas limitadas. Para estatísticas mais complexas existe a necessidade de exportação dos dados para pacotes estatísticos mais robustos, o que adiciona trabalho e potencial para erros (Jorge et al. 2010; Silva 2009).\nEssas limitações têm impulsionado a busca por ferramentas mais eficientes e reprodutíveis para análise de dados, viabilizada por ferramentas de ciência de dados que têm transformado a preparação dos dados em pesquisa. A linguagem R, amplamente utilizada para análise estatística, destaca-se por permitir a organização e manipulação de grandes volumes de dados heterogêneos, comuns em epidemiologia em saúde pública, ao facilitar a conversão de dados brutos em formatos prontos para análise e contribuir para a produção de resultados científicos confiáveis (Lowndes et al. 2017).\nAlguns pacotes em R específicos para manipulação e processamento de dados de saúde no Brasil facilitam o acesso e análise de informações de saúde pública, como o microdatasus (Saldanha et al. 2019) — que viabiliza o download e pré-processamento de dados de alguns Sistemas de Informação do SUS diretamente do DATASUS — e o Rtabnetsp (Morais et al. 2021), que permite a extração de indicadores de saúde dos servidores TabNet da Secretaria de Estado da Saúde de São Paulo. Entretanto, até o momento não há uma ferramenta que permita a automação e padronização integral do processamento do RHC.\nComo consequência, a utilização desses dados em larga escala permanece limitada por barreiras relevantes de interoperabilidade e reprodutibilidade. Na prática, a ausência de um pipeline estruturado obriga cada pesquisador a desenvolver rotinas próprias de limpeza, transformação e harmonização — geralmente baseadas em scripts ad hoc. Esse cenário fragmentado implica não apenas repetição desnecessária das mesmas etapas de processamento por diferentes pesquisadores, mas também a introdução de decisões analíticas heterogêneas, que podem gerar estimativas divergentes a partir de uma mesma base de dados.\nDiante desse cenário, a proposta de um pacote que estabeleça um padrão de governança dos dados torna-se particularmente relevante, ao garantir que o processo de transformação do dado bruto em base analítica seja transparente, documentado e reprodutível. A padronização dessas etapas contribui para maior consistência entre estudos, além de facilitar auditorias, validações externas e o compartilhamento de métodos.\nEsta nota técnica tem como objetivo descrever e apresentar o pacote computacional de acesso aberto RHCgen, implementado na linguagem R, voltado à automação, padronização do processamento e avaliação da qualidade dos dados do Registro Hospitalar de Câncer no Brasil, descrevendo sua arquitetura, funcionalidades e potencial de aplicação em análises em larga escala com dados do RHC.\n\n\n\n\nACS. 2025. National Cancer Database. https://www.facs.org/quality-programs/cancer-programs/national-cancer-database/.\n\n\nBrasil. 2025. Programa Capacitação e Atualização em Abordagens do Espaço em Análises de Saúde Pública. https://www.capacita.geosaude.icict.fiocruz.br/links.php.\n\n\nBray, Freddie, Mathieu Laversanne, Hyuna Sung, et al. 2024. “Global cancer statistics 2022: GLOBOCAN estimates of incidence and mortality worldwide for 36 cancers in 185 countries”. CA: A Cancer Journal for Clinicians 74: 229–63. https://doi.org/10.3322/caac.21834.\n\n\nCancer Today. 2025. Cancer Today. https://gco.iarc.who.int/today/.\n\n\nECIS. 2025. European Cancer Information System. https://ecis.jrc.ec.europa.eu/en.\n\n\nEORTC. 2017. European Organisation For Research And Treatment Of Cancer. https://www.eortc.org/.\n\n\nINCA. 2000. Registro Hospitalar de Câncer: Rotinas e Procedimentos. 1º ed. Ministério da Saúde. https://www.inca.gov.br/publicacoes/manuais/registros-hospitalares-de-cancer.\n\n\nJorge, Maria Helena Prado de Mello, Ruy Laurenti, e Sabina Léa Davidson Gotlieb. 2010. “Avaliação dos sistemas de informação em saúde no Brasil”. Cadernos de Saúde Coletiva. https://pesquisa.bvsalud.org/portal/resource/pt/lil-621256.\n\n\nLowndes, Julia S. Stewart, Benjamin D. Best, Courtney Scarborough, et al. 2017. “Our path to better science in less time using open data science tools”. Nature Ecology & Evolution 1: 160. https://doi.org/10.1038/s41559-017-0160.\n\n\nMorais, João Henrique de Araujo, Tulio César Ramos de Oliveira Konstantyner, Álvaro Luiz Fazenda, Alessandro Sala, e Cleverson Bernardo Martins. 2021. “Rtabnetsp: pacote R para extração de indicadores de saúde do estado de São Paulo”. Epidemiologia e Serviços de Saúde 30: e2020576. https://doi.org/10.1590/S1679-4974202100020.\n\n\nSaldanha, Raphael de Freitas, Ronaldo Rocha Bastos, e Christovam Barcellos. 2019. “Microdatasus: pacote para download e pré-processamento de microdados do Departamento de Informática do SUS (DATASUS)”. Cadernos de Saúde Pública 35: e00032419. https://doi.org/10.1590/0102-311X00032419.\n\n\nSEER. 2025. SEER Program. https://seer.cancer.gov/about/overview.html.\n\n\nSilva, Natalino Pires da. 2009. “A utilização dos programas TABWIN e TABNET como ferramentas de apoio à disseminação das informações em saúde”. Fundação Oswaldo Cruz. https://www.arca.fiocruz.br/handle/icict/2300.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introdução</span>"
+    ]
+  },
+  {
+    "objectID": "02-fonte-dados.html",
+    "href": "02-fonte-dados.html",
+    "title": "2  Fonte de Dados: o Registro Hospitalar de Câncer",
+    "section": "",
+    "text": "2.1 O que é o RHC?\nOs Registros Hospitalares de Câncer (RHC) em todo o território brasileiro coletam dados individualizados de pacientes com diagnóstico confirmado de câncer, obtidos de prontuários e outras fontes hospitalares. Esses registros permitem tanto a análise detalhada em nível individual quanto a avaliação agregada de desfechos clínicos e dos padrões diagnósticos mais frequentes (INCA 2000).",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Fonte de Dados: o Registro Hospitalar de Câncer</span>"
+    ]
+  },
+  {
+    "objectID": "02-fonte-dados.html#integradorrhc-irhc",
+    "href": "02-fonte-dados.html#integradorrhc-irhc",
+    "title": "2  Fonte de Dados: o Registro Hospitalar de Câncer",
+    "section": "2.2 IntegradorRHC (IRHC)",
+    "text": "2.2 IntegradorRHC (IRHC)\nO RHCgen é específico para ser utilizado com dados do RHC disponibilizados para download no IntegradorRHC (IRHC), no formato Data Base File (.dbf), acessível em:\n\nhttps://irhc.inca.gov.br/RHCNet/\n\nImplantado em 2007, o IntegradorRHC é um sistema público que consolida e disponibiliza informações processadas pelo Sistema de Informação de Registro Hospitalar de Câncer (SisRHC), com base em registros de pacientes atendidos em unidades habilitadas no SUS em todo o território nacional.\nA base de dados é não nominativa e estruturada a partir de registros padronizados pelas instituições participantes, sendo o SisRHC responsável pelos processos de entrada, validação e padronização das informações (INCA 2011; Decit 2007).",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Fonte de Dados: o Registro Hospitalar de Câncer</span>"
+    ]
+  },
+  {
+    "objectID": "02-fonte-dados.html#cobertura-temporal",
+    "href": "02-fonte-dados.html#cobertura-temporal",
+    "title": "2  Fonte de Dados: o Registro Hospitalar de Câncer",
+    "section": "2.3 Cobertura temporal",
+    "text": "2.3 Cobertura temporal\nO RHCgen possui capacidade de processamento de arquivos provenientes de diferentes períodos: de 1985 a 2023.\nPara a construção do pacote e realização dos testes do pipeline, foram utilizados dados provenientes do IntegradorRHC. O período analisado compreendeu registros com ano do banco entre 1º de janeiro de 1985 e 31 de dezembro de 2023. Os dados foram extraídos em 11 de julho de 2025, considerando a versão da base disponível no sistema à época, cuja última atualização havia ocorrido em 7 de abril de 2025, assegurando a rastreabilidade dos dados utilizados.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Fonte de Dados: o Registro Hospitalar de Câncer</span>"
+    ]
+  },
+  {
+    "objectID": "02-fonte-dados.html#dicionário-de-variáveis",
+    "href": "02-fonte-dados.html#dicionário-de-variáveis",
+    "title": "2  Fonte de Dados: o Registro Hospitalar de Câncer",
+    "section": "2.4 Dicionário de variáveis",
+    "text": "2.4 Dicionário de variáveis\nO dicionário completo de variáveis do SisRHC está disponível no IntegradorRHC:\n\nhttps://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=dicionario.dados\n\n\n\n\n\n\n\nNotaRastreabilidade dos dados\n\n\n\nA identificação da data de extração e da versão da base são etapas recomendadas para garantir a reprodutibilidade de análises conduzidas com o RHCgen. O pacote cria automaticamente a variável Ano_do_Banco a partir do nome original de cada arquivo .dbf, permitindo identificar o ano de origem de cada registro.\n\n\n\n\n\n\nDecit. 2007. “Integração de informações dos registros de câncer brasileiros”. Revista de Saúde Pública 41: 865–68. https://doi.org/10.1590/S0034-89102007000500024.\n\n\nINCA. 2000. Registro Hospitalar de Câncer: Rotinas e Procedimentos. 1º ed. Ministério da Saúde. https://www.inca.gov.br/publicacoes/manuais/registros-hospitalares-de-cancer.\n\n\nINCA. 2011. IntegradorRHC: ferramenta para a vigilância hospitalar de câncer no Brasil. INCA. https://www.inca.gov.br/sites/ufu.sti.inca.local/files//media/document//folder-integrador-rhc-2011.pdf.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Fonte de Dados: o Registro Hospitalar de Câncer</span>"
+    ]
+  },
+  {
+    "objectID": "03-desenvolvimento.html",
+    "href": "03-desenvolvimento.html",
+    "title": "3  Desenvolvimento do RHCgen",
+    "section": "",
+    "text": "3.1 Plataforma e ferramentas\nO desenvolvimento do RHCgen foi realizado com o uso da linguagem de programação R (versão 4.5.1) (R Core Team 2024), no ambiente de desenvolvimento integrado RStudio (versão 2025.06.13) (RStudio 2024), com o auxílio dos seguintes pacotes:",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Desenvolvimento do RHCgen</span>"
+    ]
+  },
+  {
+    "objectID": "03-desenvolvimento.html#plataforma-e-ferramentas",
+    "href": "03-desenvolvimento.html#plataforma-e-ferramentas",
+    "title": "3  Desenvolvimento do RHCgen",
+    "section": "",
+    "text": "Pacote\nFunção no desenvolvimento\n\n\n\n\nusethis\nConfiguração da estrutura do pacote; criação de diretórios e arquivos padrão\n\n\ndevtools\nConstrução, verificação e instalação do pacote; gestão de dependências\n\n\nroxygen2\nGeração automática da documentação das funções",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Desenvolvimento do RHCgen</span>"
+    ]
+  },
+  {
+    "objectID": "03-desenvolvimento.html#disponibilidade-e-instalação",
+    "href": "03-desenvolvimento.html#disponibilidade-e-instalação",
+    "title": "3  Desenvolvimento do RHCgen",
+    "section": "3.2 Disponibilidade e instalação",
+    "text": "3.2 Disponibilidade e instalação\nO RHCgen está disponível no GitHub com o objetivo de facilitar seu uso, além de possibilitar a revisão e o aprimoramento por outros pesquisadores:\n\nhttps://github.com/andersonlineu/RHCgen\n\nCom o pacote remotes previamente instalado no R, a instalação do RHCgen pode ser realizada da seguinte forma:\nremotes::install_github(\"andersonlineu/RHCgen\")\n\n\n\n\n\n\nNotaDependência automática\n\n\n\nO pacote foreign é instalado automaticamente no primeiro uso do RHCgen. Esse pacote realiza a leitura de arquivos no formato .dbf, converte campos de caracteres em fatores e respeita, sempre que possível, os campos nulos.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Desenvolvimento do RHCgen</span>"
+    ]
+  },
+  {
+    "objectID": "03-desenvolvimento.html#guia-de-uso",
+    "href": "03-desenvolvimento.html#guia-de-uso",
+    "title": "3  Desenvolvimento do RHCgen",
+    "section": "3.3 Guia de uso",
+    "text": "3.3 Guia de uso\nUm guia completo com orientações ao usuário sobre como utilizar o pacote está disponível em:\n\nhttps://andersonlineu.github.io/GuiaRHCgen/",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Desenvolvimento do RHCgen</span>"
+    ]
+  },
+  {
+    "objectID": "03-desenvolvimento.html#validação-algorítmica-e-consistência-dos-dados",
+    "href": "03-desenvolvimento.html#validação-algorítmica-e-consistência-dos-dados",
+    "title": "3  Desenvolvimento do RHCgen",
+    "section": "3.4 Validação algorítmica e consistência dos dados",
+    "text": "3.4 Validação algorítmica e consistência dos dados\nA validação dos algoritmos de recodificação implementados no RHCgen foi baseada na correspondência com as normas técnicas descritas em:\n\nManual Registros Hospitalares de Câncer: Planejamento e Gestão (INCA 2010)\nDicionário de Variáveis do SisRHC (INCA 2020)\n\nAmbos publicados pelo Instituto Nacional de Câncer (INCA).\nAs rotinas de processamento foram construídas de forma determinística, assegurando que a transformação dos dados seguisse estritamente os padrões oficiais de codificação, incluindo mapeamentos institucionais (CNES), classificações clínicas (CID-O) e definições de desfechos.\nA identificação dos estabelecimentos de saúde foi realizada por meio de vinculação determinística utilizando o código CNES presente na base do RHC como chave única para integração com a base oficial do CNES.\nA confiabilidade das funções foi avaliada por meio de:\n\nTestes unitários — valores de entrada previamente definidos foram comparados às saídas esperadas, com base nos dicionários oficiais\nVerificações de cobertura — para variáveis com grande número de categorias, garantindo que todos os códigos válidos do SisRHC fossem corretamente processados\nTestes de integração — desempenho das funções em execução sequencial ao longo do pipeline\nComparações com bases de referência — cotejo entre saídas automatizadas e bases revisadas manualmente\n\n\n\n\n\n\n\nImportanteDados reais na validação\n\n\n\nDiferente de abordagens baseadas em simulações, todas as etapas de validação e estresse de volumetria utilizaram exclusivamente dados reais do RHC, permitindo atestar a estabilidade e o desempenho da ferramenta em condições operacionais reais.\n\n\n\n\n\n\nINCA. 2010. Registros Hospitalares de Câncer: Planejamento e Gestão. 2º ed. Ministério da Saúde. https://www.inca.gov.br/sites/ufu.sti.inca.local/files//media/document//registros-hospitalares-de-cancer-2010.pdf.\n\n\nINCA. 2020. Dicionário das Variáveis da Base de Dados do Sistema de Informação de Registros Hospitalares de Câncer (SisRHC). https://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=dicionario.dados.\n\n\nR Core Team. 2024. R: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing. https://www.r-project.org/.\n\n\nRStudio. 2024. RStudio: Integrated Development Environment for R. Posit Software, PBC. https://www.r-project.org/.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Desenvolvimento do RHCgen</span>"
+    ]
+  },
+  {
+    "objectID": "04-pipeline.html",
+    "href": "04-pipeline.html",
+    "title": "4  O Pipeline de Processamento",
+    "section": "",
+    "text": "4.1 Processo único: a função construir_banco()\nA arquitetura do RHCgen é centrada na função modular construir_banco(), que opera como um pipeline automatizado de extração, transformação e carga — automated extract, transform, and load (ETL).\nDiferente de abordagens convencionais, esta função orquestra a transição do dado bruto para a base analítica em quatro estágios críticos:\nflowchart TD\n    A[\"Arquivos .dbf — IntegradorRHC\"] --&gt; B[\"1. Harmonização Estrutural&lt;br/&gt;· lerarquivoDBF()\"]\n    B --&gt; C[\"2. Transformação de Tipos&lt;br/&gt;· modificar_tipo_variavel()&lt;br/&gt;· renomear_colunas()\"]\n    C --&gt; D[\"3. Enriquecimento e Recodificação&lt;br/&gt;· recodificar_variaveis()&lt;br/&gt;· renomear_CID()&lt;br/&gt;· renomear_CNES()\"]\n    D --&gt; E[\"4. Auditoria de Qualidade&lt;br/&gt;· analise_qualidade_dos_dados()\"]\n    E --&gt; F[\"Base Analítica&lt;br/&gt;·5.394.771 registros &lt;br/&gt;· 59 variáveis\"]\n\n    style A fill:#f0f4f8,stroke:#4a90d9\n    style F fill:#e8f5e9,stroke:#388e3c\n    style B fill:#fff3e0,stroke:#fb8c00\n    style C fill:#fff3e0,stroke:#fb8c00\n    style D fill:#fff3e0,stroke:#fb8c00\n    style E fill:#fff3e0,stroke:#fb8c00",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>O *Pipeline* de Processamento</span>"
+    ]
+  },
+  {
+    "objectID": "04-pipeline.html#os-quatro-estágios",
+    "href": "04-pipeline.html#os-quatro-estágios",
+    "title": "4  O Pipeline de Processamento",
+    "section": "4.2 Os quatro estágios",
+    "text": "4.2 Os quatro estágios\n\n4.2.1 1. Harmonização Estrutural\nLeitura e consolidação dinâmica de múltiplos arquivos .dbf, resolvendo inconsistências de nomenclatura e tipagem de colunas entre diferentes séries históricas para garantir uma base única e consistente.\n\n\n4.2.2 2. Transformação de Tipos e Atributos\nConversão automática de variáveis importadas erroneamente como fatores para seus formatos originais (numérico para idade, data para eventos temporais e caractere para os demais campos), assegurando a integridade necessária para cálculos estatísticos.\n\n\n4.2.3 3. Enriquecimento e Recodificação\nMapeamento de códigos técnicos — como CID-O, CNES e Estadiamento Clínico — para termos descritivos completos, utilizando os dicionários oficiais do INCA como referência (INCA 2010, 2020).\n\n\n4.2.4 4. Auditoria de Qualidade\nCálculo de indicadores de completude e consistência lógica para avaliação da qualidade dos dados da base, permitindo identificar níveis de preenchimento e incoerências entre variáveis, com base em escores descritos por Romero e Cunha (2006) e Pinto et al. (2012).",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>O *Pipeline* de Processamento</span>"
+    ]
+  },
+  {
+    "objectID": "04-pipeline.html#uso-básico",
+    "href": "04-pipeline.html#uso-básico",
+    "title": "4  O Pipeline de Processamento",
+    "section": "4.3 Uso básico",
+    "text": "4.3 Uso básico\nlibrary(RHCgen)\n\n# Certifique-se de que os arquivos .dbf estão no diretório de trabalho\n# com o padrão de nomenclatura rhcXX.dbf (ex: rhc20.dbf, rhc21.dbf)\n\ndados_RHC &lt;- construir_banco()",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>O *Pipeline* de Processamento</span>"
+    ]
+  },
+  {
+    "objectID": "04-pipeline.html#relatório-final-de-processamento",
+    "href": "04-pipeline.html#relatório-final-de-processamento",
+    "title": "4  O Pipeline de Processamento",
+    "section": "4.4 Relatório final de processamento",
+    "text": "4.4 Relatório final de processamento\nAo término da execução, a função construir_banco() exibe automaticamente um relatório com os indicadores operacionais do processamento:\n\n\n\nIndicador\nValor (exemplo — base 2000–2023)\n\n\n\n\nTempo de execução\n4,61 minutos\n\n\nMemória utilizada\n≈ 2,01 GB\n\n\nTotal de registros\n5.394.771\n\n\nTotal de variáveis\n59\n\n\n\n\n\n\n\n\n\nDicaProduto final\n\n\n\nO dataframe resultante é mantido em memória e retornado ao ambiente de execução via return(data). Não há salvamento automático em disco, o que oferece flexibilidade para que o usuário defina suas próprias estratégias de exportação (por exemplo, saveRDS(), write.csv(), ou integração com bancos de dados).\n\n\n\n\n\n\nINCA. 2010. Registros Hospitalares de Câncer: Planejamento e Gestão. 2º ed. Ministério da Saúde. https://www.inca.gov.br/sites/ufu.sti.inca.local/files//media/document//registros-hospitalares-de-cancer-2010.pdf.\n\n\nINCA. 2020. Dicionário das Variáveis da Base de Dados do Sistema de Informação de Registros Hospitalares de Câncer (SisRHC). https://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=dicionario.dados.\n\n\nPinto, Iêda Vieira, Dandara Novaes Ramos, Maria do Carmo Esteves da Costa, Cristiane Bárbara Torres Ferreira, e Mariléa Santos Rebelo. 2012. “Completude e consistência dos dados dos registros hospitalares de câncer no Brasil”. Cadernos de Saúde Coletiva, 113–20.\n\n\nRomero, Dalia Elena, e Cynthia Braga da Cunha. 2006. “Avaliação da qualidade das variáveis sócio-econômicas e demográficas dos óbitos de crianças menores de um ano registrados no Sistema de Informações sobre Mortalidade do Brasil (1996/2001)”. Cadernos de Saúde Pública 22: 673–81. https://doi.org/10.1590/S0102-311X2006000300022.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>O *Pipeline* de Processamento</span>"
+    ]
+  },
+  {
+    "objectID": "05-funcoes-leitura.html",
+    "href": "05-funcoes-leitura.html",
+    "title": "5  Leitura e Integração dos Arquivos DBF",
+    "section": "",
+    "text": "5.1 Função lerarquivoDBF()",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Leitura e Integração dos Arquivos DBF</span>"
+    ]
+  },
+  {
+    "objectID": "05-funcoes-leitura.html#função-lerarquivodbf",
+    "href": "05-funcoes-leitura.html#função-lerarquivodbf",
+    "title": "5  Leitura e Integração dos Arquivos DBF",
+    "section": "",
+    "text": "5.1.1 Finalidade\nA função lerarquivoDBF() realiza a leitura automática dos arquivos DBF do Registro Hospitalar de Câncer disponíveis no diretório de trabalho e combina esses arquivos em um único banco de dados. Além disso, cria a variável Ano_do_Banco, extraída do nome original do arquivo, permitindo identificar o ano de origem de cada registro.\n\n\n5.1.2 Problema que resolve\nOs arquivos do RHC são disponibilizados separadamente, geralmente por ano, em formato DBF. Esse formato exige leitura específica e pode apresentar diferenças estruturais entre os arquivos, como presença ou ausência de determinadas colunas. A função reduz o trabalho manual de leitura, conferência e junção desses arquivos, automatizando a etapa inicial de construção do banco.\n\n\n5.1.3 Uso\ndados_RHC_combinados &lt;- lerarquivoDBF()\n\n\n5.1.4 Entrada esperada\nA função não exige argumentos externos. Para funcionar corretamente, os arquivos DBF devem:\n\nEstar no diretório de trabalho (use setwd() para definir o diretório correto)\nManter o nome original proveniente do Integrador RHC, com o padrão iniciado por rhc (ex: rhc20.dbf, rhc21.dbf)\n\n\n\n5.1.5 Saída produzida\nUm data.frame único contendo os registros combinados de todos os arquivos DBF identificados. Caso nenhum arquivo válido seja encontrado, a função retorna NULL.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Leitura e Integração dos Arquivos DBF</span>"
+    ]
+  },
+  {
+    "objectID": "05-funcoes-leitura.html#comportamento-operacional",
+    "href": "05-funcoes-leitura.html#comportamento-operacional",
+    "title": "5  Leitura e Integração dos Arquivos DBF",
+    "section": "5.2 Comportamento operacional",
+    "text": "5.2 Comportamento operacional\nA função implementa um fluxo estruturado com os seguintes mecanismos:\n\nVerificação de dependências\n\nO pacote foreign é verificado e instalado automaticamente, se necessário, garantindo execução autônoma.\n\nBusca de arquivos\n\nA função procura arquivos com o padrão ^rhc.*\\.dbf$. Se nenhum for encontrado, encerra com mensagem informativa.\n\nProcessamento iterativo\n\nPara cada arquivo, a função realiza leitura via foreign::read.dbf(), verifica a presença de registros válidos, e extrai o ano a partir do nome do arquivo.\n\nExtração do ano\n\nUtiliza expressão regular com lógica de conversão para século: anos &lt; 50 são atribuídos ao século XXI; anos ≥ 50, ao século XX.\n\nTratamento de erros\n\nO uso de tryCatch() garante que erros individuais na leitura de um arquivo não interrompam o processamento dos demais.\n\nHarmonização estrutural\n\nA função identifica o conjunto completo de colunas de todos os arquivos e adiciona colunas ausentes com valores NA, compatibilizando estruturas heterogêneas entre diferentes anos do RHC.\n\nIntegração final\n\nOs dados são combinados via do.call(rbind, ...), resultando em um único data.frame consolidado.\n\n\n\n\n\n\n\n\nNotaImportância no fluxo do RHCgen\n\n\n\nEsta é a primeira etapa do pipeline do RHCgen. Ela cria a base inicial sobre a qual serão aplicadas as demais etapas de padronização, recodificação, conversão de tipos, harmonização territorial, validação e análise de qualidade dos dados.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Leitura e Integração dos Arquivos DBF</span>"
+    ]
+  },
+  {
+    "objectID": "06-padronizacao.html",
+    "href": "06-padronizacao.html",
+    "title": "6  Padronização das Variáveis",
+    "section": "",
+    "text": "6.1 Função renomear_colunas()",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Padronização das Variáveis</span>"
+    ]
+  },
+  {
+    "objectID": "06-padronizacao.html#função-renomear_colunas",
+    "href": "06-padronizacao.html#função-renomear_colunas",
+    "title": "6  Padronização das Variáveis",
+    "section": "",
+    "text": "6.1.1 Finalidade\nA função renomear_colunas() realiza a padronização dos nomes das variáveis presentes no dataframe, substituindo as nomenclaturas originais dos arquivos DBF por nomes mais descritivos, consistentes e adequados ao uso analítico.\n\n\n6.1.2 Problema que resolve\nOs arquivos do RHC utilizam nomes de variáveis abreviados, frequentemente pouco intuitivos e, em alguns casos, inconsistentes ao longo do tempo. Essa característica dificulta a interpretação dos dados, aumenta a probabilidade de erros na análise e compromete a reprodutibilidade.\n\n\n6.1.3 Uso\ndata &lt;- renomear_colunas(data)\n\n\n6.1.4 Mapeamento de variáveis\nO Tabela 6.1 apresenta o mapeamento completo das 47 variáveis originais do RHC para a nomenclatura padronizada adotada pelo RHCgen.\n\n\n\nTabela 6.1: Mapeamento de variáveis do RHC para nomenclatura padronizada do RHCgen (47 variáveis)\n\n\n\n\n\nNome original no DBF\nNome padronizado no RHCgen\n\n\n\n\nTPCASO\nTipo_de_Caso\n\n\nSEXO\nSexo\n\n\nIDADE\nIdade\n\n\nLOCALNAS\nLocal_Nascimento\n\n\nRACACOR\nRaca_Cor\n\n\nINSTRUC\nEscolaridade\n\n\nCLIATEN\nClinica_Atendimento\n\n\nCLITRAT\nClinica_Tratamento\n\n\nHISTFAMC\nHistorico_Familiar_Cancer\n\n\nALCOOLIS\nConsumo_Alcool\n\n\nTABAGISM\nTabagismo\n\n\nESTADRES\nEstado_Residencia\n\n\nPROCEDEN\nCodigo_Municipio_Residencia\n\n\nANOPRIDI\nAno_Primeiro_Diagnostico\n\n\nORIENC\nOrigem_do_Encaminhamento\n\n\nEXDIAG\nExames_Relevantes_para_Diagnostico\n\n\nESTCONJ\nEstado_conjugal\n\n\nANTRI\nAno_Triagem\n\n\nDTPRICON\nAno_Primeira_Consulta\n\n\nDIAGANT\nDiagnosticos_e_Tratamentos_Anterior\n\n\nBASMAIMP\nBase_Mais_Importante_Diagnostico\n\n\nLOCTUDET\nLocalizacao_Primaria_3D\n\n\nLOCTUPRI\nLocalizacao_Primaria_4D\n\n\nTIPOHIST\nTipo_Histologico\n\n\nLATERALI\nLateralidade\n\n\nLOCTUPRO\nLocal_Provavel_Tumor\n\n\nMAISUMTU\nMais_de_Um_Tumor\n\n\nTNM\nClassificacao_TNM\n\n\nESTADIAM\nEstadiamento_Clinico\n\n\nOUTROESTA\nOutro_Estadiamento_Clinico\n\n\nPTNM\nTNM_Patologico\n\n\nRZNTR\nRazao_Nao_Tratamento\n\n\nDTINITRT\nAno_Inicio_Tratamento\n\n\nPRITRATH\nPrimeiro_Tratamento_Hospital\n\n\nESTDFIMT\nEstado_Doenca_Final_Tratamento\n\n\nDTTRIAGE\nData_Triagem\n\n\nDATAPRICON\nData_Primeira_Consulta\n\n\nBASDIAGSP\nBase_Mais_Importante_Diagnostico_Sem_Patologicas\n\n\nCNES\nCNES_Hospital\n\n\nUFUH\nUF_Unidade_Hospital\n\n\nMUUH\nMunicipio_Unidade_Hospital\n\n\nOCUPACAO\nOcupacao_Paciente\n\n\nDTDIAGNO\nData_Diagnostico\n\n\nDATAINITRT\nData_Inicio_Primeiro_Tratamento\n\n\nDATAOBITO\nData_Obito\n\n\nVALOR_TOT\nValor_Total\n\n\nESTADIAG\nEstadiamento_Clinico_TNM_grupo_1985_1999",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Padronização das Variáveis</span>"
+    ]
+  },
+  {
+    "objectID": "06-padronizacao.html#função-modificar_tipo_variavel",
+    "href": "06-padronizacao.html#função-modificar_tipo_variavel",
+    "title": "6  Padronização das Variáveis",
+    "section": "6.2 Função modificar_tipo_variavel()",
+    "text": "6.2 Função modificar_tipo_variavel()\n\n6.2.1 Finalidade\nA função modificar_tipo_variavel() realiza a padronização dos tipos das variáveis, convertendo sistematicamente os campos para formatos apropriados ao processamento analítico.\n\n\n6.2.2 Conversões realizadas\n\n\n\n\n\n\n\nTipo de variável\nFormato resultante\n\n\n\n\nVariáveis categóricas em geral\ncharacter\n\n\nIdade\nnumeric\n\n\nVariáveis de data (Data_Triagem, Data_Primeira_Consulta, Data_Diagnostico, Data_Inicio_Primeiro_Tratamento, Data_Obito)\nDate (formato %d/%m/%Y)\n\n\n\n\n\n6.2.3 Problema que resolve\nArquivos oriundos do formato DBF frequentemente apresentam inconsistências na tipagem após a importação para o R: datas lidas como texto, variáveis numéricas tratadas como fatores, formatações heterogêneas. Essas inconsistências podem gerar erros analíticos silenciosos e comprometer a integridade das análises.\n\n\n6.2.4 Uso\ndata &lt;- modificar_tipo_variavel(data)\n\n\n\n\n\n\nDicaConversão segura de Idade\n\n\n\nA variável Idade é convertida em duas etapas: primeiro para character, depois para numeric. Essa abordagem evita problemas comuns associados à conversão direta de fatores para valores numéricos, que pode introduzir distorções silenciosas nos dados.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Padronização das Variáveis</span>"
+    ]
+  },
+  {
+    "objectID": "07-recodificacao.html",
+    "href": "07-recodificacao.html",
+    "title": "7  Recodificação das Variáveis Categóricas",
+    "section": "",
+    "text": "7.1 Função recodificar_variaveis()",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Recodificação das Variáveis Categóricas</span>"
+    ]
+  },
+  {
+    "objectID": "07-recodificacao.html#função-recodificar_variaveis",
+    "href": "07-recodificacao.html#função-recodificar_variaveis",
+    "title": "7  Recodificação das Variáveis Categóricas",
+    "section": "",
+    "text": "7.1.1 Finalidade\nA função recodificar_variaveis() realiza a transformação de variáveis categóricas originalmente codificadas em formato numérico ou textual para categorias interpretáveis, com base no dicionário de variáveis do Registro Hospitalar de Câncer. As variáveis são convertidas para o tipo factor com níveis definidos, garantindo consistência semântica e padronização para análise.\n\n\n7.1.2 Problema que resolve\nOs dados do RHC apresentam variáveis categóricas codificadas por números (por exemplo, \"1\", \"2\", \"9\"), que não possuem interpretação direta sem consulta ao dicionário. Essa codificação dificulta a análise, aumenta o risco de erro na interpretação e compromete a comunicação dos resultados.\n\n\n7.1.3 Uso\ndata &lt;- recodificar_variaveis(data)\n\n\n\n\n\n\nNotaTolerância a variações\n\n\n\nA função opera de forma tolerante a erros parciais: variáveis ausentes são identificadas e reportadas sem interromper o fluxo. Valores não previstos nas regras de recodificação são mantidos sem alteração.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Recodificação das Variáveis Categóricas</span>"
+    ]
+  },
+  {
+    "objectID": "07-recodificacao.html#variáveis-recodificadas",
+    "href": "07-recodificacao.html#variáveis-recodificadas",
+    "title": "7  Recodificação das Variáveis Categóricas",
+    "section": "7.2 Variáveis recodificadas",
+    "text": "7.2 Variáveis recodificadas\nO Tabela 7.1 apresenta as variáveis categóricas recodificadas, organizadas por domínio temático.\n\n\n\nTabela 7.1: Variáveis categóricas recodificadas pelo RHCgen, segundo domínio temático\n\n\n\n\n\n\n\n\n\n\nDomínio\nVariável\nCategorias padronizadas\n\n\n\n\nIdentificação do caso\nTipo_de_Caso\nAnalítico; Não Analítico; Outro\n\n\nSociodemográficas\nSexo\nMasculino; Feminino; Outro\n\n\n\nRaca_Cor\nBranca; Preta; Amarela; Parda; Indígena; Sem informação\n\n\n\nEscolaridade\nNenhuma; Fundamental incompleto; Fundamental completo; Nível médio; Nível superior incompleto; Nível superior completo; Sem informação\n\n\n\nEstado_conjugal\nSolteiro; Casado; Viúvo; Separado judicialmente; União consensual; Sem informação\n\n\nHistórico e hábitos\nHistorico_Familiar_Cancer\nSim; Não; Sem informação\n\n\n\nConsumo_Alcool\nNunca; Ex-consumidor; Sim; Não avaliado; Não se aplica; Sem informação\n\n\n\nTabagismo\nNunca; Ex-consumidor; Sim; Não avaliado; Não se aplica; Sem informação\n\n\nAcesso e diagnóstico\nOrigem_do_Encaminhamento\nSUS; Não SUS; Veio por conta própria; Não se aplica; Sem informação\n\n\n\nExames_Relevantes_para_Diagnostico\nExame clínico e patologia clínica; Exames por imagem; Endoscopia e cirurgia exploradora; Anatomia patológica; Marcadores tumorais; Não se aplica; Sem informação\n\n\n\nBase_Mais_Importante_Diagnostico\nClínica; Pesquisa clínica; Exame por imagem; Marcadores tumorais; Citologia; Histologia da metástase; Histologia do tumor primário; Sem informação\n\n\n\nBase_Mais_Importante_Diagnostico_Sem_Patologicas\nExame clínico; Recursos auxiliares não microscópicos; Confirmação microscópica; Sem informação\n\n\nCaracterísticas clínicas\nLateralidade\nDireita; Esquerda; Bilateral; Não se aplica; Sem informação\n\n\n\nMais_de_Um_Tumor\nSim; Não; Duvidoso\n\n\n\nEstadiamento_Clinico_TNM_grupo_1985_1999\nEstádio I; Estádio II; Estádio III; Estádio IV; Não se aplica; Sem informação\n\n\nHistórico assistencial\nDiagnosticos_e_Tratamentos_Anterior\nSem diagnóstico e sem tratamento; Com diagnóstico e sem tratamento; Com diagnóstico e com tratamento; Outros; Sem informação\n\n\nTratamento\nPrimeiro_Tratamento_Hospital\nNenhum; Cirurgia; Radioterapia; Quimioterapia; Hormonioterapia; Transplante de medula óssea; Imunoterapia; Outras; Sem informação\n\n\n\nRazao_Nao_Tratamento\nRecusa do tratamento; Tratamento realizado fora; Doença avançada ou comorbidades; Abandono; Complicações; Óbito; Outras razões; Não se aplica; Sem informação\n\n\nDesfecho\nEstado_Doenca_Final_Tratamento\nSem evidência da doença; Remissão parcial; Doença estável; Doença em progressão; Suporte terapêutico; Óbito; Não se aplica; Sem informação\n\n\n\n\n\n\nPara consultar o dicionário completo de códigos, acesse:\n\nhttps://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=dicionario.dados",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Recodificação das Variáveis Categóricas</span>"
+    ]
+  },
+  {
+    "objectID": "08-harmonizacao-territorial.html",
+    "href": "08-harmonizacao-territorial.html",
+    "title": "8  Harmonização Territorial das Variáveis Geográficas",
+    "section": "",
+    "text": "8.1 Funções de harmonização\nO RHCgen dispõe de três funções dedicadas à conversão de códigos geográficos em informações textuais interpretáveis:",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Harmonização Territorial das Variáveis Geográficas</span>"
+    ]
+  },
+  {
+    "objectID": "08-harmonizacao-territorial.html#funções-de-harmonização",
+    "href": "08-harmonizacao-territorial.html#funções-de-harmonização",
+    "title": "8  Harmonização Territorial das Variáveis Geográficas",
+    "section": "",
+    "text": "Função\nAção\n\n\n\n\nrenomear_siglas_estados()\nConverte siglas das UFs em nomes completos\n\n\nrenomear_codigo_municipio_residencia()\nConverte código do município de residência em nome\n\n\nrenomear_codigo_municipio_hospital()\nConverte código do município do hospital em nome\n\n\n\n\n8.1.1 Uso\ndata &lt;- renomear_siglas_estados(data)\ndata &lt;- renomear_codigo_municipio_residencia(data)\ndata &lt;- renomear_codigo_municipio_hospital(data)",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Harmonização Territorial das Variáveis Geográficas</span>"
+    ]
+  },
+  {
+    "objectID": "08-harmonizacao-territorial.html#finalidade-das-funções",
+    "href": "08-harmonizacao-territorial.html#finalidade-das-funções",
+    "title": "8  Harmonização Territorial das Variáveis Geográficas",
+    "section": "8.2 Finalidade das funções",
+    "text": "8.2 Finalidade das funções\nAs funções de harmonização territorial realizam a conversão de códigos geográficos utilizados no RHC em informações textuais interpretáveis, adicionando novas variáveis ao dataframe. Especificamente, convertem siglas das Unidades da Federação e códigos de municípios em seus respectivos nomes completos, tanto para o local de residência do paciente quanto para a unidade hospitalar de atendimento.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Harmonização Territorial das Variáveis Geográficas</span>"
+    ]
+  },
+  {
+    "objectID": "08-harmonizacao-territorial.html#problema-que-resolvem",
+    "href": "08-harmonizacao-territorial.html#problema-que-resolvem",
+    "title": "8  Harmonização Territorial das Variáveis Geográficas",
+    "section": "8.3 Problema que resolvem",
+    "text": "8.3 Problema que resolvem\nOs dados do RHC utilizam codificações abreviadas para representação geográfica — siglas de estados e códigos numéricos de municípios. Esses formatos dificultam a interpretação direta, limitam a análise descritiva e comprometem a visualização espacial dos dados. As funções resolvem esse problema ao incorporar, diretamente no banco, variáveis com nomes completos e padronizados.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Harmonização Territorial das Variáveis Geográficas</span>"
+    ]
+  },
+  {
+    "objectID": "08-harmonizacao-territorial.html#variáveis-de-entrada-e-saída",
+    "href": "08-harmonizacao-territorial.html#variáveis-de-entrada-e-saída",
+    "title": "8  Harmonização Territorial das Variáveis Geográficas",
+    "section": "8.4 Variáveis de entrada e saída",
+    "text": "8.4 Variáveis de entrada e saída\n\n\n\nVariável de entrada\nVariável criada\n\n\n\n\nEstado_Residencia\nNome_Estado_Residencia\n\n\nUF_Unidade_Hospital\nNome_Estado_Hospital\n\n\nCodigo_Municipio_Residencia\nNome_Municipio_Residencia\n\n\nMunicipio_Unidade_Hospital\nNome_Municipio_Hospital\n\n\n\n\n\n\n\n\n\nNotaPreservação das variáveis originais\n\n\n\nAs funções de harmonização territorial preservam os códigos originais, adicionando novas colunas ao dataframe sem alterá-las. Valores não mapeados resultam em NA, sem interrupção do fluxo de execução.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Harmonização Territorial das Variáveis Geográficas</span>"
+    ]
+  },
+  {
+    "objectID": "08-harmonizacao-territorial.html#características-operacionais",
+    "href": "08-harmonizacao-territorial.html#características-operacionais",
+    "title": "8  Harmonização Territorial das Variáveis Geográficas",
+    "section": "8.5 Características operacionais",
+    "text": "8.5 Características operacionais\n\nOperam de forma vetorizada, garantindo eficiência em grandes volumes de dados\nImplementam verificação explícita da existência das variáveis de entrada\nUtilizam interrupção controlada (stop()) quando condições mínimas não são atendidas\nNão validam a consistência dos códigos de entrada, assumindo conformidade com o padrão do RHC\n\n\n\n\n\n\n\nDicaAplicações analíticas\n\n\n\nEssa etapa é fundamental para análises espaciais, estudos de acessibilidade geográfica, avaliação de fluxos de deslocamento de pacientes e construção de indicadores territoriais. A presença de nomes completos facilita a geração de mapas e a comunicação dos resultados em contextos científicos e institucionais.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Harmonização Territorial das Variáveis Geográficas</span>"
+    ]
+  },
+  {
+    "objectID": "09-codigos-clinicos.html",
+    "href": "09-codigos-clinicos.html",
+    "title": "9  Padronização de Códigos Clínicos e Assistenciais",
+    "section": "",
+    "text": "9.1 Códigos diagnósticos",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Padronização de Códigos Clínicos e Assistenciais</span>"
+    ]
+  },
+  {
+    "objectID": "09-codigos-clinicos.html#códigos-diagnósticos",
+    "href": "09-codigos-clinicos.html#códigos-diagnósticos",
+    "title": "9  Padronização de Códigos Clínicos e Assistenciais",
+    "section": "",
+    "text": "9.1.1 Funções disponíveis\n\n\n\n\n\n\n\nFunção\nAção\n\n\n\n\nrenomear_CID_3digitos()\nCID-O com 3 dígitos → descrição completa da localização tumoral\n\n\nrenomear_CID_4digitos()\nCID-O com 4 dígitos → descrição completa da localização tumoral\n\n\nrenomear_tipo_histologico()\nCódigo histológico → descrição do tipo histológico\n\n\nrenomear_estadiamento_clinico()\nCódigo de estadiamento → categoria padronizada\n\n\nclassificacao_CID_0()\nCID-O → agrupamento por grande grupo anatômico\n\n\n\n\n\n9.1.2 Uso\ndata &lt;- renomear_CID_3digitos(data)\ndata &lt;- renomear_tipo_histologico(data)\ndata &lt;- renomear_estadiamento_clinico(data)\ndata &lt;- classificacao_CID_0(data)\n\n\n9.1.3 Variáveis criadas\n\n\n\nVariável de entrada\nVariável criada\n\n\n\n\nLocalizacao_Primaria_3D\nCID3d\n\n\nLocalizacao_Primaria_4D\nCID4d\n\n\nTipo_Histologico\nTipo_Histologico_Completo\n\n\nEstadiamento_Clinico\nNome_Estadiamento_Clinico\n\n\nLocalizacao_Primaria_3D\nClassificacao_CID_O",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Padronização de Códigos Clínicos e Assistenciais</span>"
+    ]
+  },
+  {
+    "objectID": "09-codigos-clinicos.html#classificação-por-grupo-anatômico-classificacao_cid_0",
+    "href": "09-codigos-clinicos.html#classificação-por-grupo-anatômico-classificacao_cid_0",
+    "title": "9  Padronização de Códigos Clínicos e Assistenciais",
+    "section": "9.2 Classificação por grupo anatômico: classificacao_CID_0()",
+    "text": "9.2 Classificação por grupo anatômico: classificacao_CID_0()\n\n9.2.1 Finalidade\nA função classificacao_CID_0() classifica as neoplasias malignas em grandes grupos anatômicos a partir dos códigos registrados na variável Localizacao_Primaria_3D. A variável resultante, Classificacao_CID_O, agrupa os códigos CID-O em categorias como neoplasias malignas dos órgãos digestivos, órgãos respiratórios, mama, órgãos genitais masculinos, órgãos urinários e tecidos linfático/hematopoético.\n\n\n9.2.2 Lógica de classificação\nPara cada registro, a função aplica três decisões sequenciais:\n\nSe o código é NA → resultado permanece NA\nSe o código está no vetor de mapeamento → recebe a categoria correspondente\nSe o código não está previsto → recebe \"Outros\"\n\n\n\n9.2.3 Padronização do estadiamento clínico\nA função renomear_estadiamento_clinico() resolve um problema crítico de heterogeneidade: o RHC acumula múltiplos formatos de registro do estadiamento ao longo do tempo (por exemplo: \"1\", \"I\", \"1A\", \"01\"). A função mapeia todos esses formatos para categorias padronizadas (\"Estádio I\", \"Estádio II\", etc.), promovendo comparabilidade entre registros de diferentes períodos.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Padronização de Códigos Clínicos e Assistenciais</span>"
+    ]
+  },
+  {
+    "objectID": "09-codigos-clinicos.html#códigos-assistenciais-e-hospitalares",
+    "href": "09-codigos-clinicos.html#códigos-assistenciais-e-hospitalares",
+    "title": "9  Padronização de Códigos Clínicos e Assistenciais",
+    "section": "9.3 Códigos assistenciais e hospitalares",
+    "text": "9.3 Códigos assistenciais e hospitalares\n\n9.3.1 Funções disponíveis\n\n\n\n\n\n\n\nFunção\nAção\n\n\n\n\nrenomear_clinica()\nConverte códigos de clínicas para nomes completos\n\n\nrenomear_CNES()\nConverte código CNES para nome do estabelecimento\n\n\n\n\n\n9.3.2 Uso\ndata &lt;- renomear_clinica(data)\ndata &lt;- renomear_CNES(data)\n\n\n9.3.3 Variáveis criadas\n\n\n\nVariável de entrada\nVariável criada\n\n\n\n\nClinica_Atendimento\nNome_Clinica_Atendimento\n\n\nClinica_Tratamento\nNome_Clinica_Tratamento\n\n\nCNES_Hospital\nEstabelecimento_Hospitalar\n\n\n\nPara consultar o dicionário de códigos de clínicas:\n\nhttps://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=tabela.clinicas",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Padronização de Códigos Clínicos e Assistenciais</span>"
+    ]
+  },
+  {
+    "objectID": "09-codigos-clinicos.html#organização-estrutural-do-banco-ordenando_colunas",
+    "href": "09-codigos-clinicos.html#organização-estrutural-do-banco-ordenando_colunas",
+    "title": "9  Padronização de Códigos Clínicos e Assistenciais",
+    "section": "9.4 Organização estrutural do banco: ordenando_colunas()",
+    "text": "9.4 Organização estrutural do banco: ordenando_colunas()\nApós todas as etapas de leitura, padronização, recodificação e criação de novas variáveis, a função ordenando_colunas() organiza as variáveis do dataframe em uma ordem lógica predefinida, alinhada à estrutura analítica do RHCgen.\ndata &lt;- ordenando_colunas(data)\nA organização segue uma sequência que integra dimensões sociodemográficas, clínicas, assistenciais e temporais, facilitando a utilização do banco em estudos epidemiológicos.\n\n\n\n\n\n\nNotaTolerância a variações estruturais\n\n\n\nA função não adiciona colunas ausentes nem interrompe a execução quando variáveis não estão disponíveis, operando de forma tolerante à variação estrutural do banco entre diferentes períodos históricos do RHC.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Padronização de Códigos Clínicos e Assistenciais</span>"
+    ]
+  },
+  {
+    "objectID": "10-qualidade.html",
+    "href": "10-qualidade.html",
+    "title": "10  Avaliação da Qualidade dos Dados",
+    "section": "",
+    "text": "10.1 Função principal: analise_qualidade_dos_dados()",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Avaliação da Qualidade dos Dados</span>"
+    ]
+  },
+  {
+    "objectID": "10-qualidade.html#função-principal-analise_qualidade_dos_dados",
+    "href": "10-qualidade.html#função-principal-analise_qualidade_dos_dados",
+    "title": "10  Avaliação da Qualidade dos Dados",
+    "section": "",
+    "text": "10.1.1 Finalidade\nA função analise_qualidade_dos_dados() executa uma avaliação automatizada da qualidade do banco processado pelo RHCgen. Essa etapa reúne análises de completude e consistência, permitindo identificar variáveis com maior proporção de dados ausentes, códigos inválidos, idades inconsistentes, inconsistências temporais e incompatibilidades entre sexo e topografia tumoral.\n\n\n10.1.2 Uso\nanalise_qualidade_dos_dados(data)\n\n\n\n\n\n\nNotaSaídas produzidas\n\n\n\nA função não retorna um novo dataframe. Ela exibe mensagens de progresso no console, gera um gráfico de barras de completude e produz um relatório HTML com as verificações de inconsistência, aberto automaticamente no navegador ao final da execução.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Avaliação da Qualidade dos Dados</span>"
+    ]
+  },
+  {
+    "objectID": "10-qualidade.html#análise-de-completude",
+    "href": "10-qualidade.html#análise-de-completude",
+    "title": "10  Avaliação da Qualidade dos Dados",
+    "section": "10.2 Análise de completude",
+    "text": "10.2 Análise de completude\n\n10.2.1 Função analise_completude()\nPara cada variável do banco, a função calcula o número de valores ausentes, considerando:\n\nValores NA\nRegistros explicitamente classificados como \"Sem informação\"\n\n\n10.2.1.1 Classificação da completude\nA classificação segue o escore proposto por Romero e Cunha (2006):\n\n\n\nPercentual de completude\nClassificação\n\n\n\n\n≥ 95%\nExcelente\n\n\n90% a &lt; 95%\nBom\n\n\n80% a &lt; 90%\nRegular\n\n\n50% a &lt; 80%\nRuim\n\n\n&lt; 50%\nMuito Ruim\n\n\n\n\n\n\n\n\n\nDicaAjuste para Data_Obito\n\n\n\nQuando a variável Data_Obito está presente, a completude é ajustada considerando apenas registros em que o desfecho foi óbito, permitindo uma avaliação mais adequada dessa variável no contexto clínico.\n\n\n\n\n\n10.2.2 Análise de completude por ano: analise_completude_ano()\nA função analise_completude_ano() calcula a completude de cada variável estratificada por ano do banco:\ntabela_completude_ano &lt;- analise_completude_ano(dados_RHC_combinados)\nO resultado é um dataframe no qual cada linha representa uma variável e cada coluna corresponde a um ano. As células apresentam o percentual e a classificação abreviada, por exemplo: 95.2% (E).\n\n\n\nSigla\nClassificação\n\n\n\n\nE\nExcelente (≥ 95%)\n\n\nB\nBom (90% a &lt; 95%)\n\n\nR\nRegular (80% a &lt; 90%)\n\n\nRU\nRuim (50% a &lt; 80%)\n\n\nMR\nMuito Ruim (&lt; 50%)",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Avaliação da Qualidade dos Dados</span>"
+    ]
+  },
+  {
+    "objectID": "10-qualidade.html#análise-de-consistência",
+    "href": "10-qualidade.html#análise-de-consistência",
+    "title": "10  Avaliação da Qualidade dos Dados",
+    "section": "10.3 Análise de consistência",
+    "text": "10.3 Análise de consistência\n\n10.3.1 Função tabela_inconsistencias()\nA análise de consistência é organizada em duas dimensões:\n\n10.3.1.1 1. Validação de códigos e preenchimento formal\nFunção: verificar_codigos_inconsistentes()\nAvalia se os valores registrados em variáveis selecionadas pertencem ao conjunto de códigos ou categorias esperadas para cada campo, incluindo: Sexo, Raca_Cor, Escolaridade, Localizacao_Primaria_3D, Localizacao_Primaria_4D, Tipo_Histologico, CNES_Hospital e UF_Unidade_Hospital.\n\n\n\n\n\n\nNota\n\n\n\nCódigos como 99, 999, 88 e 888, quando previstos no dicionário interno, são tratados como categorias válidas, e não como inconsistências.\n\n\nFunção: verificar_idades_inconsistentes()\nAvalia a plausibilidade da variável Idade, aplicando dois critérios: idade menor que 0 e idade maior que 150 anos.\n\n\n10.3.1.2 2. Coerência lógico-clínica entre variáveis\nFunção: verificar_anos_inconsistentes()\nAvalia a coerência cronológica entre anos dos principais eventos clínicos e assistenciais, verificando cinco comparações lógicas:\n\nAno do diagnóstico anterior à primeira consulta\nAno do diagnóstico anterior à triagem\nInício do tratamento anterior à primeira consulta\nInício do tratamento anterior à triagem\nInício do tratamento anterior ao primeiro diagnóstico\n\nFunção: verificar_cancer_sexo_inconsistentes()\nAvalia a compatibilidade entre Sexo e a localização primária do tumor para topografias anatomicamente relacionadas ao sexo (órgãos genitais femininos e masculinos).\n\n\n\n\n\n\nImportanteDenominador específico\n\n\n\nA proporção de inconsistência sexo–topografia é calculada usando como denominador apenas os registros completos pertencentes ao respectivo grupo topográfico, e não o total do banco, evitando distorção da estimativa.\n\n\n\n\n\n10.3.2 Classificação de gravidade\n\n\n\nProporção de inconsistência\nClassificação\n\n\n\n\n&lt; 1%\nBaixo\n\n\n1% a &lt; 5%\nModerado\n\n\n5% a &lt; 20%\nAlto\n\n\n≥ 20%\nCrítico\n\n\n\n\n\n10.3.3 Relatório HTML\nOs resultados são integrados em um relatório HTML estruturado, incluindo:\n\nResumo executivo com principais inconsistências\nTabelas ordenadas por magnitude do problema\nClassificação de gravidade com codificação visual\nInterpretação automatizada por seção\nNotas metodológicas específicas para cada análise\nSeção de implicações analíticas e limitações\n\nO relatório é salvo automaticamente no diretório de trabalho e aberto no navegador padrão ao final da execução.\n\n\n\n\nRomero, Dalia Elena, e Cynthia Braga da Cunha. 2006. “Avaliação da qualidade das variáveis sócio-econômicas e demográficas dos óbitos de crianças menores de um ano registrados no Sistema de Informações sobre Mortalidade do Brasil (1996/2001)”. Cadernos de Saúde Pública 22: 673–81. https://doi.org/10.1590/S0102-311X2006000300022.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Avaliação da Qualidade dos Dados</span>"
+    ]
+  },
+  {
+    "objectID": "11-aplicacao.html",
+    "href": "11-aplicacao.html",
+    "title": "11  Aplicação",
+    "section": "",
+    "text": "11.1 Processamento da base nacional (2000–2023)\nPara demonstrar o funcionamento do RHCgen em escala real, foram processados 24 arquivos do RHC, correspondentes ao período de 2000 a 2023, disponibilizados pelo IntegradorRHC.\nO processamento foi realizado por meio da função construir_banco(), que integrou automaticamente os dados provenientes de diferentes anos e promoveu a padronização estrutural e semântica das variáveis.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Aplicação</span>"
+    ]
+  },
+  {
+    "objectID": "11-aplicacao.html#resultados-operacionais",
+    "href": "11-aplicacao.html#resultados-operacionais",
+    "title": "11  Aplicação",
+    "section": "11.2 Resultados operacionais",
+    "text": "11.2 Resultados operacionais\n\n\n\nIndicador\nValor\n\n\n\n\nArquivos processados\n24 (anos 2000–2023)\n\n\nRegistros na base final\n5.394.771\n\n\nVariáveis na base final\n59\n\n\nTempo de execução\n4,61 minutos\n\n\nConsumo de memória RAM\n≈ 2,01 GB",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Aplicação</span>"
+    ]
+  },
+  {
+    "objectID": "11-aplicacao.html#código-de-reprodução",
+    "href": "11-aplicacao.html#código-de-reprodução",
+    "title": "11  Aplicação",
+    "section": "11.3 Código de reprodução",
+    "text": "11.3 Código de reprodução\nlibrary(RHCgen)\n\n# Definir o diretório com os arquivos .dbf\nsetwd(\"caminho/para/seus/arquivos/dbf\")\n\n# Executar o pipeline completo\ndados_RHC &lt;- construir_banco()\n\n# Verificar estrutura da base\ndim(dados_RHC)       # 5394771 linhas × 59 colunas\nstr(dados_RHC)       # estrutura das variáveis\nhead(dados_RHC)      # primeiros registros\n\n# Análise de completude por ano (opcional)\ntabela_completude &lt;- analise_completude_ano(dados_RHC)\n\n\n\n\n\n\nDicaExportação da base\n\n\n\nO RHCgen não salva automaticamente os dados em disco. Para exportar a base analítica, utilize, por exemplo:\n# Formato R nativo (recomendado para reutilização)\nsaveRDS(dados_RHC, \"dados_RHC_2000_2023.rds\")\n\n# Formato CSV (maior compatibilidade)\nwrite.csv(dados_RHC, \"dados_RHC_2000_2023.csv\", row.names = FALSE)",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Aplicação</span>"
+    ]
+  },
+  {
+    "objectID": "11-aplicacao.html#considerações-sobre-requisitos-computacionais",
+    "href": "11-aplicacao.html#considerações-sobre-requisitos-computacionais",
+    "title": "11  Aplicação",
+    "section": "11.4 Considerações sobre requisitos computacionais",
+    "text": "11.4 Considerações sobre requisitos computacionais\nO consumo de 2,01 GB de memória RAM para a base completa (2000–2023) pode representar uma limitação em ambientes computacionais com recursos reduzidos. Para usuários que trabalhem com infraestrutura restrita, recomenda-se:\n\nProcessar subconjuntos de arquivos por período (ex: décadas separadas)\nAumentar a memória disponível para o R com memory.limit() (Windows) ou configurações de sistema\nConsiderar o uso de pacotes como data.table ou arrow para manipulação de grandes volumes após o processamento inicial",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Aplicação</span>"
+    ]
+  },
+  {
+    "objectID": "12-discussao.html",
+    "href": "12-discussao.html",
+    "title": "12  Discussão",
+    "section": "",
+    "text": "12.1 Vantagens em relação ao TabWin\nO RHCgen demonstrou ser uma ferramenta eficiente para a automação e padronização do processamento de dados do Registro Hospitalar de Câncer no Brasil, ao consolidar 5.394.771 registros provenientes de 24 arquivos anuais (2000–2023) em uma única base analítica estruturada em 4,61 minutos e com consumo de aproximadamente 2,01 GB de memória. Esse resultado evidencia a viabilidade técnica do pacote para o manejo de grandes volumes de dados epidemiológicos em saúde, corroborando o potencial das ferramentas de ciência de dados de código aberto para transformar fluxos de trabalho em pesquisa em saúde pública (Lowndes et al. 2017; Chan 2018).\nA utilização da linguagem R como plataforma de desenvolvimento mostrou-se adequada para os objetivos propostos. Diferentemente do TabWin — ferramenta amplamente utilizada no contexto do DATASUS, mas restrita ao sistema operacional Windows e com capacidades analíticas limitadas —, o RHCgen:\nEsse aspecto é relevante porque a dependência de etapas manuais de exportação e recodificação constitui uma fonte recorrente de erros e inconsistências no processamento de sistemas de informação em saúde no Brasil (Jorge et al. 2010).",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Discussão</span>"
+    ]
+  },
+  {
+    "objectID": "12-discussao.html#vantagens-em-relação-ao-tabwin",
+    "href": "12-discussao.html#vantagens-em-relação-ao-tabwin",
+    "title": "12  Discussão",
+    "section": "",
+    "text": "Opera em ambiente multiplataforma (Windows, Linux, macOS)\nIntegra-se nativamente ao ecossistema estatístico do R\nElimina a necessidade de exportação dos dados para análises complementares",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Discussão</span>"
+    ]
+  },
+  {
+    "objectID": "12-discussao.html#posicionamento-no-ecossistema-de-pacotes-para-dados-do-sus",
+    "href": "12-discussao.html#posicionamento-no-ecossistema-de-pacotes-para-dados-do-sus",
+    "title": "12  Discussão",
+    "section": "12.2 Posicionamento no ecossistema de pacotes para dados do SUS",
+    "text": "12.2 Posicionamento no ecossistema de pacotes para dados do SUS\nNesse sentido, o RHCgen se alinha a iniciativas brasileiras anteriores voltadas à superação dessas limitações, como o microdatasus (Saldanha et al. 2019) e o Rtabnetsp (Morais et al. 2021), ampliando o conjunto de ferramentas disponíveis para o processamento de dados do SUS em R.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Discussão</span>"
+    ]
+  },
+  {
+    "objectID": "12-discussao.html#contribuição-para-a-qualidade-dos-dados",
+    "href": "12-discussao.html#contribuição-para-a-qualidade-dos-dados",
+    "title": "12  Discussão",
+    "section": "12.3 Contribuição para a qualidade dos dados",
+    "text": "12.3 Contribuição para a qualidade dos dados\nO RHCgen, ao automatizar a análise de completude e classificar as variáveis segundo critérios validados, oferece ao pesquisador um diagnóstico imediato da qualidade do banco, favorecendo decisões informadas sobre:\n\nA viabilidade de determinadas análises\nA necessidade de estratégias de imputação ou restrição de subgrupos\nA comparabilidade entre períodos históricos\n\nMudanças estruturais nas fichas do RHC ao longo do período analisado podem contribuir para a incompatibilidade entre registros históricos e regras de validação mais recentes. Esse padrão reflete a heterogeneidade estrutural dos arquivos anuais — um dos principais desafios identificados no desenvolvimento do RHCgen — e reforça a necessidade de ferramentas que realizem harmonização das bases, como a função lerarquivoDBF().\nO fato de o RHCgen quantificar e estratificar inconsistências temporais por tipo de verificação representa um avanço metodológico concreto em relação ao processamento convencional, que em geral não contempla essa camada de validação de forma automatizada e reprodutível.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Discussão</span>"
+    ]
+  },
+  {
+    "objectID": "12-discussao.html#ciência-aberta-e-reprodutibilidade",
+    "href": "12-discussao.html#ciência-aberta-e-reprodutibilidade",
+    "title": "12  Discussão",
+    "section": "12.4 Ciência aberta e reprodutibilidade",
+    "text": "12.4 Ciência aberta e reprodutibilidade\nDo ponto de vista da contribuição para a ciência aberta e para a reprodutibilidade da pesquisa em oncologia, o RHCgen alinha-se a um movimento mais amplo de valorização de ferramentas de código aberto no contexto da saúde pública (Lowndes et al. 2017; Jalal et al. 2017). A disponibilização do pacote no GitHub, acompanhada de guia de uso acessível, reduz a barreira de entrada para pesquisadores sem formação específica em ciência de dados, democratizando o acesso a uma base de dados com mais de cinco milhões de registros oncológicos de relevância nacional.\nIniciativas análogas, como o microdatasus e o Rtabnetsp, demonstraram que pacotes R voltados a dados do SUS têm ampla adoção pela comunidade científica brasileira (Saldanha et al. 2019; Morais et al. 2021), o que sugere potencial similar para o RHCgen.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Discussão</span>"
+    ]
+  },
+  {
+    "objectID": "12-discussao.html#limitações",
+    "href": "12-discussao.html#limitações",
+    "title": "12  Discussão",
+    "section": "12.5 Limitações",
+    "text": "12.5 Limitações\nAlgumas limitações do estudo merecem ser reconhecidas:\n\nDownload manual dos arquivos\n\nA plataforma IRHC não disponibiliza acesso remoto automatizado via FTP ou API, impondo uma etapa não automatizável que pode constituir obstáculo para usuários menos familiarizados com o processo de coleta de dados.\n\nDados recentes em fase de validação\n\nOs registros mais recentes do IRHC podem ainda estar em fase de validação, com maior proporção de campos incompletos ou revisados, o que pode afetar a qualidade de análises baseadas nos anos mais próximos da data de extração.\n\nRequisitos de memória\n\nO consumo de 2,01 GB de memória RAM pode representar limitação em ambientes computacionais com recursos reduzidos.\n\n\n\n\n\n\nChan, Benjamin K. C. 2018. “Data Analysis Using R Programming”. Advances in Experimental Medicine and Biology 1082: 47–122. https://doi.org/10.1007/978-3-319-93791-5_2.\n\n\nJalal, Hawre, Petros Pechlivanoglou, Eline Krijkamp, Fernando Alarid-Escudero, Eva Enns, e M. G. Myriam Hunink. 2017. “An Overview of R in Health Decision Sciences”. Medical Decision Making 37: 735–46. https://doi.org/10.1177/0272989X16686559.\n\n\nJorge, Maria Helena Prado de Mello, Ruy Laurenti, e Sabina Léa Davidson Gotlieb. 2010. “Avaliação dos sistemas de informação em saúde no Brasil”. Cadernos de Saúde Coletiva. https://pesquisa.bvsalud.org/portal/resource/pt/lil-621256.\n\n\nLowndes, Julia S. Stewart, Benjamin D. Best, Courtney Scarborough, et al. 2017. “Our path to better science in less time using open data science tools”. Nature Ecology & Evolution 1: 160. https://doi.org/10.1038/s41559-017-0160.\n\n\nMorais, João Henrique de Araujo, Tulio César Ramos de Oliveira Konstantyner, Álvaro Luiz Fazenda, Alessandro Sala, e Cleverson Bernardo Martins. 2021. “Rtabnetsp: pacote R para extração de indicadores de saúde do estado de São Paulo”. Epidemiologia e Serviços de Saúde 30: e2020576. https://doi.org/10.1590/S1679-4974202100020.\n\n\nSaldanha, Raphael de Freitas, Ronaldo Rocha Bastos, e Christovam Barcellos. 2019. “Microdatasus: pacote para download e pré-processamento de microdados do Departamento de Informática do SUS (DATASUS)”. Cadernos de Saúde Pública 35: e00032419. https://doi.org/10.1590/0102-311X00032419.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Discussão</span>"
+    ]
+  },
+  {
+    "objectID": "13-conclusao.html",
+    "href": "13-conclusao.html",
+    "title": "13  Conclusão",
+    "section": "",
+    "text": "13.1 Contribuições técnicas\nO RHCgen constitui uma contribuição metodológica para o campo da epidemiologia oncológica no Brasil, ao oferecer uma solução padronizada, reprodutível e de acesso aberto para o processamento de dados do Registro Hospitalar de Câncer.\nA capacidade de consolidar mais de cinco milhões de registros distribuídos ao longo de 24 anos em uma única base analítica estruturada, por meio de um fluxo automatizado e auditável, representa um avanço concreto em relação aos métodos convencionais de manipulação manual de dados, historicamente sujeitos a inconsistências e de difícil reprodução entre diferentes equipes de pesquisa.\nDo ponto de vista técnico, o pacote demonstrou:",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Conclusão</span>"
+    ]
+  },
+  {
+    "objectID": "13-conclusao.html#contribuições-técnicas",
+    "href": "13-conclusao.html#contribuições-técnicas",
+    "title": "13  Conclusão",
+    "section": "",
+    "text": "Desempenho satisfatório em termos de tempo de execução e integridade das transformações aplicadas, validadas contra os dicionários oficiais do SisRHC\nFunções modulares que permitem ao usuário tanto a execução integrada do fluxo completo quanto o controle granular de etapas específicas, adaptando-se a diferentes demandas analíticas e níveis de experiência com dados do SUS\nDiagnóstico imediato de qualidade, com análises de completude e consistência automaticamente geradas — elemento indispensável para decisões metodológicas sobre a viabilidade de análises e a adoção de estratégias de tratamento de dados faltantes",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Conclusão</span>"
+    ]
+  },
+  {
+    "objectID": "13-conclusao.html#impacto-esperado",
+    "href": "13-conclusao.html#impacto-esperado",
+    "title": "13  Conclusão",
+    "section": "13.2 Impacto esperado",
+    "text": "13.2 Impacto esperado\nA disponibilização pública do RHCgen no GitHub, acompanhada de documentação acessível, posiciona a ferramenta como um recurso colaborativo e em contínuo aperfeiçoamento, alinhado aos princípios da ciência aberta.\nEspera-se que sua adoção contribua para:\n\nAmpliar a produção científica baseada nos dados do RHC\nFortalecer a vigilância oncológica no país\nSubsidiar a formulação de políticas de saúde mais bem fundamentadas em evidências epidemiológicas robustas\n\n\n\n\n\n\n\n\nDicaComo contribuir\n\n\n\nO RHCgen é um projeto de código aberto. Sugestões, correções e contribuições são bem-vindas pelo repositório do GitHub:\n\nhttps://github.com/andersonlineu/RHCgen",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Conclusão</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html",
+    "href": "14-guia-pratico.html",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "",
+    "text": "14.1 Pré-requisitos\nEste guia tem como objetivo orientar, de forma simples, a instalação e o uso inicial do pacote RHCgen. O pacote foi desenvolvido para automatizar o processamento dos arquivos do Registro Hospitalar de Câncer (RHC), disponibilizados pelo IntegradorRHC no formato .dbf.\nO RHCgen permite transformar vários arquivos brutos do RHC em uma base única, padronizada, recodificada e pronta para análises epidemiológicas, estudos de qualidade dos dados e produção de indicadores.\nAntes de usar o RHCgen, é necessário ter dois programas instalados:\nO R é a linguagem utilizada para executar o pacote. O RStudio é o programa que facilita o uso do R, permitindo escrever comandos, visualizar resultados e organizar arquivos.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#pré-requisitos",
+    "href": "14-guia-pratico.html#pré-requisitos",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "",
+    "text": "R → cran.r-project.org\nRStudio → posit.co/download/rstudio-desktop\n\n\n\n\n\n\n\n\nDica\n\n\n\nRecomenda-se instalar primeiro o R e depois o RStudio.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#onde-obter-os-arquivos-do-rhc",
+    "href": "14-guia-pratico.html#onde-obter-os-arquivos-do-rhc",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "14.2 Onde obter os arquivos do RHC",
+    "text": "14.2 Onde obter os arquivos do RHC\nOs arquivos utilizados pelo RHCgen devem ser baixados no IntegradorRHC, disponível em:\n\nhttps://irhc.inca.gov.br/RHCNet/\n\nOs dados são disponibilizados em arquivos no formato .dbf, com nomes iniciados por rhc, como:\nrhc00.dbf   rhc10.dbf   rhc20.dbf\nrhc01.dbf   rhc11.dbf   rhc21.dbf\nrhc02.dbf   rhc12.dbf   rhc22.dbf\n                        rhc23.dbf\n\n\n\n\n\n\nImportanteMantenha os nomes originais dos arquivos\n\n\n\nO RHCgen utiliza o nome do arquivo para identificar automaticamente o ano do banco e criar a variável Ano_do_Banco. Não renomeie os arquivos baixados do IntegradorRHC.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#como-organizar-os-arquivos",
+    "href": "14-guia-pratico.html#como-organizar-os-arquivos",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "14.3 Como organizar os arquivos",
+    "text": "14.3 Como organizar os arquivos\nAntes de usar o pacote, crie uma pasta exclusiva no computador para armazenar os arquivos do RHC.\nExemplo de organização:\nC:/RHCgen/dados_rhc/rhc00.dbf\nC:/RHCgen/dados_rhc/rhc01.dbf\nC:/RHCgen/dados_rhc/rhc02.dbf\nC:/RHCgen/dados_rhc/rhc03.dbf\nTodos os arquivos que serão processados devem estar na mesma pasta.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#como-abrir-o-rstudio",
+    "href": "14-guia-pratico.html#como-abrir-o-rstudio",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "14.4 Como abrir o RStudio",
+    "text": "14.4 Como abrir o RStudio\nApós instalar o R e o RStudio, abra o programa RStudio. A tela é geralmente dividida em quatro áreas:\n\n\n\n\n\n\n\nÁrea\nFunção\n\n\n\n\nConsole\nLocal onde os comandos são executados\n\n\nScript\nLocal onde os comandos podem ser escritos e salvos\n\n\nEnvironment\nLocal onde aparecem os objetos criados\n\n\nFiles/Plots/Packages\nLocal onde aparecem arquivos, gráficos e pacotes\n\n\n\nPara criar um novo script: File → New File → R Script",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#como-definir-a-pasta-de-trabalho",
+    "href": "14-guia-pratico.html#como-definir-a-pasta-de-trabalho",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "14.5 Como definir a pasta de trabalho",
+    "text": "14.5 Como definir a pasta de trabalho\nAntes de executar o RHCgen, o R precisa saber em qual pasta estão os arquivos .dbf. Use o comando setwd():\nsetwd(\"C:/RHCgen/dados_rhc/\")\n\n\n\n\n\n\nNota\n\n\n\nO caminho da pasta deve ser adaptado ao local onde os arquivos foram salvos no seu computador. No Windows, use barras / ou barras duplas \\\\.\n\n\nPara verificar se o R está usando a pasta correta:\ngetwd()        # mostra a pasta atual\nlist.files()   # lista os arquivos disponíveis\nSe os arquivos .dbf aparecerem na lista, a pasta foi definida corretamente.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#como-instalar-o-rhcgen",
+    "href": "14-guia-pratico.html#como-instalar-o-rhcgen",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "14.6 Como instalar o RHCgen",
+    "text": "14.6 Como instalar o RHCgen\nO RHCgen está disponível no GitHub. Para instalá-lo, primeiro instale o pacote remotes:\ninstall.packages(\"remotes\")\nDepois, instale o RHCgen:\nremotes::install_github(\"andersonlineu/RHCgen\")\n\n\n\n\n\n\nNota\n\n\n\nA instalação pode levar alguns minutos, especialmente se o R precisar instalar pacotes auxiliares.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#como-carregar-o-pacote",
+    "href": "14-guia-pratico.html#como-carregar-o-pacote",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "14.7 Como carregar o pacote",
+    "text": "14.7 Como carregar o pacote\nApós a instalação, carregue o pacote para uso:\nlibrary(RHCgen)\nEste comando deve ser executado sempre que o RStudio for aberto novamente e o usuário quiser utilizar o pacote.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#como-processar-os-dados-automaticamente",
+    "href": "14-guia-pratico.html#como-processar-os-dados-automaticamente",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "14.8 Como processar os dados automaticamente",
+    "text": "14.8 Como processar os dados automaticamente\nA forma mais simples de usar o RHCgen é por meio da função principal construir_banco(), que executa automaticamente todas as etapas do processamento:\ndata_rhc_final &lt;- construir_banco()\nA função executa automaticamente:\n\nLeitura dos arquivos .dbf\nJunção dos arquivos em um banco único\nCriação da variável Ano_do_Banco\nPadronização dos nomes das variáveis\nConversão dos tipos das variáveis\nRecodificação das categorias\nHarmonização de estados e municípios\nPadronização de códigos clínicos e hospitalares\nOrganização das colunas\nAvaliação da qualidade dos dados",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#como-verificar-o-banco-criado",
+    "href": "14-guia-pratico.html#como-verificar-o-banco-criado",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "14.9 Como verificar o banco criado",
+    "text": "14.9 Como verificar o banco criado\nApós executar a função, o banco aparecerá na aba Environment do RStudio. Também é possível verificar com os comandos:\ndim(data_rhc_final)    # número de linhas e colunas\nhead(data_rhc_final)   # primeiros registros\nnames(data_rhc_final)  # nomes das variáveis\nstr(data_rhc_final)    # estrutura das variáveis",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#como-filtrar-o-banco",
+    "href": "14-guia-pratico.html#como-filtrar-o-banco",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "14.10 Como filtrar o banco",
+    "text": "14.10 Como filtrar o banco\nApós construir o banco completo, use a função filtrar_banco() para selecionar apenas os registros de interesse. A estrutura geral é:\ndados_filtrados &lt;- filtrar_banco(\n  dados = data_rhc_final,\n  argumento = valor\n)\n\n14.10.1 Filtros disponíveis\n\n\n\n\n\n\n\n\nArgumento\nDescrição\nExemplo\n\n\n\n\ncid3digitos\nCID-O com 3 dígitos\n\"C44\"\n\n\ncid4digitos\nCID-O com 4 dígitos\n\"C44.0\"\n\n\nano_inicio_triagem / ano_fim_triagem\nPeríodo de triagem\n2018, 2020\n\n\nano_inicio_diagnostico / ano_fim_diagnostico\nPeríodo de diagnóstico\n2015, 2019\n\n\nano_inicio_primeira_consulta / ano_fim_primeira_consulta\nPeríodo da 1ª consulta\n2016, 2020\n\n\nano_inicio_tratamento / ano_fim_tratamento\nPeríodo de início do tratamento\n2014, 2019\n\n\nidade_inicio / idade_fim\nFaixa etária\n18, 80\n\n\ntipo_de_caso\nTipo de caso\n\"Analítico\"\n\n\nsexo\nSexo\n\"Feminino\"\n\n\nestado_residencia\nUF de residência\n\"RJ\"\n\n\nuf_unidade_hospital\nUF do hospital\n\"RJ\"\n\n\nprimeiro_tratamento_hospital\nPrimeiro tratamento\n\"Cirurgia\"\n\n\norigem_do_encaminhamento\nOrigem\n\"SUS\"\n\n\nano_do_banco_inicio / ano_do_banco_fim\nAno do banco\n2014, 2019\n\n\n\n\n\n14.10.2 Exemplos de uso\nFiltrar por tipo de câncer:\nbanco_pele &lt;- filtrar_banco(dados = data_rhc_final, cid3digitos = \"C44\")\nbanco_mama &lt;- filtrar_banco(dados = data_rhc_final, cid3digitos = \"C50\")\nbanco_prostata &lt;- filtrar_banco(dados = data_rhc_final, cid3digitos = \"C61\")\nFiltrar por estado de residência:\ndados_rj &lt;- filtrar_banco(dados = data_rhc_final, estado_residencia = \"RJ\")\n\n# Mais de um estado:\ndados_sudeste &lt;- filtrar_banco(\n  dados = data_rhc_final,\n  estado_residencia = c(\"RJ\", \"SP\", \"MG\", \"ES\")\n)\nMúltiplos filtros combinados:\ndados_filtrados &lt;- filtrar_banco(\n  dados              = data_rhc_final,\n  cid3digitos        = \"C44\",\n  ano_inicio_triagem = 2018,\n  ano_fim_triagem    = 2020,\n  idade_inicio       = 20,\n  idade_fim          = 80,\n  tipo_de_caso       = \"Analítico\",\n  sexo               = NULL,        # NULL = sem filtro por sexo\n  estado_residencia  = c(\"RJ\", \"MG\"),\n  origem_do_encaminhamento = \"SUS\"\n)\n\n\n\n\n\n\nNotaA função não altera o banco original\n\n\n\nfiltrar_banco() cria um novo dataframe com os registros selecionados. O banco original data_rhc_final permanece intacto.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#como-salvar-o-banco-processado",
+    "href": "14-guia-pratico.html#como-salvar-o-banco-processado",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "14.11 Como salvar o banco processado",
+    "text": "14.11 Como salvar o banco processado\nA função construir_banco() cria o banco no ambiente do R, mas não salva automaticamente o arquivo no computador.\nFormato RDS (recomendado para reutilização no R):\nsaveRDS(data_rhc_final, \"data_rhc_final.rds\")\n\n# Para abrir posteriormente:\ndata_rhc_final &lt;- readRDS(\"data_rhc_final.rds\")\nFormato CSV (compatível com Excel, LibreOffice e outros softwares):\nwrite.csv(data_rhc_final, \"data_rhc_final.csv\", row.names = FALSE)\n\n\n\n\n\n\nDica\n\n\n\nEm bases muito grandes, o arquivo .csv pode ficar pesado. Para análises no R, o formato .rds costuma ser mais eficiente.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#como-executar-as-etapas-separadamente",
+    "href": "14-guia-pratico.html#como-executar-as-etapas-separadamente",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "14.12 Como executar as etapas separadamente",
+    "text": "14.12 Como executar as etapas separadamente\nEmbora o uso mais simples seja pela função construir_banco(), também é possível executar as etapas uma a uma:\ndata &lt;- lerarquivoDBF()\ndata &lt;- renomear_colunas(data)\ndata &lt;- modificar_tipo_variavel(data)\ndata &lt;- recodificar_variaveis(data)\ndata &lt;- renomear_siglas_estados(data)\ndata &lt;- renomear_codigo_municipio_residencia(data)\ndata &lt;- renomear_codigo_municipio_hospital(data)\ndata &lt;- renomear_CID_3digitos(data)\ndata &lt;- renomear_tipo_histologico(data)\ndata &lt;- renomear_estadiamento_clinico(data)\ndata &lt;- classificacao_CID_0(data)\ndata &lt;- renomear_clinica(data)\ndata &lt;- renomear_CNES(data)\ndata &lt;- ordenando_colunas(data)\nEsse modo é útil quando o usuário deseja acompanhar cada etapa do processamento separadamente ou aplicar apenas parte do pipeline.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#como-avaliar-a-qualidade-dos-dados",
+    "href": "14-guia-pratico.html#como-avaliar-a-qualidade-dos-dados",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "14.13 Como avaliar a qualidade dos dados",
+    "text": "14.13 Como avaliar a qualidade dos dados\nApós a construção do banco, execute a análise de qualidade:\nanalise_qualidade_dos_dados(data_rhc_final)\nEssa função realiza duas avaliações principais:\n\nCompletude — identifica variáveis com maior proporção de dados ausentes ou preenchidos como “Sem informação”\nConsistência — identifica códigos inválidos, idades inconsistentes, inconsistências entre datas clínicas e incompatibilidades entre sexo e localização tumoral\n\nQuando possível, a função também gera um relatório em HTML com os resultados da auditoria, aberto automaticamente no navegador.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#como-avaliar-a-completude-por-ano",
+    "href": "14-guia-pratico.html#como-avaliar-a-completude-por-ano",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "14.14 Como avaliar a completude por ano",
+    "text": "14.14 Como avaliar a completude por ano\ntabela_completude_ano &lt;- analise_completude_ano(data_rhc_final)\nEssa função retorna uma tabela com as variáveis nas linhas e os anos nas colunas. Cada célula mostra o percentual de completude e uma classificação abreviada:\n\n\n\nPercentual\nClassificação\nSigla\n\n\n\n\n≥ 95%\nExcelente\nE\n\n\n90% a &lt; 95%\nBom\nB\n\n\n80% a &lt; 90%\nRegular\nR\n\n\n50% a &lt; 80%\nRuim\nRU\n\n\n&lt; 50%\nMuito ruim\nMR\n\n\n\nExemplo de resultado: 95.2% (E) · 78.4% (RU) · 42.1% (MR)",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "14-guia-pratico.html#exemplo-completo",
+    "href": "14-guia-pratico.html#exemplo-completo",
+    "title": "14  Guia Prático de Instalação e Uso",
+    "section": "14.15 Exemplo completo",
+    "text": "14.15 Exemplo completo\n# 1. Definir a pasta onde estão os arquivos DBF\nsetwd(\"C:/RHCgen/dados_rhc/\")\n\n# 2. Instalar o pacote remotes (apenas na primeira vez)\ninstall.packages(\"remotes\")\n\n# 3. Instalar o RHCgen diretamente do GitHub (apenas na primeira vez)\nremotes::install_github(\"andersonlineu/RHCgen\")\n\n# 4. Carregar o pacote\nlibrary(RHCgen)\n\n# 5. Construir o banco final automaticamente\ndata_rhc_final &lt;- construir_banco()\n\n# 6. Verificar o tamanho do banco\ndim(data_rhc_final)\n\n# 7. Visualizar as primeiras linhas\nhead(data_rhc_final)\n\n# 8. Avaliar a qualidade dos dados\nanalise_qualidade_dos_dados(data_rhc_final)\n\n# 9. Avaliar a completude por ano\ntabela_completude_ano &lt;- analise_completude_ano(data_rhc_final)\n\n# 10. Salvar o banco final em formato RDS\nsaveRDS(data_rhc_final, \"data_rhc_final.rds\")",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Guia Prático de Instalação e Uso</span>"
+    ]
+  },
+  {
+    "objectID": "referencias.html",
+    "href": "referencias.html",
+    "title": "Referências",
+    "section": "",
+    "text": "ACS. 2025. National Cancer Database. https://www.facs.org/quality-programs/cancer-programs/national-cancer-database/.\n\n\nBrasil. 2025. Programa Capacitação e Atualização Em Abordagens Do\nEspaço Em Análises de Saúde Pública. https://www.capacita.geosaude.icict.fiocruz.br/links.php.\n\n\nBray, Freddie, Mathieu Laversanne, Hyuna Sung, et\nal. 2024. “Global Cancer Statistics 2022:\nGLOBOCAN Estimates of Incidence and Mortality Worldwide for\n36 Cancers in 185 Countries.” CA: A Cancer Journal for\nClinicians 74: 229–63. https://doi.org/10.3322/caac.21834.\n\n\nCancer Today. 2025. Cancer Today. https://gco.iarc.who.int/today/.\n\n\nChan, Benjamin K. C. 2018. “Data Analysis Using R\nProgramming.” Advances in Experimental Medicine and\nBiology 1082: 47–122. https://doi.org/10.1007/978-3-319-93791-5_2.\n\n\nDecit. 2007. “Integração de Informações Dos Registros de Câncer\nBrasileiros.” Revista de Saúde Pública 41: 865–68. https://doi.org/10.1590/S0034-89102007000500024.\n\n\nECIS. 2025. European Cancer Information System. https://ecis.jrc.ec.europa.eu/en.\n\n\nEORTC. 2017. European Organisation for Research and Treatment of\nCancer. https://www.eortc.org/.\n\n\nINCA. 2000. Registro Hospitalar de Câncer: Rotinas e\nProcedimentos. 1st ed. Ministério da Saúde. https://www.inca.gov.br/publicacoes/manuais/registros-hospitalares-de-cancer.\n\n\nINCA. 2010. Registros Hospitalares de Câncer: Planejamento e\nGestão. 2nd ed. Ministério da Saúde. https://www.inca.gov.br/sites/ufu.sti.inca.local/files//media/document//registros-hospitalares-de-cancer-2010.pdf.\n\n\nINCA. 2011. IntegradorRHC: Ferramenta Para a Vigilância\nHospitalar de Câncer No Brasil. INCA. https://www.inca.gov.br/sites/ufu.sti.inca.local/files//media/document//folder-integrador-rhc-2011.pdf.\n\n\nINCA. 2020. Dicionário Das Variáveis Da Base de Dados Do Sistema de\nInformação de Registros Hospitalares de Câncer\n(SisRHC). https://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=dicionario.dados.\n\n\nJalal, Hawre, Petros Pechlivanoglou, Eline Krijkamp, Fernando\nAlarid-Escudero, Eva Enns, and M. G. Myriam Hunink. 2017. “An\nOverview of R in Health Decision Sciences.”\nMedical Decision Making 37: 735–46. https://doi.org/10.1177/0272989X16686559.\n\n\nJorge, Maria Helena Prado de Mello, Ruy Laurenti, and Sabina Léa\nDavidson Gotlieb. 2010. “Avaliação Dos Sistemas de Informação Em\nSaúde No Brasil.” Cadernos de Saúde Coletiva. https://pesquisa.bvsalud.org/portal/resource/pt/lil-621256.\n\n\nLowndes, Julia S. Stewart, Benjamin D. Best,\nCourtney Scarborough, et al. 2017. “Our Path to Better\nScience in Less Time Using Open Data Science Tools.” Nature\nEcology & Evolution 1: 160. https://doi.org/10.1038/s41559-017-0160.\n\n\nMorais, João Henrique de Araujo, Tulio César Ramos de Oliveira\nKonstantyner, Álvaro Luiz Fazenda, Alessandro Sala, and Cleverson\nBernardo Martins. 2021. “Rtabnetsp: Pacote R Para\nExtração de Indicadores de Saúde Do Estado de São\nPaulo.” Epidemiologia e Serviços de Saúde 30:\ne2020576. https://doi.org/10.1590/S1679-4974202100020.\n\n\nPinto, Iêda Vieira, Dandara Novaes Ramos, Maria do Carmo Esteves da\nCosta, Cristiane Bárbara Torres Ferreira, and Mariléa Santos Rebelo.\n2012. “Completude e Consistência Dos Dados Dos Registros\nHospitalares de Câncer No Brasil.” Cadernos de Saúde\nColetiva, 113–20.\n\n\nR Core Team. 2024. R: A Language and Environment for Statistical\nComputing. R Foundation for Statistical Computing. https://www.r-project.org/.\n\n\nRomero, Dalia Elena, and Cynthia Braga da Cunha. 2006. “Avaliação\nDa Qualidade Das Variáveis Sócio-Econômicas e Demográficas Dos Óbitos de\nCrianças Menores de Um Ano Registrados No Sistema de Informações Sobre\nMortalidade Do Brasil (1996/2001).” Cadernos de Saúde\nPública 22: 673–81. https://doi.org/10.1590/S0102-311X2006000300022.\n\n\nRStudio. 2024. RStudio: Integrated Development\nEnvironment for R. Posit Software, PBC. https://www.r-project.org/.\n\n\nSaldanha, Raphael de Freitas, Ronaldo Rocha Bastos, and Christovam\nBarcellos. 2019. “Microdatasus: Pacote Para Download e\nPré-Processamento de Microdados Do Departamento de Informática Do\nSUS (DATASUS).” Cadernos de Saúde\nPública 35: e00032419. https://doi.org/10.1590/0102-311X00032419.\n\n\nSEER. 2025. SEER Program. https://seer.cancer.gov/about/overview.html.\n\n\nSilva, Natalino Pires da. 2009. “A Utilização Dos Programas\nTABWIN e TABNET Como Ferramentas de Apoio à\nDisseminação Das Informações Em Saúde.” Fundação Oswaldo Cruz. https://www.arca.fiocruz.br/handle/icict/2300.",
+    "crumbs": [
+      "Referências"
+    ]
+  }
+]

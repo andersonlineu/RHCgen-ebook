@@ -1,0 +1,104 @@
+# Padronização das Variáveis
+
+## Função `renomear_colunas()`
+
+### Finalidade
+
+A função `renomear_colunas()` realiza a **padronização dos nomes das variáveis** presentes no dataframe, substituindo as nomenclaturas originais dos arquivos DBF por nomes mais descritivos, consistentes e adequados ao uso analítico.
+
+### Problema que resolve
+
+Os arquivos do RHC utilizam nomes de variáveis abreviados, frequentemente pouco intuitivos e, em alguns casos, inconsistentes ao longo do tempo. Essa característica dificulta a interpretação dos dados, aumenta a probabilidade de erros na análise e compromete a reprodutibilidade.
+
+### Uso
+
+```r
+data <- renomear_colunas(data)
+```
+
+### Mapeamento de variáveis
+
+O @tbl-mapeamento apresenta o mapeamento completo das 47 variáveis originais do RHC para a nomenclatura padronizada adotada pelo RHCgen.
+
+| Nome original no DBF | Nome padronizado no RHCgen |
+|----------------------|---------------------------|
+| `TPCASO` | `Tipo_de_Caso` |
+| `SEXO` | `Sexo` |
+| `IDADE` | `Idade` |
+| `LOCALNAS` | `Local_Nascimento` |
+| `RACACOR` | `Raca_Cor` |
+| `INSTRUC` | `Escolaridade` |
+| `CLIATEN` | `Clinica_Atendimento` |
+| `CLITRAT` | `Clinica_Tratamento` |
+| `HISTFAMC` | `Historico_Familiar_Cancer` |
+| `ALCOOLIS` | `Consumo_Alcool` |
+| `TABAGISM` | `Tabagismo` |
+| `ESTADRES` | `Estado_Residencia` |
+| `PROCEDEN` | `Codigo_Municipio_Residencia` |
+| `ANOPRIDI` | `Ano_Primeiro_Diagnostico` |
+| `ORIENC` | `Origem_do_Encaminhamento` |
+| `EXDIAG` | `Exames_Relevantes_para_Diagnostico` |
+| `ESTCONJ` | `Estado_conjugal` |
+| `ANTRI` | `Ano_Triagem` |
+| `DTPRICON` | `Ano_Primeira_Consulta` |
+| `DIAGANT` | `Diagnosticos_e_Tratamentos_Anterior` |
+| `BASMAIMP` | `Base_Mais_Importante_Diagnostico` |
+| `LOCTUDET` | `Localizacao_Primaria_3D` |
+| `LOCTUPRI` | `Localizacao_Primaria_4D` |
+| `TIPOHIST` | `Tipo_Histologico` |
+| `LATERALI` | `Lateralidade` |
+| `LOCTUPRO` | `Local_Provavel_Tumor` |
+| `MAISUMTU` | `Mais_de_Um_Tumor` |
+| `TNM` | `Classificacao_TNM` |
+| `ESTADIAM` | `Estadiamento_Clinico` |
+| `OUTROESTA` | `Outro_Estadiamento_Clinico` |
+| `PTNM` | `TNM_Patologico` |
+| `RZNTR` | `Razao_Nao_Tratamento` |
+| `DTINITRT` | `Ano_Inicio_Tratamento` |
+| `PRITRATH` | `Primeiro_Tratamento_Hospital` |
+| `ESTDFIMT` | `Estado_Doenca_Final_Tratamento` |
+| `DTTRIAGE` | `Data_Triagem` |
+| `DATAPRICON` | `Data_Primeira_Consulta` |
+| `BASDIAGSP` | `Base_Mais_Importante_Diagnostico_Sem_Patologicas` |
+| `CNES` | `CNES_Hospital` |
+| `UFUH` | `UF_Unidade_Hospital` |
+| `MUUH` | `Municipio_Unidade_Hospital` |
+| `OCUPACAO` | `Ocupacao_Paciente` |
+| `DTDIAGNO` | `Data_Diagnostico` |
+| `DATAINITRT` | `Data_Inicio_Primeiro_Tratamento` |
+| `DATAOBITO` | `Data_Obito` |
+| `VALOR_TOT` | `Valor_Total` |
+| `ESTADIAG` | `Estadiamento_Clinico_TNM_grupo_1985_1999` |
+
+: Mapeamento de variáveis do RHC para nomenclatura padronizada do RHCgen (47 variáveis) {#tbl-mapeamento}
+
+---
+
+## Função `modificar_tipo_variavel()`
+
+### Finalidade
+
+A função `modificar_tipo_variavel()` realiza a **padronização dos tipos das variáveis**, convertendo sistematicamente os campos para formatos apropriados ao processamento analítico.
+
+### Conversões realizadas
+
+| Tipo de variável | Formato resultante |
+|------------------|-------------------|
+| Variáveis categóricas em geral | `character` |
+| `Idade` | `numeric` |
+| Variáveis de data (`Data_Triagem`, `Data_Primeira_Consulta`, `Data_Diagnostico`, `Data_Inicio_Primeiro_Tratamento`, `Data_Obito`) | `Date` (formato `%d/%m/%Y`) |
+
+### Problema que resolve
+
+Arquivos oriundos do formato DBF frequentemente apresentam inconsistências na tipagem após a importação para o R: datas lidas como texto, variáveis numéricas tratadas como fatores, formatações heterogêneas. Essas inconsistências podem gerar erros analíticos silenciosos e comprometer a integridade das análises.
+
+### Uso
+
+```r
+data <- modificar_tipo_variavel(data)
+```
+
+::: {.callout-tip}
+## Conversão segura de `Idade`
+A variável `Idade` é convertida em duas etapas: primeiro para `character`, depois para `numeric`. Essa abordagem evita problemas comuns associados à conversão direta de fatores para valores numéricos, que pode introduzir distorções silenciosas nos dados.
+:::

@@ -1,0 +1,32 @@
+# Fonte de Dados: o Registro Hospitalar de Câncer
+
+## O que é o RHC?
+
+Os Registros Hospitalares de Câncer (RHC) em todo o território brasileiro coletam dados individualizados de pacientes com diagnóstico confirmado de câncer, obtidos de prontuários e outras fontes hospitalares. Esses registros permitem tanto a análise detalhada em nível individual quanto a avaliação agregada de desfechos clínicos e dos padrões diagnósticos mais frequentes [@inca2000].
+
+## IntegradorRHC (IRHC)
+
+O RHCgen é específico para ser utilizado com dados do RHC disponibilizados para *download* no **IntegradorRHC (IRHC)**, no formato *Data Base File* (`.dbf`), acessível em:
+
+> [https://irhc.inca.gov.br/RHCNet/](https://irhc.inca.gov.br/RHCNet/)
+
+Implantado em **2007**, o IntegradorRHC é um sistema público que consolida e disponibiliza informações processadas pelo Sistema de Informação de Registro Hospitalar de Câncer (SisRHC), com base em registros de pacientes atendidos em unidades habilitadas no SUS em todo o território nacional.
+
+A base de dados é **não nominativa** e estruturada a partir de registros padronizados pelas instituições participantes, sendo o SisRHC responsável pelos processos de entrada, validação e padronização das informações [@inca2011; @decit2007].
+
+## Cobertura temporal
+
+O RHCgen possui capacidade de processamento de arquivos provenientes de diferentes períodos: **de 1985 a 2023**.
+
+Para a construção do pacote e realização dos testes do *pipeline*, foram utilizados dados provenientes do IntegradorRHC. O período analisado compreendeu registros com ano do banco entre 1º de janeiro de 1985 e 31 de dezembro de 2023. Os dados foram extraídos em **11 de julho de 2025**, considerando a versão da base disponível no sistema à época, cuja última atualização havia ocorrido em 7 de abril de 2025, assegurando a rastreabilidade dos dados utilizados.
+
+## Dicionário de variáveis
+
+O dicionário completo de variáveis do SisRHC está disponível no IntegradorRHC:
+
+> [https://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=dicionario.dados](https://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=dicionario.dados)
+
+::: {.callout-note}
+## Rastreabilidade dos dados
+A identificação da data de extração e da versão da base são etapas recomendadas para garantir a reprodutibilidade de análises conduzidas com o RHCgen. O pacote cria automaticamente a variável `Ano_do_Banco` a partir do nome original de cada arquivo `.dbf`, permitindo identificar o ano de origem de cada registro.
+:::

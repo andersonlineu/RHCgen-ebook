@@ -1,0 +1,58 @@
+# Aplicação
+
+## Processamento da base nacional (2000–2023)
+
+Para demonstrar o funcionamento do RHCgen em escala real, foram processados **24 arquivos do RHC**, correspondentes ao período de 2000 a 2023, disponibilizados pelo IntegradorRHC.
+
+O processamento foi realizado por meio da função `construir_banco()`, que integrou automaticamente os dados provenientes de diferentes anos e promoveu a padronização estrutural e semântica das variáveis.
+
+## Resultados operacionais
+
+| Indicador | Valor |
+|-----------|-------|
+| Arquivos processados | 24 (anos 2000–2023) |
+| Registros na base final | **5.394.771** |
+| Variáveis na base final | **59** |
+| Tempo de execução | **4,61 minutos** |
+| Consumo de memória RAM | **≈ 2,01 GB** |
+
+## Código de reprodução
+
+```r
+library(RHCgen)
+
+# Definir o diretório com os arquivos .dbf
+setwd("caminho/para/seus/arquivos/dbf")
+
+# Executar o pipeline completo
+dados_RHC <- construir_banco()
+
+# Verificar estrutura da base
+dim(dados_RHC)       # 5394771 linhas × 59 colunas
+str(dados_RHC)       # estrutura das variáveis
+head(dados_RHC)      # primeiros registros
+
+# Análise de completude por ano (opcional)
+tabela_completude <- analise_completude_ano(dados_RHC)
+```
+
+::: {.callout-tip}
+## Exportação da base
+O RHCgen não salva automaticamente os dados em disco. Para exportar a base analítica, utilize, por exemplo:
+
+```r
+# Formato R nativo (recomendado para reutilização)
+saveRDS(dados_RHC, "dados_RHC_2000_2023.rds")
+
+# Formato CSV (maior compatibilidade)
+write.csv(dados_RHC, "dados_RHC_2000_2023.csv", row.names = FALSE)
+```
+:::
+
+## Considerações sobre requisitos computacionais
+
+O consumo de **2,01 GB de memória RAM** para a base completa (2000–2023) pode representar uma limitação em ambientes computacionais com recursos reduzidos. Para usuários que trabalhem com infraestrutura restrita, recomenda-se:
+
+- Processar subconjuntos de arquivos por período (ex: décadas separadas)
+- Aumentar a memória disponível para o R com `memory.limit()` (Windows) ou configurações de sistema
+- Considerar o uso de pacotes como *data.table* ou *arrow* para manipulação de grandes volumes após o processamento inicial

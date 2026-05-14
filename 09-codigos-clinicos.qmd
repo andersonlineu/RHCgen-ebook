@@ -1,0 +1,99 @@
+# Padronização de Códigos Clínicos e Assistenciais
+
+## Códigos diagnósticos
+
+### Funções disponíveis
+
+| Função | Ação |
+|--------|------|
+| `renomear_CID_3digitos()` | CID-O com 3 dígitos → descrição completa da localização tumoral |
+| `renomear_CID_4digitos()` | CID-O com 4 dígitos → descrição completa da localização tumoral |
+| `renomear_tipo_histologico()` | Código histológico → descrição do tipo histológico |
+| `renomear_estadiamento_clinico()` | Código de estadiamento → categoria padronizada |
+| `classificacao_CID_0()` | CID-O → agrupamento por grande grupo anatômico |
+
+### Uso
+
+```r
+data <- renomear_CID_3digitos(data)
+data <- renomear_tipo_histologico(data)
+data <- renomear_estadiamento_clinico(data)
+data <- classificacao_CID_0(data)
+```
+
+### Variáveis criadas
+
+| Variável de entrada | Variável criada |
+|--------------------|-----------------|
+| `Localizacao_Primaria_3D` | `CID3d` |
+| `Localizacao_Primaria_4D` | `CID4d` |
+| `Tipo_Histologico` | `Tipo_Histologico_Completo` |
+| `Estadiamento_Clinico` | `Nome_Estadiamento_Clinico` |
+| `Localizacao_Primaria_3D` | `Classificacao_CID_O` |
+
+---
+
+## Classificação por grupo anatômico: `classificacao_CID_0()`
+
+### Finalidade
+
+A função `classificacao_CID_0()` classifica as neoplasias malignas em **grandes grupos anatômicos** a partir dos códigos registrados na variável `Localizacao_Primaria_3D`. A variável resultante, `Classificacao_CID_O`, agrupa os códigos CID-O em categorias como neoplasias malignas dos órgãos digestivos, órgãos respiratórios, mama, órgãos genitais masculinos, órgãos urinários e tecidos linfático/hematopoético.
+
+### Lógica de classificação
+
+Para cada registro, a função aplica três decisões sequenciais:
+
+1. Se o código é `NA` → resultado permanece `NA`
+2. Se o código está no vetor de mapeamento → recebe a categoria correspondente
+3. Se o código não está previsto → recebe `"Outros"`
+
+### Padronização do estadiamento clínico
+
+A função `renomear_estadiamento_clinico()` resolve um problema crítico de heterogeneidade: o RHC acumula múltiplos formatos de registro do estadiamento ao longo do tempo (por exemplo: `"1"`, `"I"`, `"1A"`, `"01"`). A função mapeia todos esses formatos para categorias padronizadas (`"Estádio I"`, `"Estádio II"`, etc.), promovendo comparabilidade entre registros de diferentes períodos.
+
+---
+
+## Códigos assistenciais e hospitalares
+
+### Funções disponíveis
+
+| Função | Ação |
+|--------|------|
+| `renomear_clinica()` | Converte códigos de clínicas para nomes completos |
+| `renomear_CNES()` | Converte código CNES para nome do estabelecimento |
+
+### Uso
+
+```r
+data <- renomear_clinica(data)
+data <- renomear_CNES(data)
+```
+
+### Variáveis criadas
+
+| Variável de entrada | Variável criada |
+|--------------------|-----------------|
+| `Clinica_Atendimento` | `Nome_Clinica_Atendimento` |
+| `Clinica_Tratamento` | `Nome_Clinica_Tratamento` |
+| `CNES_Hospital` | `Estabelecimento_Hospitalar` |
+
+Para consultar o dicionário de códigos de clínicas:
+
+> [https://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=tabela.clinicas](https://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=tabela.clinicas)
+
+---
+
+## Organização estrutural do banco: `ordenando_colunas()`
+
+Após todas as etapas de leitura, padronização, recodificação e criação de novas variáveis, a função `ordenando_colunas()` organiza as variáveis do dataframe em uma **ordem lógica predefinida**, alinhada à estrutura analítica do RHCgen.
+
+```r
+data <- ordenando_colunas(data)
+```
+
+A organização segue uma sequência que integra dimensões sociodemográficas, clínicas, assistenciais e temporais, facilitando a utilização do banco em estudos epidemiológicos.
+
+::: {.callout-note}
+## Tolerância a variações estruturais
+A função não adiciona colunas ausentes nem interrompe a execução quando variáveis não estão disponíveis, operando de forma tolerante à variação estrutural do banco entre diferentes períodos históricos do RHC.
+:::

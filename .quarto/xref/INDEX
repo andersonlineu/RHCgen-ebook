@@ -1,0 +1,50 @@
+{
+  "index.qmd": {
+    "index.html": "e5923c82"
+  },
+  "01-introducao.qmd": {
+    "01-introducao.html": "8df42e3f"
+  },
+  "02-fonte-dados.qmd": {
+    "02-fonte-dados.html": "2ff85676"
+  },
+  "03-desenvolvimento.qmd": {
+    "03-desenvolvimento.html": "4b25a451"
+  },
+  "04-pipeline.qmd": {
+    "04-pipeline.html": "0108721c"
+  },
+  "05-funcoes-leitura.qmd": {
+    "05-funcoes-leitura.html": "1f524603"
+  },
+  "06-padronizacao.qmd": {
+    "06-padronizacao.html": "df63468a"
+  },
+  "07-recodificacao.qmd": {
+    "07-recodificacao.html": "6b87b995"
+  },
+  "08-harmonizacao-territorial.qmd": {
+    "08-harmonizacao-territorial.html": "6261a5f7"
+  },
+  "09-codigos-clinicos.qmd": {
+    "09-codigos-clinicos.html": "088fab21"
+  },
+  "10-qualidade.qmd": {
+    "10-qualidade.html": "a921a29a"
+  },
+  "11-aplicacao.qmd": {
+    "11-aplicacao.html": "0b50fbdb"
+  },
+  "12-discussao.qmd": {
+    "12-discussao.html": "d26dda85"
+  },
+  "13-conclusao.qmd": {
+    "13-conclusao.html": "071dcca7"
+  },
+  "referencias.qmd": {
+    "referencias.html": "959c8222"
+  },
+  "14-guia-pratico.qmd": {
+    "14-guia-pratico.html": "5125d147"
+  }
+}

@@ -1,0 +1,56 @@
+# Recodificação das Variáveis Categóricas
+
+## Função `recodificar_variaveis()`
+
+### Finalidade
+
+A função `recodificar_variaveis()` realiza a **transformação de variáveis categóricas** originalmente codificadas em formato numérico ou textual para categorias interpretáveis, com base no dicionário de variáveis do Registro Hospitalar de Câncer. As variáveis são convertidas para o tipo `factor` com níveis definidos, garantindo consistência semântica e padronização para análise.
+
+### Problema que resolve
+
+Os dados do RHC apresentam variáveis categóricas codificadas por números (por exemplo, `"1"`, `"2"`, `"9"`), que não possuem interpretação direta sem consulta ao dicionário. Essa codificação dificulta a análise, aumenta o risco de erro na interpretação e compromete a comunicação dos resultados.
+
+### Uso
+
+```r
+data <- recodificar_variaveis(data)
+```
+
+::: {.callout-note}
+## Tolerância a variações
+A função opera de forma tolerante a erros parciais: variáveis ausentes são identificadas e reportadas sem interromper o fluxo. Valores não previstos nas regras de recodificação são mantidos sem alteração.
+:::
+
+---
+
+## Variáveis recodificadas
+
+O @tbl-recodificacao apresenta as variáveis categóricas recodificadas, organizadas por domínio temático.
+
+| Domínio | Variável | Categorias padronizadas |
+|---------|----------|------------------------|
+| **Identificação do caso** | `Tipo_de_Caso` | Analítico; Não Analítico; Outro |
+| **Sociodemográficas** | `Sexo` | Masculino; Feminino; Outro |
+| | `Raca_Cor` | Branca; Preta; Amarela; Parda; Indígena; Sem informação |
+| | `Escolaridade` | Nenhuma; Fundamental incompleto; Fundamental completo; Nível médio; Nível superior incompleto; Nível superior completo; Sem informação |
+| | `Estado_conjugal` | Solteiro; Casado; Viúvo; Separado judicialmente; União consensual; Sem informação |
+| **Histórico e hábitos** | `Historico_Familiar_Cancer` | Sim; Não; Sem informação |
+| | `Consumo_Alcool` | Nunca; Ex-consumidor; Sim; Não avaliado; Não se aplica; Sem informação |
+| | `Tabagismo` | Nunca; Ex-consumidor; Sim; Não avaliado; Não se aplica; Sem informação |
+| **Acesso e diagnóstico** | `Origem_do_Encaminhamento` | SUS; Não SUS; Veio por conta própria; Não se aplica; Sem informação |
+| | `Exames_Relevantes_para_Diagnostico` | Exame clínico e patologia clínica; Exames por imagem; Endoscopia e cirurgia exploradora; Anatomia patológica; Marcadores tumorais; Não se aplica; Sem informação |
+| | `Base_Mais_Importante_Diagnostico` | Clínica; Pesquisa clínica; Exame por imagem; Marcadores tumorais; Citologia; Histologia da metástase; Histologia do tumor primário; Sem informação |
+| | `Base_Mais_Importante_Diagnostico_Sem_Patologicas` | Exame clínico; Recursos auxiliares não microscópicos; Confirmação microscópica; Sem informação |
+| **Características clínicas** | `Lateralidade` | Direita; Esquerda; Bilateral; Não se aplica; Sem informação |
+| | `Mais_de_Um_Tumor` | Sim; Não; Duvidoso |
+| | `Estadiamento_Clinico_TNM_grupo_1985_1999` | Estádio I; Estádio II; Estádio III; Estádio IV; Não se aplica; Sem informação |
+| **Histórico assistencial** | `Diagnosticos_e_Tratamentos_Anterior` | Sem diagnóstico e sem tratamento; Com diagnóstico e sem tratamento; Com diagnóstico e com tratamento; Outros; Sem informação |
+| **Tratamento** | `Primeiro_Tratamento_Hospital` | Nenhum; Cirurgia; Radioterapia; Quimioterapia; Hormonioterapia; Transplante de medula óssea; Imunoterapia; Outras; Sem informação |
+| | `Razao_Nao_Tratamento` | Recusa do tratamento; Tratamento realizado fora; Doença avançada ou comorbidades; Abandono; Complicações; Óbito; Outras razões; Não se aplica; Sem informação |
+| **Desfecho** | `Estado_Doenca_Final_Tratamento` | Sem evidência da doença; Remissão parcial; Doença estável; Doença em progressão; Suporte terapêutico; Óbito; Não se aplica; Sem informação |
+
+: Variáveis categóricas recodificadas pelo RHCgen, segundo domínio temático {#tbl-recodificacao}
+
+Para consultar o dicionário completo de códigos, acesse:
+
+> [https://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=dicionario.dados](https://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=dicionario.dados)

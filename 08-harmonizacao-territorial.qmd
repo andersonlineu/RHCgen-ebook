@@ -1,0 +1,55 @@
+# Harmonização Territorial das Variáveis Geográficas
+
+## Funções de harmonização
+
+O RHCgen dispõe de três funções dedicadas à conversão de códigos geográficos em informações textuais interpretáveis:
+
+| Função | Ação |
+|--------|------|
+| `renomear_siglas_estados()` | Converte siglas das UFs em nomes completos |
+| `renomear_codigo_municipio_residencia()` | Converte código do município de residência em nome |
+| `renomear_codigo_municipio_hospital()` | Converte código do município do hospital em nome |
+
+### Uso
+
+```r
+data <- renomear_siglas_estados(data)
+data <- renomear_codigo_municipio_residencia(data)
+data <- renomear_codigo_municipio_hospital(data)
+```
+
+---
+
+## Finalidade das funções
+
+As funções de harmonização territorial realizam a **conversão de códigos geográficos** utilizados no RHC em informações textuais interpretáveis, adicionando novas variáveis ao dataframe. Especificamente, convertem siglas das Unidades da Federação e códigos de municípios em seus respectivos nomes completos, tanto para o local de residência do paciente quanto para a unidade hospitalar de atendimento.
+
+## Problema que resolvem
+
+Os dados do RHC utilizam codificações abreviadas para representação geográfica — siglas de estados e códigos numéricos de municípios. Esses formatos dificultam a interpretação direta, limitam a análise descritiva e comprometem a visualização espacial dos dados. As funções resolvem esse problema ao incorporar, diretamente no banco, variáveis com nomes completos e padronizados.
+
+## Variáveis de entrada e saída
+
+| Variável de entrada | Variável criada |
+|--------------------|-----------------|
+| `Estado_Residencia` | `Nome_Estado_Residencia` |
+| `UF_Unidade_Hospital` | `Nome_Estado_Hospital` |
+| `Codigo_Municipio_Residencia` | `Nome_Municipio_Residencia` |
+| `Municipio_Unidade_Hospital` | `Nome_Municipio_Hospital` |
+
+::: {.callout-note}
+## Preservação das variáveis originais
+As funções de harmonização territorial **preservam os códigos originais**, adicionando novas colunas ao dataframe sem alterá-las. Valores não mapeados resultam em `NA`, sem interrupção do fluxo de execução.
+:::
+
+## Características operacionais
+
+- Operam de forma **vetorizada**, garantindo eficiência em grandes volumes de dados
+- Implementam **verificação explícita** da existência das variáveis de entrada
+- Utilizam interrupção controlada (`stop()`) quando condições mínimas não são atendidas
+- Não validam a consistência dos códigos de entrada, assumindo conformidade com o padrão do RHC
+
+::: {.callout-tip}
+## Aplicações analíticas
+Essa etapa é fundamental para análises espaciais, estudos de acessibilidade geográfica, avaliação de fluxos de deslocamento de pacientes e construção de indicadores territoriais. A presença de nomes completos facilita a geração de mapas e a comunicação dos resultados em contextos científicos e institucionais.
+:::

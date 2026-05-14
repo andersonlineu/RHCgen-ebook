@@ -1,0 +1,601 @@
+{
+    "sources": [
+        {
+            "DOI": "10.3322/caac.21834",
+            "author": [
+                {
+                    "family": "Bray",
+                    "given": "Freddie"
+                },
+                {
+                    "family": "Laversanne",
+                    "given": "Mathieu"
+                },
+                {
+                    "family": "Sung",
+                    "given": "Hyuna"
+                },
+                {
+                    "family": "Ferlay",
+                    "given": "Jacques"
+                },
+                {
+                    "family": "Siegel",
+                    "given": "Rebecca L."
+                },
+                {
+                    "family": "Soerjomataram",
+                    "given": "Isabelle"
+                },
+                {
+                    "literal": "others"
+                }
+            ],
+            "container-title": "CA: A Cancer Journal for Clinicians",
+            "id": "bray2024",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024
+                    ]
+                ]
+            },
+            "page": "229-263",
+            "title": "Global cancer statistics 2022: GLOBOCAN estimates of incidence and mortality worldwide for 36 cancers in 185 countries",
+            "title-short": "Global cancer statistics 2022",
+            "type": "article-journal",
+            "volume": "74"
+        },
+        {
+            "URL": "https://seer.cancer.gov/about/overview.html",
+            "author": [
+                {
+                    "literal": "SEER"
+                }
+            ],
+            "id": "seer2025",
+            "issued": {
+                "date-parts": [
+                    [
+                        2025
+                    ]
+                ]
+            },
+            "note": "Acesso em: 13 set. 2025",
+            "title": "SEER program",
+            "type": ""
+        },
+        {
+            "URL": "https://gco.iarc.who.int/today/",
+            "author": [
+                {
+                    "literal": "Cancer Today"
+                }
+            ],
+            "id": "cancertoday2025",
+            "issued": {
+                "date-parts": [
+                    [
+                        2025
+                    ]
+                ]
+            },
+            "note": "Acesso em: 13 set. 2025",
+            "title": "Cancer today",
+            "type": ""
+        },
+        {
+            "URL": "https://www.facs.org/quality-programs/cancer-programs/national-cancer-database/",
+            "author": [
+                {
+                    "literal": "ACS"
+                }
+            ],
+            "id": "acs2025",
+            "issued": {
+                "date-parts": [
+                    [
+                        2025
+                    ]
+                ]
+            },
+            "note": "Acesso em: 13 set. 2025",
+            "title": "National cancer database",
+            "type": ""
+        },
+        {
+            "URL": "https://www.eortc.org/",
+            "author": [
+                {
+                    "literal": "EORTC"
+                }
+            ],
+            "id": "eortc2017",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "note": "Acesso em: 6 nov. 2025",
+            "title": "European organisation for research and treatment of cancer",
+            "type": ""
+        },
+        {
+            "URL": "https://ecis.jrc.ec.europa.eu/en",
+            "author": [
+                {
+                    "literal": "ECIS"
+                }
+            ],
+            "id": "ecis2025",
+            "issued": {
+                "date-parts": [
+                    [
+                        2025
+                    ]
+                ]
+            },
+            "note": "Acesso em: 6 nov. 2025",
+            "title": "European cancer information system",
+            "type": ""
+        },
+        {
+            "URL": "https://www.inca.gov.br/publicacoes/manuais/registros-hospitalares-de-cancer",
+            "author": [
+                {
+                    "literal": "INCA"
+                }
+            ],
+            "edition": "1",
+            "id": "inca2000",
+            "issued": {
+                "date-parts": [
+                    [
+                        2000
+                    ]
+                ]
+            },
+            "publisher": "Ministério da Saúde",
+            "title": "Registro hospitalar de câncer: Rotinas e procedimentos",
+            "title-short": "Registro hospitalar de câncer",
+            "type": "book"
+        },
+        {
+            "URL": "https://www.inca.gov.br/sites/ufu.sti.inca.local/files//media/document//registros-hospitalares-de-cancer-2010.pdf",
+            "author": [
+                {
+                    "literal": "INCA"
+                }
+            ],
+            "edition": "2",
+            "id": "inca2010",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "publisher": "Ministério da Saúde",
+            "title": "Registros hospitalares de câncer: Planejamento e gestão",
+            "title-short": "Registros hospitalares de câncer",
+            "type": "book"
+        },
+        {
+            "URL": "https://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=dicionario.dados",
+            "author": [
+                {
+                    "literal": "INCA"
+                }
+            ],
+            "id": "inca2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "note": "Atualizado em 30 de março de 2020. Acesso em: 27 jul. 2024",
+            "title": "Dicionário das variáveis da base de dados do sistema de informação de registros hospitalares de câncer (SisRHC)",
+            "type": ""
+        },
+        {
+            "URL": "https://www.inca.gov.br/sites/ufu.sti.inca.local/files//media/document//folder-integrador-rhc-2011.pdf",
+            "author": [
+                {
+                    "literal": "INCA"
+                }
+            ],
+            "id": "inca2011",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "publisher": "INCA",
+            "title": "IntegradorRHC: Ferramenta para a vigilância hospitalar de câncer no brasil",
+            "title-short": "IntegradorRHC",
+            "type": ""
+        },
+        {
+            "DOI": "10.1590/S0034-89102007000500024",
+            "author": [
+                {
+                    "literal": "Decit"
+                }
+            ],
+            "container-title": "Revista de Saúde Pública",
+            "id": "decit2007",
+            "issued": {
+                "date-parts": [
+                    [
+                        2007
+                    ]
+                ]
+            },
+            "page": "865-868",
+            "title": "Integração de informações dos registros de câncer brasileiros",
+            "type": "article-journal",
+            "volume": "41"
+        },
+        {
+            "URL": "https://www.capacita.geosaude.icict.fiocruz.br/links.php",
+            "author": [
+                {
+                    "literal": "Brasil"
+                }
+            ],
+            "id": "brasil2025",
+            "issued": {
+                "date-parts": [
+                    [
+                        2025
+                    ]
+                ]
+            },
+            "note": "Acesso em: 6 nov. 2025",
+            "title": "Programa capacitação e atualização em abordagens do espaço em análises de saúde pública",
+            "type": ""
+        },
+        {
+            "URL": "https://pesquisa.bvsalud.org/portal/resource/pt/lil-621256",
+            "author": [
+                {
+                    "family": "Jorge",
+                    "given": "Maria Helena Prado de Mello"
+                },
+                {
+                    "family": "Laurenti",
+                    "given": "Ruy"
+                },
+                {
+                    "family": "Gotlieb",
+                    "given": "Sabina Léa Davidson"
+                }
+            ],
+            "container-title": "Cadernos de Saúde Coletiva",
+            "id": "jorge2010",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "title": "Avaliação dos sistemas de informação em saúde no brasil",
+            "type": "article-journal"
+        },
+        {
+            "URL": "https://www.arca.fiocruz.br/handle/icict/2300",
+            "author": [
+                {
+                    "dropping-particle": "da",
+                    "family": "Silva",
+                    "given": "Natalino Pires"
+                }
+            ],
+            "id": "silva2009",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "publisher": "Fundação Oswaldo Cruz",
+            "title": "A utilização dos programas TABWIN e TABNET como ferramentas de apoio à disseminação das informações em saúde",
+            "type": "thesis"
+        },
+        {
+            "DOI": "10.1038/s41559-017-0160",
+            "author": [
+                {
+                    "family": "Lowndes",
+                    "given": "Julia S. Stewart"
+                },
+                {
+                    "family": "Best",
+                    "given": "Benjamin D."
+                },
+                {
+                    "family": "Scarborough",
+                    "given": "Courtney"
+                },
+                {
+                    "family": "Afflerbach",
+                    "given": "Jamie C."
+                },
+                {
+                    "family": "Frazier",
+                    "given": "Melanie R."
+                },
+                {
+                    "family": "O’Hara",
+                    "given": "Casey C."
+                },
+                {
+                    "literal": "others"
+                }
+            ],
+            "container-title": "Nature Ecology & Evolution",
+            "id": "lowndes2017",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "160",
+            "title": "Our path to better science in less time using open data science tools",
+            "type": "article-journal",
+            "volume": "1"
+        },
+        {
+            "DOI": "10.1590/0102-311X00032419",
+            "author": [
+                {
+                    "family": "Saldanha",
+                    "given": "Raphael de Freitas"
+                },
+                {
+                    "family": "Bastos",
+                    "given": "Ronaldo Rocha"
+                },
+                {
+                    "family": "Barcellos",
+                    "given": "Christovam"
+                }
+            ],
+            "container-title": "Cadernos de Saúde Pública",
+            "id": "saldanha2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "page": "e00032419",
+            "title": "Microdatasus: Pacote para download e pré-processamento de microdados do departamento de informática do SUS (DATASUS)",
+            "title-short": "Microdatasus",
+            "type": "article-journal",
+            "volume": "35"
+        },
+        {
+            "DOI": "10.1590/S1679-4974202100020",
+            "author": [
+                {
+                    "family": "Morais",
+                    "given": "João Henrique de Araujo"
+                },
+                {
+                    "family": "Konstantyner",
+                    "given": "Tulio César Ramos de Oliveira"
+                },
+                {
+                    "family": "Fazenda",
+                    "given": "Álvaro Luiz"
+                },
+                {
+                    "family": "Sala",
+                    "given": "Alessandro"
+                },
+                {
+                    "family": "Martins",
+                    "given": "Cleverson Bernardo"
+                }
+            ],
+            "container-title": "Epidemiologia e Serviços de Saúde",
+            "id": "morais2021",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "page": "e2020576",
+            "title": "Rtabnetsp: Pacote R para extração de indicadores de saúde do estado de São Paulo",
+            "title-short": "Rtabnetsp",
+            "type": "article-journal",
+            "volume": "30"
+        },
+        {
+            "URL": "https://www.r-project.org/",
+            "author": [
+                {
+                    "literal": "R Core Team"
+                }
+            ],
+            "id": "rcoreteam2024",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024
+                    ]
+                ]
+            },
+            "publisher": "R Foundation for Statistical Computing",
+            "publisher-place": "Vienna, Austria",
+            "title": "R: A language and environment for statistical computing",
+            "title-short": "R",
+            "type": "book"
+        },
+        {
+            "URL": "https://www.r-project.org/",
+            "author": [
+                {
+                    "literal": "RStudio"
+                }
+            ],
+            "id": "rstudio2024",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024
+                    ]
+                ]
+            },
+            "publisher": "Posit Software, PBC",
+            "title": "RStudio: Integrated development environment for R",
+            "title-short": "RStudio",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1590/S0102-311X2006000300022",
+            "author": [
+                {
+                    "family": "Romero",
+                    "given": "Dalia Elena"
+                },
+                {
+                    "dropping-particle": "da",
+                    "family": "Cunha",
+                    "given": "Cynthia Braga"
+                }
+            ],
+            "container-title": "Cadernos de Saúde Pública",
+            "id": "romero2006",
+            "issued": {
+                "date-parts": [
+                    [
+                        2006
+                    ]
+                ]
+            },
+            "page": "673-681",
+            "title": "Avaliação da qualidade das variáveis sócio-econômicas e demográficas dos óbitos de crianças menores de um ano registrados no sistema de informações sobre mortalidade do brasil (1996/2001)",
+            "type": "article-journal",
+            "volume": "22"
+        },
+        {
+            "author": [
+                {
+                    "family": "Pinto",
+                    "given": "Iêda Vieira"
+                },
+                {
+                    "family": "Ramos",
+                    "given": "Dandara Novaes"
+                },
+                {
+                    "family": "Costa",
+                    "given": "Maria do Carmo Esteves da"
+                },
+                {
+                    "family": "Ferreira",
+                    "given": "Cristiane Bárbara Torres"
+                },
+                {
+                    "family": "Rebelo",
+                    "given": "Mariléa Santos"
+                }
+            ],
+            "container-title": "Cadernos de Saúde Coletiva",
+            "id": "pinto2012",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "page": "113-120",
+            "title": "Completude e consistência dos dados dos registros hospitalares de câncer no brasil",
+            "type": "article-journal"
+        },
+        {
+            "DOI": "10.1007/978-3-319-93791-5_2",
+            "author": [
+                {
+                    "family": "Chan",
+                    "given": "Benjamin K. C."
+                }
+            ],
+            "container-title": "Advances in Experimental Medicine and Biology",
+            "id": "chan2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "page": "47-122",
+            "title": "Data analysis using R programming",
+            "type": "article-journal",
+            "volume": "1082"
+        },
+        {
+            "DOI": "10.1177/0272989X16686559",
+            "author": [
+                {
+                    "family": "Jalal",
+                    "given": "Hawre"
+                },
+                {
+                    "family": "Pechlivanoglou",
+                    "given": "Petros"
+                },
+                {
+                    "family": "Krijkamp",
+                    "given": "Eline"
+                },
+                {
+                    "family": "Alarid-Escudero",
+                    "given": "Fernando"
+                },
+                {
+                    "family": "Enns",
+                    "given": "Eva"
+                },
+                {
+                    "family": "Hunink",
+                    "given": "M. G. Myriam"
+                }
+            ],
+            "container-title": "Medical Decision Making",
+            "id": "jalal2017",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "735-746",
+            "title": "An overview of R in health decision sciences",
+            "type": "article-journal",
+            "volume": "37"
+        }
+    ],
+    "project_biblios": [
+        "references.bib"
+    ]
+}

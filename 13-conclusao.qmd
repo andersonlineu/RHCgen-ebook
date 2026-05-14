@@ -1,0 +1,32 @@
+# Conclusão
+
+O RHCgen constitui uma contribuição metodológica para o campo da epidemiologia oncológica no Brasil, ao oferecer uma solução **padronizada, reprodutível e de acesso aberto** para o processamento de dados do Registro Hospitalar de Câncer.
+
+A capacidade de consolidar mais de cinco milhões de registros distribuídos ao longo de 24 anos em uma única base analítica estruturada, por meio de um fluxo automatizado e auditável, representa um avanço concreto em relação aos métodos convencionais de manipulação manual de dados, historicamente sujeitos a inconsistências e de difícil reprodução entre diferentes equipes de pesquisa.
+
+## Contribuições técnicas
+
+Do ponto de vista técnico, o pacote demonstrou:
+
+- **Desempenho satisfatório** em termos de tempo de execução e integridade das transformações aplicadas, validadas contra os dicionários oficiais do SisRHC
+- **Funções modulares** que permitem ao usuário tanto a execução integrada do fluxo completo quanto o controle granular de etapas específicas, adaptando-se a diferentes demandas analíticas e níveis de experiência com dados do SUS
+- **Diagnóstico imediato de qualidade**, com análises de completude e consistência automaticamente geradas — elemento indispensável para decisões metodológicas sobre a viabilidade de análises e a adoção de estratégias de tratamento de dados faltantes
+
+## Impacto esperado
+
+A disponibilização pública do RHCgen no GitHub, acompanhada de documentação acessível, posiciona a ferramenta como um **recurso colaborativo e em contínuo aperfeiçoamento**, alinhado aos princípios da ciência aberta.
+
+Espera-se que sua adoção contribua para:
+
+- Ampliar a **produção científica** baseada nos dados do RHC
+- Fortalecer a **vigilância oncológica** no país
+- Subsidiar a formulação de **políticas de saúde** mais bem fundamentadas em evidências epidemiológicas robustas
+
+---
+
+::: {.callout-tip}
+## Como contribuir
+O RHCgen é um projeto de código aberto. Sugestões, correções e contribuições são bem-vindas pelo repositório do GitHub:
+
+> [https://github.com/andersonlineu/RHCgen](https://github.com/andersonlineu/RHCgen)
+:::

@@ -1,0 +1,2158 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  brazilian,
+  a4paper,
+  oneside]{scrbook}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\ifLuaTeX
+\usepackage[bidi=basic,shorthands=off]{babel}
+\else
+\usepackage[bidi=default,shorthands=off]{babel}
+\fi
+\ifLuaTeX
+  \usepackage{selnolig} % disable illegal ligatures
+\fi
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\usepackage[brazil]{babel}
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
+\@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Índice}
+\else
+  \newcommand\contentsname{Índice}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Lista de Figuras}
+\else
+  \newcommand\listfigurename{Lista de Figuras}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Lista de Tabelas}
+\else
+  \newcommand\listtablename{Lista de Tabelas}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figura}
+\else
+  \newcommand\figurename{Figura}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tabela}
+\else
+  \newcommand\tablename{Tabela}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listagem}
+\newcommand*\listoflistings{\listof{codelisting}{Lista de Listagens}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={RHCgen},
+  pdfauthor={Anderson Lineu Siqueira dos Santos; Tatyellen Natasha da Costa Oliveira; Raphael de Freitas Saldanha; Raquel de Vasconcellos Carvalhaes de Oliveira},
+  pdflang={pt-BR},
+  colorlinks=true,
+  linkcolor={Maroon},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{RHCgen}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Um Pacote R para Automação, Padronização e Avaliação da
+Qualidade dos Dados do Registro Hospitalar de Câncer no Brasil}
+\author{Anderson Lineu Siqueira dos Santos \and Tatyellen Natasha da
+Costa Oliveira \and Raphael de Freitas Saldanha \and Raquel de
+Vasconcellos Carvalhaes de Oliveira}
+\date{01/05/2026}
+\begin{document}
+\frontmatter
+\maketitle
+
+\renewcommand*\contentsname{Índice}
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+
+\mainmatter
+\bookmarksetup{startatroot}
+
+\chapter*{Bem-vindo}\label{bem-vindo}
+\addcontentsline{toc}{chapter}{Bem-vindo}
+
+\markboth{Bem-vindo}{Bem-vindo}
+
+Esta nota técnica descreve o \textbf{RHCgen}, um pacote computacional de
+acesso aberto implementado na linguagem R, voltado à automação,
+padronização e avaliação da qualidade dos dados do \textbf{Registro
+Hospitalar de Câncer (RHC)} no Brasil.
+
+O pacote está disponível no GitHub:
+\href{https://github.com/andersonlineu/RHCgen}{github.com/andersonlineu/RHCgen}
+
+Um guia de uso está disponível em:
+\href{https://andersonlineu.github.io/GuiaRHCgen/}{andersonlineu.github.io/GuiaRHCgen}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section*{Como citar}\label{como-citar}
+\addcontentsline{toc}{section}{Como citar}
+
+\markright{Como citar}
+
+\begin{quote}
+Santos, A. L. S. dos., Oliveira, T. N. da C., Saldanha, R. de F., \&
+Oliveira, R. de V. C. de. (2026). \emph{RHCgen: Um Pacote R para
+Automação, Padronização e Avaliação da Qualidade dos Dados do Registro
+Hospitalar de Câncer no Brasil.} Zenodo.
+\url{https://doi.org/10.5281/zenodo.19962293}
+\end{quote}
+
+\subsection*{BibTeX}\label{bibtex}
+\addcontentsline{toc}{subsection}{BibTeX}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\VariableTok{@techreport}\NormalTok{\{}\OtherTok{santos\_rhcgen\_2026}\NormalTok{,}
+  \DataTypeTok{author}\NormalTok{    = \{Santos, Anderson Lineu Siqueira dos and}
+\NormalTok{               Oliveira, Tatyellen Natasha da Costa and}
+\NormalTok{               Saldanha, Raphael de Freitas and}
+\NormalTok{               Oliveira, Raquel de Vasconcellos Carvalhaes de\},}
+  \DataTypeTok{title}\NormalTok{     = \{\{RHCgen\}: Um Pacote \{R\} para Automação, Padronização e}
+\NormalTok{               Avaliação da Qualidade dos Dados do Registro Hospitalar}
+\NormalTok{               de Câncer no Brasil\},}
+  \DataTypeTok{year}\NormalTok{      = \{2026\},}
+  \DataTypeTok{doi}\NormalTok{       = \{10.5281/zenodo.19962293\},}
+  \DataTypeTok{publisher}\NormalTok{ = \{Zenodo\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section*{Resumo}\label{resumo}
+\addcontentsline{toc}{section}{Resumo}
+
+\markright{Resumo}
+
+\textbf{Introdução:} O Registro Hospitalar de Câncer (RHC) reúne dados
+clínicos e assistenciais de pacientes oncológicos atendidos em hospitais
+habilitados pelo Sistema Único de Saúde no Brasil, constituindo uma base
+estratégica para a vigilância e a pesquisa em oncologia. Contudo, a
+ausência de ferramentas padronizadas para seu processamento, aliada à
+heterogeneidade estrutural e semântica dos arquivos disponibilizados,
+impõe barreiras significativas à sua utilização em larga escala e de
+forma reprodutível.
+
+\textbf{Objetivo:} Descrever um pacote computacional de acesso aberto,
+implementado na linguagem R, voltado à automação, padronização do
+processamento e avaliação da qualidade dos dados do Registro Hospitalar
+de Câncer no Brasil.
+
+\textbf{Métodos:} Estudo metodológico que descreve o desenvolvimento do
+pacote RHCgen, implementado em R com o auxílio dos pacotes
+\emph{usethis}, \emph{devtools} e \emph{roxygen2}. O pacote foi
+estruturado como um \emph{pipeline} automatizado de extração,
+transformação e carga (ETL), composto por funções modulares para leitura
+e consolidação de arquivos no formato \texttt{.dbf}, padronização
+estrutural, variações semânticas e recodificação de variáveis, além de
+avaliação de completude e consistência dos dados.
+
+\textbf{Resultados:} O processamento de 24 arquivos nacionais do RHC
+(2000--2023) resultou em uma base analítica consolidada com
+\textbf{5.394.771 registros} e \textbf{59 variáveis}, com tempo de
+execução de 4,61 minutos e consumo aproximado de 2,01 GB de memória RAM.
+
+\textbf{Conclusão:} O RHCgen oferece uma solução padronizada,
+reprodutível e de acesso aberto para o processamento de dados do RHC,
+contribuindo para ampliar a produção científica baseada no RHC e
+fortalecer a vigilância oncológica no Brasil.
+
+\textbf{Palavras-chave:} Registros Hospitalares de Câncer; Processamento
+de Dados; Reprodutibilidade dos Resultados; Sistemas de Informação em
+Saúde; Neoplasias; Linguagem R; RHCgen.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section*{Sobre os autores}\label{sobre-os-autores}
+\addcontentsline{toc}{section}{Sobre os autores}
+
+\markright{Sobre os autores}
+
+\textbf{Anderson Lineu Siqueira dos Santos} --- Escola Nacional de Saúde
+Pública Sergio Arouca, Fundação Oswaldo Cruz, Rio de Janeiro, Brasil.
+{{< ai orcid >}}
+\href{https://orcid.org/0000-0002-1703-9310}{0000-0002-1703-9310}
+
+\textbf{Tatyellen Natasha da Costa Oliveira} --- Escola Nacional de
+Saúde Pública Sergio Arouca, Fundação Oswaldo Cruz; Instituto Evandro
+Chagas, Ananindeua, PA, Brasil. {{< ai orcid >}}
+\href{https://orcid.org/0000-0002-4781-3952}{0000-0002-4781-3952}
+
+\textbf{Raphael de Freitas Saldanha} --- Instituto de Comunicação e
+Informação Científica e Tecnológica em Saúde, Fundação Oswaldo Cruz, Rio
+de Janeiro, RJ, Brasil. {{< ai orcid >}}
+\href{https://orcid.org/0000-0003-0652-8466}{0000-0003-0652-8466}
+
+\textbf{Raquel de Vasconcellos Carvalhaes de Oliveira} --- Instituto
+Nacional de Infectologia, Fundação Oswaldo Cruz, Rio de Janeiro, RJ,
+Brasil. {{< ai orcid >}}
+\href{https://orcid.org/0000-0001-9387-8645}{0000-0001-9387-8645}
+
+\bookmarksetup{startatroot}
+
+\chapter{Introdução}\label{introduuxe7uxe3o}
+
+Nos últimos anos, observa-se aumento da quantidade de pesquisas que
+envolvem bases de dados de câncer, a fim de melhor compreender a
+dinâmica da evolução, tratamento e prevenção da doença ({Bray et al.}
+2024). Iniciativas como o \emph{Global Cancer Observatory}, o
+\emph{Cancer Incidence in Five Continents} e o \emph{CANCER TODAY}
+possuem abrangência global e disponibilizam dados sobre incidência,
+mortalidade e prevalência de câncer em 185 países e mais de 300 regiões
+no mundo (SEER 2025; Cancer Today 2025). Em níveis locais, bases de
+dados norte-americanas como o \emph{Surveillance, Epidemiology, and End
+Results} do \emph{National Cancer Institute} e o \emph{National Cancer
+Database} reúnem dados de mais de 1.500 hospitais, cobrindo cerca de
+48\% da população dos EUA (SEER 2025; ACS 2025). Na Europa, o
+\emph{European Cancer Information System}, operado pela Comissão
+Europeia, coleta dados abrangentes de incidência, mortalidade e
+sobrevivência do câncer, permitindo análises comparativas entre regiões
+e subsidiando políticas de saúde pública eficazes (EORTC 2017; ECIS
+2025).
+
+O Brasil dispõe de duas bases de dados específicas para o registro de
+informações sobre câncer: os \textbf{Registros de Câncer de Base
+Populacional (RCBP)} e os \textbf{Registros Hospitalares de Câncer
+(RHC)}, ambos mantidos pelo Instituto Nacional do Câncer (INCA).
+Enquanto o RCBP registra a ocorrência e as características dos casos
+novos na população, o RHC reúne informações clínicas e terapêuticas de
+pacientes atendidos em hospitais habilitados na Atenção Especializada em
+Oncologia do Sistema Único de Saúde (SUS). Os RHC são responsáveis pela
+coleta, armazenamento, processamento, análise e divulgação contínua
+desses dados, incluindo informações sobre identificação, características
+demográficas, diagnóstico, tratamento e evolução dos tumores.
+Obrigatórios em hospitais que atendem pacientes com câncer no SUS, esses
+registros subsidiam a gestão hospitalar, o acompanhamento clínico e a
+avaliação da qualidade da assistência e dos desfechos dos tratamentos
+(INCA 2000).
+
+No contexto da análise de dados em saúde no Brasil, destaca-se a
+ferramenta \textbf{TabWin}, desenvolvida pelo DATASUS (Brasil 2025), que
+desempenha um papel fundamental ao permitir a tabulação e o tratamento
+desses dados. Entretanto, apesar da sua capacidade de leitura de
+arquivos no formato DBC, construção de tabelas, indicadores, gráficos e
+mapas, o TabWin é restrito ao sistema operacional \emph{Windows} e tem
+capacidades analíticas limitadas. Para estatísticas mais complexas
+existe a necessidade de exportação dos dados para pacotes estatísticos
+mais robustos, o que adiciona trabalho e potencial para erros (Jorge et
+al. 2010; Silva 2009).
+
+Essas limitações têm impulsionado a busca por ferramentas mais
+eficientes e reprodutíveis para análise de dados, viabilizada por
+ferramentas de ciência de dados que têm transformado a preparação dos
+dados em pesquisa. A \textbf{linguagem R}, amplamente utilizada para
+análise estatística, destaca-se por permitir a organização e manipulação
+de grandes volumes de dados heterogêneos, comuns em epidemiologia em
+saúde pública, ao facilitar a conversão de dados brutos em formatos
+prontos para análise e contribuir para a produção de resultados
+científicos confiáveis ({Lowndes et al.} 2017).
+
+Alguns pacotes em R específicos para manipulação e processamento de
+dados de saúde no Brasil facilitam o acesso e análise de informações de
+saúde pública, como o \textbf{microdatasus} (Saldanha et al. 2019) ---
+que viabiliza o download e pré-processamento de dados de alguns Sistemas
+de Informação do SUS diretamente do DATASUS --- e o \textbf{Rtabnetsp}
+(Morais et al. 2021), que permite a extração de indicadores de saúde dos
+servidores TabNet da Secretaria de Estado da Saúde de São Paulo.
+Entretanto, até o momento não há uma ferramenta que permita a automação
+e padronização integral do processamento do RHC.
+
+Como consequência, a utilização desses dados em larga escala permanece
+limitada por barreiras relevantes de interoperabilidade e
+reprodutibilidade. Na prática, a ausência de um \emph{pipeline}
+estruturado obriga cada pesquisador a desenvolver rotinas próprias de
+limpeza, transformação e harmonização --- geralmente baseadas em
+\emph{scripts ad hoc}. Esse cenário fragmentado implica não apenas
+repetição desnecessária das mesmas etapas de processamento por
+diferentes pesquisadores, mas também a introdução de decisões analíticas
+heterogêneas, que podem gerar estimativas divergentes a partir de uma
+mesma base de dados.
+
+Diante desse cenário, a proposta de um pacote que estabeleça um padrão
+de governança dos dados torna-se particularmente relevante, ao garantir
+que o processo de transformação do dado bruto em base analítica seja
+\textbf{transparente, documentado e reprodutível}. A padronização dessas
+etapas contribui para maior consistência entre estudos, além de
+facilitar auditorias, validações externas e o compartilhamento de
+métodos.
+
+Esta nota técnica tem como objetivo descrever e apresentar o pacote
+computacional de acesso aberto \textbf{RHCgen}, implementado na
+linguagem R, voltado à automação, padronização do processamento e
+avaliação da qualidade dos dados do Registro Hospitalar de Câncer no
+Brasil, descrevendo sua arquitetura, funcionalidades e potencial de
+aplicação em análises em larga escala com dados do RHC.
+
+\bookmarksetup{startatroot}
+
+\chapter{Fonte de Dados: o Registro Hospitalar de
+Câncer}\label{fonte-de-dados-o-registro-hospitalar-de-cuxe2ncer}
+
+\section{O que é o RHC?}\label{o-que-uxe9-o-rhc}
+
+Os Registros Hospitalares de Câncer (RHC) em todo o território
+brasileiro coletam dados individualizados de pacientes com diagnóstico
+confirmado de câncer, obtidos de prontuários e outras fontes
+hospitalares. Esses registros permitem tanto a análise detalhada em
+nível individual quanto a avaliação agregada de desfechos clínicos e dos
+padrões diagnósticos mais frequentes (INCA 2000).
+
+\section{IntegradorRHC (IRHC)}\label{integradorrhc-irhc}
+
+O RHCgen é específico para ser utilizado com dados do RHC
+disponibilizados para \emph{download} no \textbf{IntegradorRHC (IRHC)},
+no formato \emph{Data Base File} (\texttt{.dbf}), acessível em:
+
+\begin{quote}
+\url{https://irhc.inca.gov.br/RHCNet/}
+\end{quote}
+
+Implantado em \textbf{2007}, o IntegradorRHC é um sistema público que
+consolida e disponibiliza informações processadas pelo Sistema de
+Informação de Registro Hospitalar de Câncer (SisRHC), com base em
+registros de pacientes atendidos em unidades habilitadas no SUS em todo
+o território nacional.
+
+A base de dados é \textbf{não nominativa} e estruturada a partir de
+registros padronizados pelas instituições participantes, sendo o SisRHC
+responsável pelos processos de entrada, validação e padronização das
+informações (INCA 2011; Decit 2007).
+
+\section{Cobertura temporal}\label{cobertura-temporal}
+
+O RHCgen possui capacidade de processamento de arquivos provenientes de
+diferentes períodos: \textbf{de 1985 a 2023}.
+
+Para a construção do pacote e realização dos testes do \emph{pipeline},
+foram utilizados dados provenientes do IntegradorRHC. O período
+analisado compreendeu registros com ano do banco entre 1º de janeiro de
+1985 e 31 de dezembro de 2023. Os dados foram extraídos em \textbf{11 de
+julho de 2025}, considerando a versão da base disponível no sistema à
+época, cuja última atualização havia ocorrido em 7 de abril de 2025,
+assegurando a rastreabilidade dos dados utilizados.
+
+\section{Dicionário de variáveis}\label{dicionuxe1rio-de-variuxe1veis}
+
+O dicionário completo de variáveis do SisRHC está disponível no
+IntegradorRHC:
+
+\begin{quote}
+\url{https://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=dicionario.dados}
+\end{quote}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Rastreabilidade dos dados}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+A identificação da data de extração e da versão da base são etapas
+recomendadas para garantir a reprodutibilidade de análises conduzidas
+com o RHCgen. O pacote cria automaticamente a variável
+\texttt{Ano\_do\_Banco} a partir do nome original de cada arquivo
+\texttt{.dbf}, permitindo identificar o ano de origem de cada registro.
+
+\end{tcolorbox}
+
+\bookmarksetup{startatroot}
+
+\chapter{Desenvolvimento do RHCgen}\label{desenvolvimento-do-rhcgen}
+
+\section{Plataforma e ferramentas}\label{plataforma-e-ferramentas}
+
+O desenvolvimento do RHCgen foi realizado com o uso da \textbf{linguagem
+de programação R} (versão 4.5.1) (R Core Team 2024), no ambiente de
+desenvolvimento integrado \textbf{RStudio} (versão 2025.06.13) (RStudio
+2024), com o auxílio dos seguintes pacotes:
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2353}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7647}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Pacote
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Função no desenvolvimento
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\emph{usethis} & Configuração da estrutura do pacote; criação de
+diretórios e arquivos padrão \\
+\emph{devtools} & Construção, verificação e instalação do pacote; gestão
+de dependências \\
+\emph{roxygen2} & Geração automática da documentação das funções \\
+\end{longtable}
+}
+
+\section{Disponibilidade e
+instalação}\label{disponibilidade-e-instalauxe7uxe3o}
+
+O RHCgen está disponível no GitHub com o objetivo de facilitar seu uso,
+além de possibilitar a revisão e o aprimoramento por outros
+pesquisadores:
+
+\begin{quote}
+\url{https://github.com/andersonlineu/RHCgen}
+\end{quote}
+
+Com o pacote \emph{remotes} previamente instalado no R, a instalação do
+RHCgen pode ser realizada da seguinte forma:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{"andersonlineu/RHCgen"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Dependência automática}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+O pacote \emph{foreign} é instalado automaticamente no primeiro uso do
+RHCgen. Esse pacote realiza a leitura de arquivos no formato
+\texttt{.dbf}, converte campos de caracteres em fatores e respeita,
+sempre que possível, os campos nulos.
+
+\end{tcolorbox}
+
+\section{Guia de uso}\label{guia-de-uso}
+
+Um guia completo com orientações ao usuário sobre como utilizar o pacote
+está disponível em:
+
+\begin{quote}
+\url{https://andersonlineu.github.io/GuiaRHCgen/}
+\end{quote}
+
+\section{Validação algorítmica e consistência dos
+dados}\label{validauxe7uxe3o-algoruxedtmica-e-consistuxeancia-dos-dados}
+
+A validação dos algoritmos de recodificação implementados no RHCgen foi
+baseada na correspondência com as normas técnicas descritas em:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Manual} \emph{Registros Hospitalares de Câncer: Planejamento e
+  Gestão} (INCA 2010)
+\item
+  \textbf{Dicionário de Variáveis do SisRHC} (INCA 2020)
+\end{itemize}
+
+Ambos publicados pelo Instituto Nacional de Câncer (INCA).
+
+As rotinas de processamento foram construídas de forma
+\textbf{determinística}, assegurando que a transformação dos dados
+seguisse estritamente os padrões oficiais de codificação, incluindo
+mapeamentos institucionais (CNES), classificações clínicas (CID-O) e
+definições de desfechos.
+
+A identificação dos estabelecimentos de saúde foi realizada por meio de
+vinculação determinística utilizando o \textbf{código CNES} presente na
+base do RHC como chave única para integração com a base oficial do CNES.
+
+A confiabilidade das funções foi avaliada por meio de:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Testes unitários} --- valores de entrada previamente definidos
+  foram comparados às saídas esperadas, com base nos dicionários
+  oficiais
+\item
+  \textbf{Verificações de cobertura} --- para variáveis com grande
+  número de categorias, garantindo que todos os códigos válidos do
+  SisRHC fossem corretamente processados
+\item
+  \textbf{Testes de integração} --- desempenho das funções em execução
+  sequencial ao longo do \emph{pipeline}
+\item
+  \textbf{Comparações com bases de referência} --- cotejo entre saídas
+  automatizadas e bases revisadas manualmente
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-important-color!10!white, colframe=quarto-callout-important-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Dados reais na validação}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+Diferente de abordagens baseadas em simulações, todas as etapas de
+validação e estresse de volumetria utilizaram exclusivamente
+\textbf{dados reais do RHC}, permitindo atestar a estabilidade e o
+desempenho da ferramenta em condições operacionais reais.
+
+\end{tcolorbox}
+
+\bookmarksetup{startatroot}
+
+\chapter{\texorpdfstring{O \emph{Pipeline} de
+Processamento}{O Pipeline de Processamento}}\label{o-pipeline-de-processamento}
+
+\section{\texorpdfstring{Processo único: a função
+\texttt{construir\_banco()}}{Processo único: a função construir\_banco()}}\label{processo-uxfanico-a-funuxe7uxe3o-construir_banco}
+
+A arquitetura do RHCgen é centrada na função modular
+\texttt{construir\_banco()}, que opera como um \emph{pipeline}
+automatizado de extração, transformação e carga --- \emph{automated
+extract, transform, and load} (ETL).
+
+Diferente de abordagens convencionais, esta função orquestra a transição
+do dado bruto para a base analítica em \textbf{quatro estágios
+críticos}:
+
+\includegraphics[width=7.3in,height=7.9in]{04-pipeline_files/figure-latex/mermaid-figure-1.png}
+
+\section{Os quatro estágios}\label{os-quatro-estuxe1gios}
+
+\subsection{1. Harmonização
+Estrutural}\label{harmonizauxe7uxe3o-estrutural}
+
+Leitura e consolidação dinâmica de múltiplos arquivos \texttt{.dbf},
+resolvendo inconsistências de nomenclatura e tipagem de colunas entre
+diferentes séries históricas para garantir uma base única e consistente.
+
+\subsection{2. Transformação de Tipos e
+Atributos}\label{transformauxe7uxe3o-de-tipos-e-atributos}
+
+Conversão automática de variáveis importadas erroneamente como fatores
+para seus formatos originais (numérico para idade, data para eventos
+temporais e caractere para os demais campos), assegurando a integridade
+necessária para cálculos estatísticos.
+
+\subsection{3. Enriquecimento e
+Recodificação}\label{enriquecimento-e-recodificauxe7uxe3o}
+
+Mapeamento de códigos técnicos --- como CID-O, CNES e Estadiamento
+Clínico --- para termos descritivos completos, utilizando os dicionários
+oficiais do INCA como referência (INCA 2010, 2020).
+
+\subsection{4. Auditoria de Qualidade}\label{auditoria-de-qualidade}
+
+Cálculo de indicadores de completude e consistência lógica para
+avaliação da qualidade dos dados da base, permitindo identificar níveis
+de preenchimento e incoerências entre variáveis, com base em escores
+descritos por Romero e Cunha (2006) e Pinto et al. (2012).
+
+\section{Uso básico}\label{uso-buxe1sico}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(RHCgen)}
+
+\CommentTok{\# Certifique{-}se de que os arquivos .dbf estão no diretório de trabalho}
+\CommentTok{\# com o padrão de nomenclatura rhcXX.dbf (ex: rhc20.dbf, rhc21.dbf)}
+
+\NormalTok{dados\_RHC }\OtherTok{\textless{}{-}} \FunctionTok{construir\_banco}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Relatório final de
+processamento}\label{relatuxf3rio-final-de-processamento}
+
+Ao término da execução, a função \texttt{construir\_banco()} exibe
+automaticamente um relatório com os indicadores operacionais do
+processamento:
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Indicador & Valor (exemplo --- base 2000--2023) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Tempo de execução & 4,61 minutos \\
+Memória utilizada & ≈ 2,01 GB \\
+Total de registros & 5.394.771 \\
+Total de variáveis & 59 \\
+\end{longtable}
+}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Produto final}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+O dataframe resultante é mantido em memória e retornado ao ambiente de
+execução via \texttt{return(data)}. Não há salvamento automático em
+disco, o que oferece flexibilidade para que o usuário defina suas
+próprias estratégias de exportação (por exemplo, \texttt{saveRDS()},
+\texttt{write.csv()}, ou integração com bancos de dados).
+
+\end{tcolorbox}
+
+\bookmarksetup{startatroot}
+
+\chapter{Leitura e Integração dos Arquivos
+DBF}\label{leitura-e-integrauxe7uxe3o-dos-arquivos-dbf}
+
+\section{\texorpdfstring{Função
+\texttt{lerarquivoDBF()}}{Função lerarquivoDBF()}}\label{funuxe7uxe3o-lerarquivodbf}
+
+\subsection{Finalidade}\label{finalidade}
+
+A função \texttt{lerarquivoDBF()} realiza a \textbf{leitura automática}
+dos arquivos DBF do Registro Hospitalar de Câncer disponíveis no
+diretório de trabalho e combina esses arquivos em um único banco de
+dados. Além disso, cria a variável \texttt{Ano\_do\_Banco}, extraída do
+nome original do arquivo, permitindo identificar o ano de origem de cada
+registro.
+
+\subsection{Problema que resolve}\label{problema-que-resolve}
+
+Os arquivos do RHC são disponibilizados separadamente, geralmente por
+ano, em formato DBF. Esse formato exige leitura específica e pode
+apresentar diferenças estruturais entre os arquivos, como presença ou
+ausência de determinadas colunas. A função reduz o trabalho manual de
+leitura, conferência e junção desses arquivos, automatizando a etapa
+inicial de construção do banco.
+
+\subsection{Uso}\label{uso}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados\_RHC\_combinados }\OtherTok{\textless{}{-}} \FunctionTok{lerarquivoDBF}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Entrada esperada}\label{entrada-esperada}
+
+A função não exige argumentos externos. Para funcionar corretamente, os
+arquivos DBF devem:
+
+\begin{itemize}
+\tightlist
+\item
+  Estar no diretório de trabalho (use \texttt{setwd()} para definir o
+  diretório correto)
+\item
+  Manter o \textbf{nome original} proveniente do Integrador RHC, com o
+  padrão iniciado por \texttt{rhc} (ex: \texttt{rhc20.dbf},
+  \texttt{rhc21.dbf})
+\end{itemize}
+
+\subsection{Saída produzida}\label{sauxedda-produzida}
+
+Um \texttt{data.frame} único contendo os registros combinados de todos
+os arquivos DBF identificados. Caso nenhum arquivo válido seja
+encontrado, a função retorna \texttt{NULL}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Comportamento operacional}\label{comportamento-operacional}
+
+A função implementa um fluxo estruturado com os seguintes mecanismos:
+
+\begin{description}
+\tightlist
+\item[\textbf{Verificação de dependências}]
+O pacote \emph{foreign} é verificado e instalado automaticamente, se
+necessário, garantindo execução autônoma.
+\item[\textbf{Busca de arquivos}]
+A função procura arquivos com o padrão
+\texttt{\^{}rhc.*\textbackslash{}.dbf\$}. Se nenhum for encontrado,
+encerra com mensagem informativa.
+\item[\textbf{Processamento iterativo}]
+Para cada arquivo, a função realiza leitura via
+\texttt{foreign::read.dbf()}, verifica a presença de registros válidos,
+e extrai o ano a partir do nome do arquivo.
+\item[\textbf{Extração do ano}]
+Utiliza expressão regular com lógica de conversão para século: anos
+\texttt{\textless{}\ 50} são atribuídos ao século XXI; anos
+\texttt{≥\ 50}, ao século XX.
+\item[\textbf{Tratamento de erros}]
+O uso de \texttt{tryCatch()} garante que erros individuais na leitura de
+um arquivo não interrompam o processamento dos demais.
+\item[\textbf{Harmonização estrutural}]
+A função identifica o conjunto completo de colunas de todos os arquivos
+e adiciona colunas ausentes com valores \texttt{NA}, compatibilizando
+estruturas heterogêneas entre diferentes anos do RHC.
+\item[\textbf{Integração final}]
+Os dados são combinados via \texttt{do.call(rbind,\ ...)}, resultando em
+um único \texttt{data.frame} consolidado.
+\end{description}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Importância no fluxo do RHCgen}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+Esta é a \textbf{primeira etapa} do pipeline do RHCgen. Ela cria a base
+inicial sobre a qual serão aplicadas as demais etapas de padronização,
+recodificação, conversão de tipos, harmonização territorial, validação e
+análise de qualidade dos dados.
+
+\end{tcolorbox}
+
+\bookmarksetup{startatroot}
+
+\chapter{Padronização das
+Variáveis}\label{padronizauxe7uxe3o-das-variuxe1veis}
+
+\section{\texorpdfstring{Função
+\texttt{renomear\_colunas()}}{Função renomear\_colunas()}}\label{funuxe7uxe3o-renomear_colunas}
+
+\subsection{Finalidade}\label{finalidade-1}
+
+A função \texttt{renomear\_colunas()} realiza a \textbf{padronização dos
+nomes das variáveis} presentes no dataframe, substituindo as
+nomenclaturas originais dos arquivos DBF por nomes mais descritivos,
+consistentes e adequados ao uso analítico.
+
+\subsection{Problema que resolve}\label{problema-que-resolve-1}
+
+Os arquivos do RHC utilizam nomes de variáveis abreviados,
+frequentemente pouco intuitivos e, em alguns casos, inconsistentes ao
+longo do tempo. Essa característica dificulta a interpretação dos dados,
+aumenta a probabilidade de erros na análise e compromete a
+reprodutibilidade.
+
+\subsection{Uso}\label{uso-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{renomear\_colunas}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Mapeamento de variáveis}\label{mapeamento-de-variuxe1veis}
+
+O Tabela~\ref{tbl-mapeamento} apresenta o mapeamento completo das 47
+variáveis originais do RHC para a nomenclatura padronizada adotada pelo
+RHCgen.
+
+\begin{longtable}[]{@{}ll@{}}
+\caption{Mapeamento de variáveis do RHC para nomenclatura padronizada do
+RHCgen (47 variáveis)}\label{tbl-mapeamento}\tabularnewline
+\toprule\noalign{}
+Nome original no DBF & Nome padronizado no RHCgen \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Nome original no DBF & Nome padronizado no RHCgen \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{TPCASO} & \texttt{Tipo\_de\_Caso} \\
+\texttt{SEXO} & \texttt{Sexo} \\
+\texttt{IDADE} & \texttt{Idade} \\
+\texttt{LOCALNAS} & \texttt{Local\_Nascimento} \\
+\texttt{RACACOR} & \texttt{Raca\_Cor} \\
+\texttt{INSTRUC} & \texttt{Escolaridade} \\
+\texttt{CLIATEN} & \texttt{Clinica\_Atendimento} \\
+\texttt{CLITRAT} & \texttt{Clinica\_Tratamento} \\
+\texttt{HISTFAMC} & \texttt{Historico\_Familiar\_Cancer} \\
+\texttt{ALCOOLIS} & \texttt{Consumo\_Alcool} \\
+\texttt{TABAGISM} & \texttt{Tabagismo} \\
+\texttt{ESTADRES} & \texttt{Estado\_Residencia} \\
+\texttt{PROCEDEN} & \texttt{Codigo\_Municipio\_Residencia} \\
+\texttt{ANOPRIDI} & \texttt{Ano\_Primeiro\_Diagnostico} \\
+\texttt{ORIENC} & \texttt{Origem\_do\_Encaminhamento} \\
+\texttt{EXDIAG} & \texttt{Exames\_Relevantes\_para\_Diagnostico} \\
+\texttt{ESTCONJ} & \texttt{Estado\_conjugal} \\
+\texttt{ANTRI} & \texttt{Ano\_Triagem} \\
+\texttt{DTPRICON} & \texttt{Ano\_Primeira\_Consulta} \\
+\texttt{DIAGANT} & \texttt{Diagnosticos\_e\_Tratamentos\_Anterior} \\
+\texttt{BASMAIMP} & \texttt{Base\_Mais\_Importante\_Diagnostico} \\
+\texttt{LOCTUDET} & \texttt{Localizacao\_Primaria\_3D} \\
+\texttt{LOCTUPRI} & \texttt{Localizacao\_Primaria\_4D} \\
+\texttt{TIPOHIST} & \texttt{Tipo\_Histologico} \\
+\texttt{LATERALI} & \texttt{Lateralidade} \\
+\texttt{LOCTUPRO} & \texttt{Local\_Provavel\_Tumor} \\
+\texttt{MAISUMTU} & \texttt{Mais\_de\_Um\_Tumor} \\
+\texttt{TNM} & \texttt{Classificacao\_TNM} \\
+\texttt{ESTADIAM} & \texttt{Estadiamento\_Clinico} \\
+\texttt{OUTROESTA} & \texttt{Outro\_Estadiamento\_Clinico} \\
+\texttt{PTNM} & \texttt{TNM\_Patologico} \\
+\texttt{RZNTR} & \texttt{Razao\_Nao\_Tratamento} \\
+\texttt{DTINITRT} & \texttt{Ano\_Inicio\_Tratamento} \\
+\texttt{PRITRATH} & \texttt{Primeiro\_Tratamento\_Hospital} \\
+\texttt{ESTDFIMT} & \texttt{Estado\_Doenca\_Final\_Tratamento} \\
+\texttt{DTTRIAGE} & \texttt{Data\_Triagem} \\
+\texttt{DATAPRICON} & \texttt{Data\_Primeira\_Consulta} \\
+\texttt{BASDIAGSP} &
+\texttt{Base\_Mais\_Importante\_Diagnostico\_Sem\_Patologicas} \\
+\texttt{CNES} & \texttt{CNES\_Hospital} \\
+\texttt{UFUH} & \texttt{UF\_Unidade\_Hospital} \\
+\texttt{MUUH} & \texttt{Municipio\_Unidade\_Hospital} \\
+\texttt{OCUPACAO} & \texttt{Ocupacao\_Paciente} \\
+\texttt{DTDIAGNO} & \texttt{Data\_Diagnostico} \\
+\texttt{DATAINITRT} & \texttt{Data\_Inicio\_Primeiro\_Tratamento} \\
+\texttt{DATAOBITO} & \texttt{Data\_Obito} \\
+\texttt{VALOR\_TOT} & \texttt{Valor\_Total} \\
+\texttt{ESTADIAG} &
+\texttt{Estadiamento\_Clinico\_TNM\_grupo\_1985\_1999} \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{\texorpdfstring{Função
+\texttt{modificar\_tipo\_variavel()}}{Função modificar\_tipo\_variavel()}}\label{funuxe7uxe3o-modificar_tipo_variavel}
+
+\subsection{Finalidade}\label{finalidade-2}
+
+A função \texttt{modificar\_tipo\_variavel()} realiza a
+\textbf{padronização dos tipos das variáveis}, convertendo
+sistematicamente os campos para formatos apropriados ao processamento
+analítico.
+
+\subsection{Conversões realizadas}\label{conversuxf5es-realizadas}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4865}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5135}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Tipo de variável
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Formato resultante
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Variáveis categóricas em geral & \texttt{character} \\
+\texttt{Idade} & \texttt{numeric} \\
+Variáveis de data (\texttt{Data\_Triagem},
+\texttt{Data\_Primeira\_Consulta}, \texttt{Data\_Diagnostico},
+\texttt{Data\_Inicio\_Primeiro\_Tratamento}, \texttt{Data\_Obito}) &
+\texttt{Date} (formato \texttt{\%d/\%m/\%Y}) \\
+\end{longtable}
+}
+
+\subsection{Problema que resolve}\label{problema-que-resolve-2}
+
+Arquivos oriundos do formato DBF frequentemente apresentam
+inconsistências na tipagem após a importação para o R: datas lidas como
+texto, variáveis numéricas tratadas como fatores, formatações
+heterogêneas. Essas inconsistências podem gerar erros analíticos
+silenciosos e comprometer a integridade das análises.
+
+\subsection{Uso}\label{uso-2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{modificar\_tipo\_variavel}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Conversão segura de \texttt{Idade}}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+A variável \texttt{Idade} é convertida em duas etapas: primeiro para
+\texttt{character}, depois para \texttt{numeric}. Essa abordagem evita
+problemas comuns associados à conversão direta de fatores para valores
+numéricos, que pode introduzir distorções silenciosas nos dados.
+
+\end{tcolorbox}
+
+\bookmarksetup{startatroot}
+
+\chapter{Recodificação das Variáveis
+Categóricas}\label{recodificauxe7uxe3o-das-variuxe1veis-categuxf3ricas}
+
+\section{\texorpdfstring{Função
+\texttt{recodificar\_variaveis()}}{Função recodificar\_variaveis()}}\label{funuxe7uxe3o-recodificar_variaveis}
+
+\subsection{Finalidade}\label{finalidade-3}
+
+A função \texttt{recodificar\_variaveis()} realiza a
+\textbf{transformação de variáveis categóricas} originalmente
+codificadas em formato numérico ou textual para categorias
+interpretáveis, com base no dicionário de variáveis do Registro
+Hospitalar de Câncer. As variáveis são convertidas para o tipo
+\texttt{factor} com níveis definidos, garantindo consistência semântica
+e padronização para análise.
+
+\subsection{Problema que resolve}\label{problema-que-resolve-3}
+
+Os dados do RHC apresentam variáveis categóricas codificadas por números
+(por exemplo, \texttt{"1"}, \texttt{"2"}, \texttt{"9"}), que não possuem
+interpretação direta sem consulta ao dicionário. Essa codificação
+dificulta a análise, aumenta o risco de erro na interpretação e
+compromete a comunicação dos resultados.
+
+\subsection{Uso}\label{uso-3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{recodificar\_variaveis}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Tolerância a variações}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+A função opera de forma tolerante a erros parciais: variáveis ausentes
+são identificadas e reportadas sem interromper o fluxo. Valores não
+previstos nas regras de recodificação são mantidos sem alteração.
+
+\end{tcolorbox}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Variáveis recodificadas}\label{variuxe1veis-recodificadas}
+
+O Tabela~\ref{tbl-recodificacao} apresenta as variáveis categóricas
+recodificadas, organizadas por domínio temático.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2093}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2326}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5581}}@{}}
+\caption{Variáveis categóricas recodificadas pelo RHCgen, segundo
+domínio temático}\label{tbl-recodificacao}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Domínio
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Variável
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Categorias padronizadas
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Domínio
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Variável
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Categorias padronizadas
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Identificação do caso} & \texttt{Tipo\_de\_Caso} & Analítico;
+Não Analítico; Outro \\
+\textbf{Sociodemográficas} & \texttt{Sexo} & Masculino; Feminino;
+Outro \\
+& \texttt{Raca\_Cor} & Branca; Preta; Amarela; Parda; Indígena; Sem
+informação \\
+& \texttt{Escolaridade} & Nenhuma; Fundamental incompleto; Fundamental
+completo; Nível médio; Nível superior incompleto; Nível superior
+completo; Sem informação \\
+& \texttt{Estado\_conjugal} & Solteiro; Casado; Viúvo; Separado
+judicialmente; União consensual; Sem informação \\
+\textbf{Histórico e hábitos} & \texttt{Historico\_Familiar\_Cancer} &
+Sim; Não; Sem informação \\
+& \texttt{Consumo\_Alcool} & Nunca; Ex-consumidor; Sim; Não avaliado;
+Não se aplica; Sem informação \\
+& \texttt{Tabagismo} & Nunca; Ex-consumidor; Sim; Não avaliado; Não se
+aplica; Sem informação \\
+\textbf{Acesso e diagnóstico} & \texttt{Origem\_do\_Encaminhamento} &
+SUS; Não SUS; Veio por conta própria; Não se aplica; Sem informação \\
+& \texttt{Exames\_Relevantes\_para\_Diagnostico} & Exame clínico e
+patologia clínica; Exames por imagem; Endoscopia e cirurgia exploradora;
+Anatomia patológica; Marcadores tumorais; Não se aplica; Sem
+informação \\
+& \texttt{Base\_Mais\_Importante\_Diagnostico} & Clínica; Pesquisa
+clínica; Exame por imagem; Marcadores tumorais; Citologia; Histologia da
+metástase; Histologia do tumor primário; Sem informação \\
+& \texttt{Base\_Mais\_Importante\_Diagnostico\_Sem\_Patologicas} & Exame
+clínico; Recursos auxiliares não microscópicos; Confirmação
+microscópica; Sem informação \\
+\textbf{Características clínicas} & \texttt{Lateralidade} & Direita;
+Esquerda; Bilateral; Não se aplica; Sem informação \\
+& \texttt{Mais\_de\_Um\_Tumor} & Sim; Não; Duvidoso \\
+& \texttt{Estadiamento\_Clinico\_TNM\_grupo\_1985\_1999} & Estádio I;
+Estádio II; Estádio III; Estádio IV; Não se aplica; Sem informação \\
+\textbf{Histórico assistencial} &
+\texttt{Diagnosticos\_e\_Tratamentos\_Anterior} & Sem diagnóstico e sem
+tratamento; Com diagnóstico e sem tratamento; Com diagnóstico e com
+tratamento; Outros; Sem informação \\
+\textbf{Tratamento} & \texttt{Primeiro\_Tratamento\_Hospital} & Nenhum;
+Cirurgia; Radioterapia; Quimioterapia; Hormonioterapia; Transplante de
+medula óssea; Imunoterapia; Outras; Sem informação \\
+& \texttt{Razao\_Nao\_Tratamento} & Recusa do tratamento; Tratamento
+realizado fora; Doença avançada ou comorbidades; Abandono; Complicações;
+Óbito; Outras razões; Não se aplica; Sem informação \\
+\textbf{Desfecho} & \texttt{Estado\_Doenca\_Final\_Tratamento} & Sem
+evidência da doença; Remissão parcial; Doença estável; Doença em
+progressão; Suporte terapêutico; Óbito; Não se aplica; Sem informação \\
+\end{longtable}
+
+Para consultar o dicionário completo de códigos, acesse:
+
+\begin{quote}
+\url{https://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=dicionario.dados}
+\end{quote}
+
+\bookmarksetup{startatroot}
+
+\chapter{Harmonização Territorial das Variáveis
+Geográficas}\label{harmonizauxe7uxe3o-territorial-das-variuxe1veis-geogruxe1ficas}
+
+\section{Funções de
+harmonização}\label{funuxe7uxf5es-de-harmonizauxe7uxe3o}
+
+O RHCgen dispõe de três funções dedicadas à conversão de códigos
+geográficos em informações textuais interpretáveis:
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5714}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4286}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Função
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ação
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{renomear\_siglas\_estados()} & Converte siglas das UFs em nomes
+completos \\
+\texttt{renomear\_codigo\_municipio\_residencia()} & Converte código do
+município de residência em nome \\
+\texttt{renomear\_codigo\_municipio\_hospital()} & Converte código do
+município do hospital em nome \\
+\end{longtable}
+}
+
+\subsection{Uso}\label{uso-4}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{renomear\_siglas\_estados}\NormalTok{(data)}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{renomear\_codigo\_municipio\_residencia}\NormalTok{(data)}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{renomear\_codigo\_municipio\_hospital}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Finalidade das funções}\label{finalidade-das-funuxe7uxf5es}
+
+As funções de harmonização territorial realizam a \textbf{conversão de
+códigos geográficos} utilizados no RHC em informações textuais
+interpretáveis, adicionando novas variáveis ao dataframe.
+Especificamente, convertem siglas das Unidades da Federação e códigos de
+municípios em seus respectivos nomes completos, tanto para o local de
+residência do paciente quanto para a unidade hospitalar de atendimento.
+
+\section{Problema que resolvem}\label{problema-que-resolvem}
+
+Os dados do RHC utilizam codificações abreviadas para representação
+geográfica --- siglas de estados e códigos numéricos de municípios.
+Esses formatos dificultam a interpretação direta, limitam a análise
+descritiva e comprometem a visualização espacial dos dados. As funções
+resolvem esse problema ao incorporar, diretamente no banco, variáveis
+com nomes completos e padronizados.
+
+\section{Variáveis de entrada e
+saída}\label{variuxe1veis-de-entrada-e-sauxedda}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Variável de entrada & Variável criada \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{Estado\_Residencia} & \texttt{Nome\_Estado\_Residencia} \\
+\texttt{UF\_Unidade\_Hospital} & \texttt{Nome\_Estado\_Hospital} \\
+\texttt{Codigo\_Municipio\_Residencia} &
+\texttt{Nome\_Municipio\_Residencia} \\
+\texttt{Municipio\_Unidade\_Hospital} &
+\texttt{Nome\_Municipio\_Hospital} \\
+\end{longtable}
+}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Preservação das variáveis originais}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+As funções de harmonização territorial \textbf{preservam os códigos
+originais}, adicionando novas colunas ao dataframe sem alterá-las.
+Valores não mapeados resultam em \texttt{NA}, sem interrupção do fluxo
+de execução.
+
+\end{tcolorbox}
+
+\section{Características
+operacionais}\label{caracteruxedsticas-operacionais}
+
+\begin{itemize}
+\tightlist
+\item
+  Operam de forma \textbf{vetorizada}, garantindo eficiência em grandes
+  volumes de dados
+\item
+  Implementam \textbf{verificação explícita} da existência das variáveis
+  de entrada
+\item
+  Utilizam interrupção controlada (\texttt{stop()}) quando condições
+  mínimas não são atendidas
+\item
+  Não validam a consistência dos códigos de entrada, assumindo
+  conformidade com o padrão do RHC
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Aplicações analíticas}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+Essa etapa é fundamental para análises espaciais, estudos de
+acessibilidade geográfica, avaliação de fluxos de deslocamento de
+pacientes e construção de indicadores territoriais. A presença de nomes
+completos facilita a geração de mapas e a comunicação dos resultados em
+contextos científicos e institucionais.
+
+\end{tcolorbox}
+
+\bookmarksetup{startatroot}
+
+\chapter{Padronização de Códigos Clínicos e
+Assistenciais}\label{padronizauxe7uxe3o-de-cuxf3digos-cluxednicos-e-assistenciais}
+
+\section{Códigos diagnósticos}\label{cuxf3digos-diagnuxf3sticos}
+
+\subsection{Funções disponíveis}\label{funuxe7uxf5es-disponuxedveis}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5714}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4286}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Função
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ação
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{renomear\_CID\_3digitos()} & CID-O com 3 dígitos → descrição
+completa da localização tumoral \\
+\texttt{renomear\_CID\_4digitos()} & CID-O com 4 dígitos → descrição
+completa da localização tumoral \\
+\texttt{renomear\_tipo\_histologico()} & Código histológico → descrição
+do tipo histológico \\
+\texttt{renomear\_estadiamento\_clinico()} & Código de estadiamento →
+categoria padronizada \\
+\texttt{classificacao\_CID\_0()} & CID-O → agrupamento por grande grupo
+anatômico \\
+\end{longtable}
+}
+
+\subsection{Uso}\label{uso-5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{renomear\_CID\_3digitos}\NormalTok{(data)}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{renomear\_tipo\_histologico}\NormalTok{(data)}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{renomear\_estadiamento\_clinico}\NormalTok{(data)}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{classificacao\_CID\_0}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Variáveis criadas}\label{variuxe1veis-criadas}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Variável de entrada & Variável criada \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{Localizacao\_Primaria\_3D} & \texttt{CID3d} \\
+\texttt{Localizacao\_Primaria\_4D} & \texttt{CID4d} \\
+\texttt{Tipo\_Histologico} & \texttt{Tipo\_Histologico\_Completo} \\
+\texttt{Estadiamento\_Clinico} & \texttt{Nome\_Estadiamento\_Clinico} \\
+\texttt{Localizacao\_Primaria\_3D} & \texttt{Classificacao\_CID\_O} \\
+\end{longtable}
+}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{\texorpdfstring{Classificação por grupo anatômico:
+\texttt{classificacao\_CID\_0()}}{Classificação por grupo anatômico: classificacao\_CID\_0()}}\label{classificauxe7uxe3o-por-grupo-anatuxf4mico-classificacao_cid_0}
+
+\subsection{Finalidade}\label{finalidade-4}
+
+A função \texttt{classificacao\_CID\_0()} classifica as neoplasias
+malignas em \textbf{grandes grupos anatômicos} a partir dos códigos
+registrados na variável \texttt{Localizacao\_Primaria\_3D}. A variável
+resultante, \texttt{Classificacao\_CID\_O}, agrupa os códigos CID-O em
+categorias como neoplasias malignas dos órgãos digestivos, órgãos
+respiratórios, mama, órgãos genitais masculinos, órgãos urinários e
+tecidos linfático/hematopoético.
+
+\subsection{Lógica de
+classificação}\label{luxf3gica-de-classificauxe7uxe3o}
+
+Para cada registro, a função aplica três decisões sequenciais:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Se o código é \texttt{NA} → resultado permanece \texttt{NA}
+\item
+  Se o código está no vetor de mapeamento → recebe a categoria
+  correspondente
+\item
+  Se o código não está previsto → recebe \texttt{"Outros"}
+\end{enumerate}
+
+\subsection{Padronização do estadiamento
+clínico}\label{padronizauxe7uxe3o-do-estadiamento-cluxednico}
+
+A função \texttt{renomear\_estadiamento\_clinico()} resolve um problema
+crítico de heterogeneidade: o RHC acumula múltiplos formatos de registro
+do estadiamento ao longo do tempo (por exemplo: \texttt{"1"},
+\texttt{"I"}, \texttt{"1A"}, \texttt{"01"}). A função mapeia todos esses
+formatos para categorias padronizadas (\texttt{"Estádio\ I"},
+\texttt{"Estádio\ II"}, etc.), promovendo comparabilidade entre
+registros de diferentes períodos.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Códigos assistenciais e
+hospitalares}\label{cuxf3digos-assistenciais-e-hospitalares}
+
+\subsection{Funções disponíveis}\label{funuxe7uxf5es-disponuxedveis-1}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5714}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4286}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Função
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ação
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{renomear\_clinica()} & Converte códigos de clínicas para nomes
+completos \\
+\texttt{renomear\_CNES()} & Converte código CNES para nome do
+estabelecimento \\
+\end{longtable}
+}
+
+\subsection{Uso}\label{uso-6}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{renomear\_clinica}\NormalTok{(data)}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{renomear\_CNES}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Variáveis criadas}\label{variuxe1veis-criadas-1}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Variável de entrada & Variável criada \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{Clinica\_Atendimento} & \texttt{Nome\_Clinica\_Atendimento} \\
+\texttt{Clinica\_Tratamento} & \texttt{Nome\_Clinica\_Tratamento} \\
+\texttt{CNES\_Hospital} & \texttt{Estabelecimento\_Hospitalar} \\
+\end{longtable}
+}
+
+Para consultar o dicionário de códigos de clínicas:
+
+\begin{quote}
+\url{https://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=tabela.clinicas}
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{\texorpdfstring{Organização estrutural do banco:
+\texttt{ordenando\_colunas()}}{Organização estrutural do banco: ordenando\_colunas()}}\label{organizauxe7uxe3o-estrutural-do-banco-ordenando_colunas}
+
+Após todas as etapas de leitura, padronização, recodificação e criação
+de novas variáveis, a função \texttt{ordenando\_colunas()} organiza as
+variáveis do dataframe em uma \textbf{ordem lógica predefinida},
+alinhada à estrutura analítica do RHCgen.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{ordenando\_colunas}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+A organização segue uma sequência que integra dimensões
+sociodemográficas, clínicas, assistenciais e temporais, facilitando a
+utilização do banco em estudos epidemiológicos.
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Tolerância a variações estruturais}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+A função não adiciona colunas ausentes nem interrompe a execução quando
+variáveis não estão disponíveis, operando de forma tolerante à variação
+estrutural do banco entre diferentes períodos históricos do RHC.
+
+\end{tcolorbox}
+
+\bookmarksetup{startatroot}
+
+\chapter{Avaliação da Qualidade dos
+Dados}\label{avaliauxe7uxe3o-da-qualidade-dos-dados}
+
+\section{\texorpdfstring{Função principal:
+\texttt{analise\_qualidade\_dos\_dados()}}{Função principal: analise\_qualidade\_dos\_dados()}}\label{funuxe7uxe3o-principal-analise_qualidade_dos_dados}
+
+\subsection{Finalidade}\label{finalidade-5}
+
+A função \texttt{analise\_qualidade\_dos\_dados()} executa uma
+\textbf{avaliação automatizada da qualidade} do banco processado pelo
+RHCgen. Essa etapa reúne análises de completude e consistência,
+permitindo identificar variáveis com maior proporção de dados ausentes,
+códigos inválidos, idades inconsistentes, inconsistências temporais e
+incompatibilidades entre sexo e topografia tumoral.
+
+\subsection{Uso}\label{uso-7}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{analise\_qualidade\_dos\_dados}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Saídas produzidas}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+A função não retorna um novo dataframe. Ela exibe mensagens de progresso
+no console, gera um gráfico de barras de completude e produz um
+\textbf{relatório HTML} com as verificações de inconsistência, aberto
+automaticamente no navegador ao final da execução.
+
+\end{tcolorbox}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Análise de completude}\label{anuxe1lise-de-completude}
+
+\subsection{\texorpdfstring{Função
+\texttt{analise\_completude()}}{Função analise\_completude()}}\label{funuxe7uxe3o-analise_completude}
+
+Para cada variável do banco, a função calcula o número de valores
+ausentes, considerando:
+
+\begin{itemize}
+\tightlist
+\item
+  Valores \texttt{NA}
+\item
+  Registros explicitamente classificados como \texttt{"Sem\ informação"}
+\end{itemize}
+
+\subsubsection{Classificação da
+completude}\label{classificauxe7uxe3o-da-completude}
+
+A classificação segue o escore proposto por Romero e Cunha (2006):
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Percentual de completude & Classificação \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+≥ 95\% & Excelente \\
+90\% a \textless{} 95\% & Bom \\
+80\% a \textless{} 90\% & Regular \\
+50\% a \textless{} 80\% & Ruim \\
+\textless{} 50\% & Muito Ruim \\
+\end{longtable}
+}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Ajuste para \texttt{Data\_Obito}}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+Quando a variável \texttt{Data\_Obito} está presente, a completude é
+ajustada considerando apenas registros em que o desfecho foi óbito,
+permitindo uma avaliação mais adequada dessa variável no contexto
+clínico.
+
+\end{tcolorbox}
+
+\subsection{\texorpdfstring{Análise de completude por ano:
+\texttt{analise\_completude\_ano()}}{Análise de completude por ano: analise\_completude\_ano()}}\label{anuxe1lise-de-completude-por-ano-analise_completude_ano}
+
+A função \texttt{analise\_completude\_ano()} calcula a completude de
+cada variável estratificada por ano do banco:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tabela\_completude\_ano }\OtherTok{\textless{}{-}} \FunctionTok{analise\_completude\_ano}\NormalTok{(dados\_RHC\_combinados)}
+\end{Highlighting}
+\end{Shaded}
+
+O resultado é um dataframe no qual cada linha representa uma variável e
+cada coluna corresponde a um ano. As células apresentam o percentual e a
+classificação abreviada, por exemplo: \texttt{95.2\%\ (E)}.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Sigla & Classificação \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+E & Excelente (≥ 95\%) \\
+B & Bom (90\% a \textless{} 95\%) \\
+R & Regular (80\% a \textless{} 90\%) \\
+RU & Ruim (50\% a \textless{} 80\%) \\
+MR & Muito Ruim (\textless{} 50\%) \\
+\end{longtable}
+}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Análise de consistência}\label{anuxe1lise-de-consistuxeancia}
+
+\subsection{\texorpdfstring{Função
+\texttt{tabela\_inconsistencias()}}{Função tabela\_inconsistencias()}}\label{funuxe7uxe3o-tabela_inconsistencias}
+
+A análise de consistência é organizada em duas dimensões:
+
+\subsubsection{1. Validação de códigos e preenchimento
+formal}\label{validauxe7uxe3o-de-cuxf3digos-e-preenchimento-formal}
+
+\textbf{Função: \texttt{verificar\_codigos\_inconsistentes()}}
+
+Avalia se os valores registrados em variáveis selecionadas pertencem ao
+conjunto de códigos ou categorias esperadas para cada campo, incluindo:
+\texttt{Sexo}, \texttt{Raca\_Cor}, \texttt{Escolaridade},
+\texttt{Localizacao\_Primaria\_3D}, \texttt{Localizacao\_Primaria\_4D},
+\texttt{Tipo\_Histologico}, \texttt{CNES\_Hospital} e
+\texttt{UF\_Unidade\_Hospital}.
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Nota}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+Códigos como \texttt{99}, \texttt{999}, \texttt{88} e \texttt{888},
+quando previstos no dicionário interno, são tratados como
+\textbf{categorias válidas}, e não como inconsistências.
+
+\end{tcolorbox}
+
+\textbf{Função: \texttt{verificar\_idades\_inconsistentes()}}
+
+Avalia a plausibilidade da variável \texttt{Idade}, aplicando dois
+critérios: idade menor que 0 e idade maior que 150 anos.
+
+\subsubsection{2. Coerência lógico-clínica entre
+variáveis}\label{coeruxeancia-luxf3gico-cluxednica-entre-variuxe1veis}
+
+\textbf{Função: \texttt{verificar\_anos\_inconsistentes()}}
+
+Avalia a coerência cronológica entre anos dos principais eventos
+clínicos e assistenciais, verificando cinco comparações lógicas:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Ano do diagnóstico anterior à primeira consulta
+\item
+  Ano do diagnóstico anterior à triagem
+\item
+  Início do tratamento anterior à primeira consulta
+\item
+  Início do tratamento anterior à triagem
+\item
+  Início do tratamento anterior ao primeiro diagnóstico
+\end{enumerate}
+
+\textbf{Função: \texttt{verificar\_cancer\_sexo\_inconsistentes()}}
+
+Avalia a compatibilidade entre \texttt{Sexo} e a localização primária do
+tumor para topografias anatomicamente relacionadas ao sexo (órgãos
+genitais femininos e masculinos).
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-important-color!10!white, colframe=quarto-callout-important-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Denominador específico}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+A proporção de inconsistência sexo--topografia é calculada usando como
+denominador apenas os registros completos pertencentes ao respectivo
+grupo topográfico, e não o total do banco, evitando distorção da
+estimativa.
+
+\end{tcolorbox}
+
+\subsection{Classificação de
+gravidade}\label{classificauxe7uxe3o-de-gravidade}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Proporção de inconsistência & Classificação \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textless{} 1\% & Baixo \\
+1\% a \textless{} 5\% & Moderado \\
+5\% a \textless{} 20\% & Alto \\
+≥ 20\% & Crítico \\
+\end{longtable}
+}
+
+\subsection{Relatório HTML}\label{relatuxf3rio-html}
+
+Os resultados são integrados em um relatório HTML estruturado,
+incluindo:
+
+\begin{itemize}
+\tightlist
+\item
+  Resumo executivo com principais inconsistências
+\item
+  Tabelas ordenadas por magnitude do problema
+\item
+  Classificação de gravidade com codificação visual
+\item
+  Interpretação automatizada por seção
+\item
+  Notas metodológicas específicas para cada análise
+\item
+  Seção de implicações analíticas e limitações
+\end{itemize}
+
+O relatório é salvo automaticamente no diretório de trabalho e aberto no
+navegador padrão ao final da execução.
+
+\bookmarksetup{startatroot}
+
+\chapter{Aplicação}\label{aplicauxe7uxe3o}
+
+\section{Processamento da base nacional
+(2000--2023)}\label{processamento-da-base-nacional-20002023}
+
+Para demonstrar o funcionamento do RHCgen em escala real, foram
+processados \textbf{24 arquivos do RHC}, correspondentes ao período de
+2000 a 2023, disponibilizados pelo IntegradorRHC.
+
+O processamento foi realizado por meio da função
+\texttt{construir\_banco()}, que integrou automaticamente os dados
+provenientes de diferentes anos e promoveu a padronização estrutural e
+semântica das variáveis.
+
+\section{Resultados operacionais}\label{resultados-operacionais}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Indicador & Valor \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Arquivos processados & 24 (anos 2000--2023) \\
+Registros na base final & \textbf{5.394.771} \\
+Variáveis na base final & \textbf{59} \\
+Tempo de execução & \textbf{4,61 minutos} \\
+Consumo de memória RAM & \textbf{≈ 2,01 GB} \\
+\end{longtable}
+}
+
+\section{Código de reprodução}\label{cuxf3digo-de-reproduuxe7uxe3o}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(RHCgen)}
+
+\CommentTok{\# Definir o diretório com os arquivos .dbf}
+\FunctionTok{setwd}\NormalTok{(}\StringTok{"caminho/para/seus/arquivos/dbf"}\NormalTok{)}
+
+\CommentTok{\# Executar o pipeline completo}
+\NormalTok{dados\_RHC }\OtherTok{\textless{}{-}} \FunctionTok{construir\_banco}\NormalTok{()}
+
+\CommentTok{\# Verificar estrutura da base}
+\FunctionTok{dim}\NormalTok{(dados\_RHC)       }\CommentTok{\# 5394771 linhas × 59 colunas}
+\FunctionTok{str}\NormalTok{(dados\_RHC)       }\CommentTok{\# estrutura das variáveis}
+\FunctionTok{head}\NormalTok{(dados\_RHC)      }\CommentTok{\# primeiros registros}
+
+\CommentTok{\# Análise de completude por ano (opcional)}
+\NormalTok{tabela\_completude }\OtherTok{\textless{}{-}} \FunctionTok{analise\_completude\_ano}\NormalTok{(dados\_RHC)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Exportação da base}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+O RHCgen não salva automaticamente os dados em disco. Para exportar a
+base analítica, utilize, por exemplo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Formato R nativo (recomendado para reutilização)}
+\FunctionTok{saveRDS}\NormalTok{(dados\_RHC, }\StringTok{"dados\_RHC\_2000\_2023.rds"}\NormalTok{)}
+
+\CommentTok{\# Formato CSV (maior compatibilidade)}
+\FunctionTok{write.csv}\NormalTok{(dados\_RHC, }\StringTok{"dados\_RHC\_2000\_2023.csv"}\NormalTok{, }\AttributeTok{row.names =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{tcolorbox}
+
+\section{Considerações sobre requisitos
+computacionais}\label{considerauxe7uxf5es-sobre-requisitos-computacionais}
+
+O consumo de \textbf{2,01 GB de memória RAM} para a base completa
+(2000--2023) pode representar uma limitação em ambientes computacionais
+com recursos reduzidos. Para usuários que trabalhem com infraestrutura
+restrita, recomenda-se:
+
+\begin{itemize}
+\tightlist
+\item
+  Processar subconjuntos de arquivos por período (ex: décadas separadas)
+\item
+  Aumentar a memória disponível para o R com \texttt{memory.limit()}
+  (Windows) ou configurações de sistema
+\item
+  Considerar o uso de pacotes como \emph{data.table} ou \emph{arrow}
+  para manipulação de grandes volumes após o processamento inicial
+\end{itemize}
+
+\bookmarksetup{startatroot}
+
+\chapter{Discussão}\label{discussuxe3o}
+
+O RHCgen demonstrou ser uma ferramenta eficiente para a automação e
+padronização do processamento de dados do Registro Hospitalar de Câncer
+no Brasil, ao consolidar 5.394.771 registros provenientes de 24 arquivos
+anuais (2000--2023) em uma única base analítica estruturada em 4,61
+minutos e com consumo de aproximadamente 2,01 GB de memória. Esse
+resultado evidencia a viabilidade técnica do pacote para o manejo de
+grandes volumes de dados epidemiológicos em saúde, corroborando o
+potencial das ferramentas de ciência de dados de código aberto para
+transformar fluxos de trabalho em pesquisa em saúde pública ({Lowndes et
+al.} 2017; Chan 2018).
+
+\section{Vantagens em relação ao
+TabWin}\label{vantagens-em-relauxe7uxe3o-ao-tabwin}
+
+A utilização da linguagem R como plataforma de desenvolvimento
+mostrou-se adequada para os objetivos propostos. Diferentemente do
+\textbf{TabWin} --- ferramenta amplamente utilizada no contexto do
+DATASUS, mas restrita ao sistema operacional Windows e com capacidades
+analíticas limitadas ---, o RHCgen:
+
+\begin{itemize}
+\tightlist
+\item
+  Opera em \textbf{ambiente multiplataforma} (Windows, Linux, macOS)
+\item
+  Integra-se nativamente ao \textbf{ecossistema estatístico do R}
+\item
+  Elimina a necessidade de exportação dos dados para análises
+  complementares
+\end{itemize}
+
+Esse aspecto é relevante porque a dependência de etapas manuais de
+exportação e recodificação constitui uma fonte recorrente de erros e
+inconsistências no processamento de sistemas de informação em saúde no
+Brasil (Jorge et al. 2010).
+
+\section{Posicionamento no ecossistema de pacotes para dados do
+SUS}\label{posicionamento-no-ecossistema-de-pacotes-para-dados-do-sus}
+
+Nesse sentido, o RHCgen se alinha a iniciativas brasileiras anteriores
+voltadas à superação dessas limitações, como o \emph{microdatasus}
+(Saldanha et al. 2019) e o \emph{Rtabnetsp} (Morais et al. 2021),
+ampliando o conjunto de ferramentas disponíveis para o processamento de
+dados do SUS em R.
+
+\section{Contribuição para a qualidade dos
+dados}\label{contribuiuxe7uxe3o-para-a-qualidade-dos-dados}
+
+O RHCgen, ao automatizar a análise de completude e classificar as
+variáveis segundo critérios validados, oferece ao pesquisador um
+\textbf{diagnóstico imediato da qualidade do banco}, favorecendo
+decisões informadas sobre:
+
+\begin{itemize}
+\tightlist
+\item
+  A viabilidade de determinadas análises
+\item
+  A necessidade de estratégias de imputação ou restrição de subgrupos
+\item
+  A comparabilidade entre períodos históricos
+\end{itemize}
+
+Mudanças estruturais nas fichas do RHC ao longo do período analisado
+podem contribuir para a incompatibilidade entre registros históricos e
+regras de validação mais recentes. Esse padrão reflete a heterogeneidade
+estrutural dos arquivos anuais --- um dos principais desafios
+identificados no desenvolvimento do RHCgen --- e reforça a necessidade
+de ferramentas que realizem harmonização das bases, como a função
+\texttt{lerarquivoDBF()}.
+
+O fato de o RHCgen \textbf{quantificar e estratificar inconsistências
+temporais por tipo de verificação} representa um avanço metodológico
+concreto em relação ao processamento convencional, que em geral não
+contempla essa camada de validação de forma automatizada e reprodutível.
+
+\section{Ciência aberta e
+reprodutibilidade}\label{ciuxeancia-aberta-e-reprodutibilidade}
+
+Do ponto de vista da contribuição para a ciência aberta e para a
+reprodutibilidade da pesquisa em oncologia, o RHCgen alinha-se a um
+movimento mais amplo de valorização de ferramentas de código aberto no
+contexto da saúde pública ({Lowndes et al.} 2017; Jalal et al. 2017). A
+disponibilização do pacote no GitHub, acompanhada de guia de uso
+acessível, \textbf{reduz a barreira de entrada para pesquisadores} sem
+formação específica em ciência de dados, democratizando o acesso a uma
+base de dados com mais de cinco milhões de registros oncológicos de
+relevância nacional.
+
+Iniciativas análogas, como o \emph{microdatasus} e o \emph{Rtabnetsp},
+demonstraram que pacotes R voltados a dados do SUS têm ampla adoção pela
+comunidade científica brasileira (Saldanha et al. 2019; Morais et al.
+2021), o que sugere potencial similar para o RHCgen.
+
+\section{Limitações}\label{limitauxe7uxf5es}
+
+Algumas limitações do estudo merecem ser reconhecidas:
+
+\begin{description}
+\tightlist
+\item[\textbf{Download manual dos arquivos}]
+A plataforma IRHC não disponibiliza acesso remoto automatizado via FTP
+ou API, impondo uma etapa não automatizável que pode constituir
+obstáculo para usuários menos familiarizados com o processo de coleta de
+dados.
+\item[\textbf{Dados recentes em fase de validação}]
+Os registros mais recentes do IRHC podem ainda estar em fase de
+validação, com maior proporção de campos incompletos ou revisados, o que
+pode afetar a qualidade de análises baseadas nos anos mais próximos da
+data de extração.
+\item[\textbf{Requisitos de memória}]
+O consumo de 2,01 GB de memória RAM pode representar limitação em
+ambientes computacionais com recursos reduzidos.
+\end{description}
+
+\bookmarksetup{startatroot}
+
+\chapter{Conclusão}\label{conclusuxe3o}
+
+O RHCgen constitui uma contribuição metodológica para o campo da
+epidemiologia oncológica no Brasil, ao oferecer uma solução
+\textbf{padronizada, reprodutível e de acesso aberto} para o
+processamento de dados do Registro Hospitalar de Câncer.
+
+A capacidade de consolidar mais de cinco milhões de registros
+distribuídos ao longo de 24 anos em uma única base analítica
+estruturada, por meio de um fluxo automatizado e auditável, representa
+um avanço concreto em relação aos métodos convencionais de manipulação
+manual de dados, historicamente sujeitos a inconsistências e de difícil
+reprodução entre diferentes equipes de pesquisa.
+
+\section{Contribuições técnicas}\label{contribuiuxe7uxf5es-tuxe9cnicas}
+
+Do ponto de vista técnico, o pacote demonstrou:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Desempenho satisfatório} em termos de tempo de execução e
+  integridade das transformações aplicadas, validadas contra os
+  dicionários oficiais do SisRHC
+\item
+  \textbf{Funções modulares} que permitem ao usuário tanto a execução
+  integrada do fluxo completo quanto o controle granular de etapas
+  específicas, adaptando-se a diferentes demandas analíticas e níveis de
+  experiência com dados do SUS
+\item
+  \textbf{Diagnóstico imediato de qualidade}, com análises de completude
+  e consistência automaticamente geradas --- elemento indispensável para
+  decisões metodológicas sobre a viabilidade de análises e a adoção de
+  estratégias de tratamento de dados faltantes
+\end{itemize}
+
+\section{Impacto esperado}\label{impacto-esperado}
+
+A disponibilização pública do RHCgen no GitHub, acompanhada de
+documentação acessível, posiciona a ferramenta como um \textbf{recurso
+colaborativo e em contínuo aperfeiçoamento}, alinhado aos princípios da
+ciência aberta.
+
+Espera-se que sua adoção contribua para:
+
+\begin{itemize}
+\tightlist
+\item
+  Ampliar a \textbf{produção científica} baseada nos dados do RHC
+\item
+  Fortalecer a \textbf{vigilância oncológica} no país
+\item
+  Subsidiar a formulação de \textbf{políticas de saúde} mais bem
+  fundamentadas em evidências epidemiológicas robustas
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Como contribuir}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+O RHCgen é um projeto de código aberto. Sugestões, correções e
+contribuições são bem-vindas pelo repositório do GitHub:
+
+\begin{quote}
+\url{https://github.com/andersonlineu/RHCgen}
+\end{quote}
+
+\end{tcolorbox}
+
+\bookmarksetup{startatroot}
+
+\chapter*{Referências}\label{referuxeancias}
+\addcontentsline{toc}{chapter}{Referências}
+
+\markboth{Referências}{Referências}
+
+\protect\phantomsection\label{refs}
+\begin{CSLReferences}{1}{1}
+\bibitem[\citeproctext]{ref-acs2025}
+ACS. 2025. \emph{National Cancer Database}.
+\url{https://www.facs.org/quality-programs/cancer-programs/national-cancer-database/}.
+
+\bibitem[\citeproctext]{ref-brasil2025}
+Brasil. 2025. \emph{Programa Capacitação e Atualização em Abordagens do
+Espaço em Análises de Saúde Pública}.
+\url{https://www.capacita.geosaude.icict.fiocruz.br/links.php}.
+
+\bibitem[\citeproctext]{ref-bray2024}
+{Bray, Freddie, Mathieu Laversanne, Hyuna Sung, et al.} 2024. {``Global
+cancer statistics 2022: {GLOBOCAN} estimates of incidence and mortality
+worldwide for 36 cancers in 185 countries''}. \emph{CA: A Cancer Journal
+for Clinicians} 74: 229--63. \url{https://doi.org/10.3322/caac.21834}.
+
+\bibitem[\citeproctext]{ref-cancertoday2025}
+Cancer Today. 2025. \emph{Cancer Today}.
+\url{https://gco.iarc.who.int/today/}.
+
+\bibitem[\citeproctext]{ref-chan2018}
+Chan, Benjamin K. C. 2018. {``Data Analysis Using {R} Programming''}.
+\emph{Advances in Experimental Medicine and Biology} 1082: 47--122.
+\url{https://doi.org/10.1007/978-3-319-93791-5_2}.
+
+\bibitem[\citeproctext]{ref-decit2007}
+Decit. 2007. {``Integração de informações dos registros de câncer
+brasileiros''}. \emph{Revista de Saúde Pública} 41: 865--68.
+\url{https://doi.org/10.1590/S0034-89102007000500024}.
+
+\bibitem[\citeproctext]{ref-ecis2025}
+ECIS. 2025. \emph{European Cancer Information System}.
+\url{https://ecis.jrc.ec.europa.eu/en}.
+
+\bibitem[\citeproctext]{ref-eortc2017}
+EORTC. 2017. \emph{European Organisation For Research And Treatment Of
+Cancer}. \url{https://www.eortc.org/}.
+
+\bibitem[\citeproctext]{ref-inca2000}
+INCA. 2000. \emph{Registro Hospitalar de Câncer: Rotinas e
+Procedimentos}. 1º ed. Ministério da Saúde.
+\url{https://www.inca.gov.br/publicacoes/manuais/registros-hospitalares-de-cancer}.
+
+\bibitem[\citeproctext]{ref-inca2010}
+INCA. 2010. \emph{Registros Hospitalares de Câncer: Planejamento e
+Gestão}. 2º ed. Ministério da Saúde.
+\url{https://www.inca.gov.br/sites/ufu.sti.inca.local/files//media/document//registros-hospitalares-de-cancer-2010.pdf}.
+
+\bibitem[\citeproctext]{ref-inca2011}
+INCA. 2011. \emph{{IntegradorRHC}: ferramenta para a vigilância
+hospitalar de câncer no Brasil}. INCA.
+\url{https://www.inca.gov.br/sites/ufu.sti.inca.local/files//media/document//folder-integrador-rhc-2011.pdf}.
+
+\bibitem[\citeproctext]{ref-inca2020}
+INCA. 2020. \emph{Dicionário das Variáveis da Base de Dados do Sistema
+de Informação de Registros Hospitalares de Câncer ({SisRHC})}.
+\url{https://irhc.inca.gov.br/RHCNet/documentosTabWin.action?doc=dicionario.dados}.
+
+\bibitem[\citeproctext]{ref-jalal2017}
+Jalal, Hawre, Petros Pechlivanoglou, Eline Krijkamp, Fernando
+Alarid-Escudero, Eva Enns, e M. G. Myriam Hunink. 2017. {``An Overview
+of {R} in Health Decision Sciences''}. \emph{Medical Decision Making}
+37: 735--46. \url{https://doi.org/10.1177/0272989X16686559}.
+
+\bibitem[\citeproctext]{ref-jorge2010}
+Jorge, Maria Helena Prado de Mello, Ruy Laurenti, e Sabina Léa Davidson
+Gotlieb. 2010. {``Avaliação dos sistemas de informação em saúde no
+Brasil''}. \emph{Cadernos de Saúde Coletiva}.
+\url{https://pesquisa.bvsalud.org/portal/resource/pt/lil-621256}.
+
+\bibitem[\citeproctext]{ref-lowndes2017}
+{Lowndes, Julia S. Stewart, Benjamin D. Best, Courtney Scarborough, et
+al.} 2017. {``Our path to better science in less time using open data
+science tools''}. \emph{Nature Ecology \& Evolution} 1: 160.
+\url{https://doi.org/10.1038/s41559-017-0160}.
+
+\bibitem[\citeproctext]{ref-morais2021}
+Morais, João Henrique de Araujo, Tulio César Ramos de Oliveira
+Konstantyner, Álvaro Luiz Fazenda, Alessandro Sala, e Cleverson Bernardo
+Martins. 2021. {``Rtabnetsp: pacote {R} para extração de indicadores de
+saúde do estado de {São Paulo}''}. \emph{Epidemiologia e Serviços de
+Saúde} 30: e2020576. \url{https://doi.org/10.1590/S1679-4974202100020}.
+
+\bibitem[\citeproctext]{ref-pinto2012}
+Pinto, Iêda Vieira, Dandara Novaes Ramos, Maria do Carmo Esteves da
+Costa, Cristiane Bárbara Torres Ferreira, e Mariléa Santos Rebelo. 2012.
+{``Completude e consistência dos dados dos registros hospitalares de
+câncer no Brasil''}. \emph{Cadernos de Saúde Coletiva}, 113--20.
+
+\bibitem[\citeproctext]{ref-rcoreteam2024}
+R Core Team. 2024. \emph{R: A Language and Environment for Statistical
+Computing}. R Foundation for Statistical Computing.
+\url{https://www.r-project.org/}.
+
+\bibitem[\citeproctext]{ref-romero2006}
+Romero, Dalia Elena, e Cynthia Braga da Cunha. 2006. {``Avaliação da
+qualidade das variáveis sócio-econômicas e demográficas dos óbitos de
+crianças menores de um ano registrados no Sistema de Informações sobre
+Mortalidade do Brasil (1996/2001)''}. \emph{Cadernos de Saúde Pública}
+22: 673--81. \url{https://doi.org/10.1590/S0102-311X2006000300022}.
+
+\bibitem[\citeproctext]{ref-rstudio2024}
+RStudio. 2024. \emph{{RStudio}: Integrated Development Environment for
+{R}}. Posit Software, PBC. \url{https://www.r-project.org/}.
+
+\bibitem[\citeproctext]{ref-saldanha2019}
+Saldanha, Raphael de Freitas, Ronaldo Rocha Bastos, e Christovam
+Barcellos. 2019. {``Microdatasus: pacote para download e
+pré-processamento de microdados do Departamento de Informática do {SUS}
+({DATASUS})''}. \emph{Cadernos de Saúde Pública} 35: e00032419.
+\url{https://doi.org/10.1590/0102-311X00032419}.
+
+\bibitem[\citeproctext]{ref-seer2025}
+SEER. 2025. \emph{{SEER} Program}.
+\url{https://seer.cancer.gov/about/overview.html}.
+
+\bibitem[\citeproctext]{ref-silva2009}
+Silva, Natalino Pires da. 2009. {``A utilização dos programas {TABWIN} e
+{TABNET} como ferramentas de apoio à disseminação das informações em
+saúde''}. Fundação Oswaldo Cruz.
+\url{https://www.arca.fiocruz.br/handle/icict/2300}.
+
+\end{CSLReferences}
+
+
+\backmatter
+
+
+\end{document}

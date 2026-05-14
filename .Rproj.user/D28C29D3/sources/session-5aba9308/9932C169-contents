@@ -1,0 +1,68 @@
+# O *Pipeline* de Processamento
+
+## Processo único: a função `construir_banco()`
+
+A arquitetura do RHCgen é centrada na função modular `construir_banco()`, que opera como um *pipeline* automatizado de extração, transformação e carga — *automated extract, transform, and load* (ETL).
+
+Diferente de abordagens convencionais, esta função orquestra a transição do dado bruto para a base analítica em **quatro estágios críticos**:
+
+```{mermaid}
+flowchart TD
+    A["Arquivos .dbf — IntegradorRHC"] --> B["1. Harmonização Estrutural<br/>· lerarquivoDBF()"]
+    B --> C["2. Transformação de Tipos<br/>· modificar_tipo_variavel()<br/>· renomear_colunas()"]
+    C --> D["3. Enriquecimento e Recodificação<br/>· recodificar_variaveis()<br/>· renomear_CID()<br/>· renomear_CNES()"]
+    D --> E["4. Auditoria de Qualidade<br/>· analise_qualidade_dos_dados()"]
+    E --> F["Base Analítica<br/>·5.394.771 registros <br/>· 59 variáveis"]
+
+    style A fill:#f0f4f8,stroke:#4a90d9
+    style F fill:#e8f5e9,stroke:#388e3c
+    style B fill:#fff3e0,stroke:#fb8c00
+    style C fill:#fff3e0,stroke:#fb8c00
+    style D fill:#fff3e0,stroke:#fb8c00
+    style E fill:#fff3e0,stroke:#fb8c00
+```
+
+## Os quatro estágios
+
+### 1. Harmonização Estrutural
+
+Leitura e consolidação dinâmica de múltiplos arquivos `.dbf`, resolvendo inconsistências de nomenclatura e tipagem de colunas entre diferentes séries históricas para garantir uma base única e consistente.
+
+### 2. Transformação de Tipos e Atributos
+
+Conversão automática de variáveis importadas erroneamente como fatores para seus formatos originais (numérico para idade, data para eventos temporais e caractere para os demais campos), assegurando a integridade necessária para cálculos estatísticos.
+
+### 3. Enriquecimento e Recodificação
+
+Mapeamento de códigos técnicos — como CID-O, CNES e Estadiamento Clínico — para termos descritivos completos, utilizando os dicionários oficiais do INCA como referência [@inca2010; @inca2020].
+
+### 4. Auditoria de Qualidade
+
+Cálculo de indicadores de completude e consistência lógica para avaliação da qualidade dos dados da base, permitindo identificar níveis de preenchimento e incoerências entre variáveis, com base em escores descritos por @romero2006 e @pinto2012.
+
+## Uso básico
+
+```r
+library(RHCgen)
+
+# Certifique-se de que os arquivos .dbf estão no diretório de trabalho
+# com o padrão de nomenclatura rhcXX.dbf (ex: rhc20.dbf, rhc21.dbf)
+
+dados_RHC <- construir_banco()
+```
+
+## Relatório final de processamento
+
+Ao término da execução, a função `construir_banco()` exibe automaticamente um relatório com os indicadores operacionais do processamento:
+
+| Indicador | Valor (exemplo — base 2000–2023) |
+|-----------|----------------------------------|
+| Tempo de execução | 4,61 minutos |
+| Memória utilizada | ≈ 2,01 GB |
+| Total de registros | 5.394.771 |
+| Total de variáveis | 59 |
+
+::: {.callout-tip}
+## Produto final
+O dataframe resultante é mantido em memória e retornado ao ambiente de execução via `return(data)`. Não há salvamento automático em disco, o que oferece flexibilidade para que o usuário defina suas próprias estratégias de exportação (por exemplo, `saveRDS()`, `write.csv()`, ou integração com bancos de dados).
+:::

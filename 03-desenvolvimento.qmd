@@ -1,0 +1,59 @@
+# Desenvolvimento do RHCgen
+
+## Plataforma e ferramentas
+
+O desenvolvimento do RHCgen foi realizado com o uso da **linguagem de programação R** (versão 4.5.1) [@rcoreteam2024], no ambiente de desenvolvimento integrado **RStudio** (versão 2025.06.13) [@rstudio2024], com o auxílio dos seguintes pacotes:
+
+| Pacote | Função no desenvolvimento |
+|--------|--------------------------|
+| *usethis* | Configuração da estrutura do pacote; criação de diretórios e arquivos padrão |
+| *devtools* | Construção, verificação e instalação do pacote; gestão de dependências |
+| *roxygen2* | Geração automática da documentação das funções |
+
+## Disponibilidade e instalação
+
+O RHCgen está disponível no GitHub com o objetivo de facilitar seu uso, além de possibilitar a revisão e o aprimoramento por outros pesquisadores:
+
+> [https://github.com/andersonlineu/RHCgen](https://github.com/andersonlineu/RHCgen)
+
+Com o pacote *remotes* previamente instalado no R, a instalação do RHCgen pode ser realizada da seguinte forma:
+
+```r
+remotes::install_github("andersonlineu/RHCgen")
+```
+
+::: {.callout-note}
+## Dependência automática
+O pacote *foreign* é instalado automaticamente no primeiro uso do RHCgen. Esse pacote realiza a leitura de arquivos no formato `.dbf`, converte campos de caracteres em fatores e respeita, sempre que possível, os campos nulos.
+:::
+
+## Guia de uso
+
+Um guia completo com orientações ao usuário sobre como utilizar o pacote está disponível em:
+
+> [https://andersonlineu.github.io/GuiaRHCgen/](https://andersonlineu.github.io/GuiaRHCgen/)
+
+## Validação algorítmica e consistência dos dados
+
+A validação dos algoritmos de recodificação implementados no RHCgen foi baseada na correspondência com as normas técnicas descritas em:
+
+- **Manual** *Registros Hospitalares de Câncer: Planejamento e Gestão* [@inca2010]
+- **Dicionário de Variáveis do SisRHC** [@inca2020]
+
+Ambos publicados pelo Instituto Nacional de Câncer (INCA).
+
+As rotinas de processamento foram construídas de forma **determinística**, assegurando que a transformação dos dados seguisse estritamente os padrões oficiais de codificação, incluindo mapeamentos institucionais (CNES), classificações clínicas (CID-O) e definições de desfechos.
+
+A identificação dos estabelecimentos de saúde foi realizada por meio de vinculação determinística utilizando o **código CNES** presente na base do RHC como chave única para integração com a base oficial do CNES.
+
+A confiabilidade das funções foi avaliada por meio de:
+
+- **Testes unitários** — valores de entrada previamente definidos foram comparados às saídas esperadas, com base nos dicionários oficiais
+- **Verificações de cobertura** — para variáveis com grande número de categorias, garantindo que todos os códigos válidos do SisRHC fossem corretamente processados
+- **Testes de integração** — desempenho das funções em execução sequencial ao longo do *pipeline*
+- **Comparações com bases de referência** — cotejo entre saídas automatizadas e bases revisadas manualmente
+
+::: {.callout-important}
+## Dados reais na validação
+Diferente de abordagens baseadas em simulações, todas as etapas de validação e estresse de volumetria utilizaram exclusivamente **dados reais do RHC**, permitindo atestar a estabilidade e o desempenho da ferramenta em condições operacionais reais.
+:::

@@ -1,0 +1,60 @@
+# Leitura e Integração dos Arquivos DBF
+
+## Função `lerarquivoDBF()`
+
+### Finalidade
+
+A função `lerarquivoDBF()` realiza a **leitura automática** dos arquivos DBF do Registro Hospitalar de Câncer disponíveis no diretório de trabalho e combina esses arquivos em um único banco de dados. Além disso, cria a variável `Ano_do_Banco`, extraída do nome original do arquivo, permitindo identificar o ano de origem de cada registro.
+
+### Problema que resolve
+
+Os arquivos do RHC são disponibilizados separadamente, geralmente por ano, em formato DBF. Esse formato exige leitura específica e pode apresentar diferenças estruturais entre os arquivos, como presença ou ausência de determinadas colunas. A função reduz o trabalho manual de leitura, conferência e junção desses arquivos, automatizando a etapa inicial de construção do banco.
+
+### Uso
+
+```r
+dados_RHC_combinados <- lerarquivoDBF()
+```
+
+### Entrada esperada
+
+A função não exige argumentos externos. Para funcionar corretamente, os arquivos DBF devem:
+
+- Estar no diretório de trabalho (use `setwd()` para definir o diretório correto)
+- Manter o **nome original** proveniente do Integrador RHC, com o padrão iniciado por `rhc` (ex: `rhc20.dbf`, `rhc21.dbf`)
+
+### Saída produzida
+
+Um `data.frame` único contendo os registros combinados de todos os arquivos DBF identificados. Caso nenhum arquivo válido seja encontrado, a função retorna `NULL`.
+
+---
+
+## Comportamento operacional
+
+A função implementa um fluxo estruturado com os seguintes mecanismos:
+
+**Verificação de dependências**
+: O pacote *foreign* é verificado e instalado automaticamente, se necessário, garantindo execução autônoma.
+
+**Busca de arquivos**
+: A função procura arquivos com o padrão `^rhc.*\.dbf$`. Se nenhum for encontrado, encerra com mensagem informativa.
+
+**Processamento iterativo**
+: Para cada arquivo, a função realiza leitura via `foreign::read.dbf()`, verifica a presença de registros válidos, e extrai o ano a partir do nome do arquivo.
+
+**Extração do ano**
+: Utiliza expressão regular com lógica de conversão para século: anos `< 50` são atribuídos ao século XXI; anos `≥ 50`, ao século XX.
+
+**Tratamento de erros**
+: O uso de `tryCatch()` garante que erros individuais na leitura de um arquivo não interrompam o processamento dos demais.
+
+**Harmonização estrutural**
+: A função identifica o conjunto completo de colunas de todos os arquivos e adiciona colunas ausentes com valores `NA`, compatibilizando estruturas heterogêneas entre diferentes anos do RHC.
+
+**Integração final**
+: Os dados são combinados via `do.call(rbind, ...)`, resultando em um único `data.frame` consolidado.
+
+::: {.callout-note}
+## Importância no fluxo do RHCgen
+Esta é a **primeira etapa** do pipeline do RHCgen. Ela cria a base inicial sobre a qual serão aplicadas as demais etapas de padronização, recodificação, conversão de tipos, harmonização territorial, validação e análise de qualidade dos dados.
+:::

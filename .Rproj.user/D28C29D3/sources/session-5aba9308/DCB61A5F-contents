@@ -1,0 +1,75 @@
+::: {.callout-note appearance="minimal"}
+🎙️ **Ouça o podcast deste e-book:**
+
+<audio controls style="width: 100%;">
+  <source src="podcast.m4a" type="audio/mp4">
+  Seu navegador não suporta o player de áudio.
+</audio>
+:::
+
+# Bem-vindo {.unnumbered}
+
+Esta nota técnica descreve o **RHCgen**, um pacote computacional de acesso aberto implementado na linguagem R, voltado à automação, padronização e avaliação da qualidade dos dados do **Registro Hospitalar de Câncer (RHC)** no Brasil.
+
+O pacote está disponível no GitHub: [github.com/andersonlineu/RHCgen](https://github.com/andersonlineu/RHCgen)
+
+Um guia de uso está disponível em: [andersonlineu.github.io/GuiaRHCgen](https://andersonlineu.github.io/GuiaRHCgen/)
+
+---
+
+## Como citar {.unnumbered}
+
+> Santos, A. L. S. dos., Oliveira, T. N. da C., Saldanha, R. de F., & Oliveira, R. de V. C. de. (2026). *RHCgen: Um Pacote R para Automação, Padronização e Avaliação da Qualidade dos Dados do Registro Hospitalar de Câncer no Brasil.* Zenodo. [https://doi.org/10.5281/zenodo.19962293](https://doi.org/10.5281/zenodo.19962293)
+
+### BibTeX {.unnumbered}
+
+```bibtex
+@techreport{santos_rhcgen_2026,
+  author    = {Santos, Anderson Lineu Siqueira dos and
+               Oliveira, Tatyellen Natasha da Costa and
+               Saldanha, Raphael de Freitas and
+               Oliveira, Raquel de Vasconcellos Carvalhaes de},
+  title     = {{RHCgen}: Um Pacote {R} para Automação, Padronização e
+               Avaliação da Qualidade dos Dados do Registro Hospitalar
+               de Câncer no Brasil},
+  year      = {2026},
+  doi       = {10.5281/zenodo.19962293},
+  publisher = {Zenodo}
+}
+```
+
+---
+
+## Resumo {.unnumbered}
+
+**Introdução:** O Registro Hospitalar de Câncer (RHC) reúne dados clínicos e assistenciais de pacientes oncológicos atendidos em hospitais habilitados pelo Sistema Único de Saúde no Brasil, constituindo uma base estratégica para a vigilância e a pesquisa em oncologia. Contudo, a ausência de ferramentas padronizadas para seu processamento, aliada à heterogeneidade estrutural e semântica dos arquivos disponibilizados, impõe barreiras significativas à sua utilização em larga escala e de forma reprodutível.
+
+**Objetivo:** Descrever um pacote computacional de acesso aberto, implementado na linguagem R, voltado à automação, padronização do processamento e avaliação da qualidade dos dados do Registro Hospitalar de Câncer no Brasil.
+
+**Métodos:** Estudo metodológico que descreve o desenvolvimento do pacote RHCgen, implementado em R com o auxílio dos pacotes *usethis*, *devtools* e *roxygen2*. O pacote foi estruturado como um *pipeline* automatizado de extração, transformação e carga (ETL), composto por funções modulares para leitura e consolidação de arquivos no formato `.dbf`, padronização estrutural, variações semânticas e recodificação de variáveis, além de avaliação de completude e consistência dos dados.
+
+**Resultados:** O processamento de 24 arquivos nacionais do RHC (2000–2023) resultou em uma base analítica consolidada com **5.394.771 registros** e **59 variáveis**, com tempo de execução de 4,61 minutos e consumo aproximado de 2,01 GB de memória RAM.
+
+**Conclusão:** O RHCgen oferece uma solução padronizada, reprodutível e de acesso aberto para o processamento de dados do RHC, contribuindo para ampliar a produção científica baseada no RHC e fortalecer a vigilância oncológica no Brasil.
+
+**Palavras-chave:** Registros Hospitalares de Câncer; Processamento de Dados; Reprodutibilidade dos Resultados; Sistemas de Informação em Saúde; Neoplasias; Linguagem R; RHCgen.
+
+---
+
+## Sobre os autores {.unnumbered}
+
+**Anderson Lineu Siqueira dos Santos**
+[![ORCID](https://img.shields.io/badge/ORCID-0000--0002--1703--9310-brightgreen?logo=orcid)](https://orcid.org/0000-0002-1703-9310)
+Escola Nacional de Saúde Pública Sergio Arouca, Fundação Oswaldo Cruz, Rio de Janeiro, Brasil.
+
+**Tatyellen Natasha da Costa Oliveira**
+[![ORCID](https://img.shields.io/badge/ORCID-0000--0002--4781--3952-brightgreen?logo=orcid)](https://orcid.org/0000-0002-4781-3952)
+Escola Nacional de Saúde Pública Sergio Arouca, Fundação Oswaldo Cruz; Instituto Evandro Chagas, Ananindeua, PA, Brasil.
+
+**Raphael de Freitas Saldanha**
+[![ORCID](https://img.shields.io/badge/ORCID-0000--0003--0652--8466-brightgreen?logo=orcid)](https://orcid.org/0000-0003-0652-8466)
+Instituto de Comunicação e Informação Científica e Tecnológica em Saúde, Fundação Oswaldo Cruz, Rio de Janeiro, RJ, Brasil.
+
+**Raquel de Vasconcellos Carvalhaes de Oliveira**
+[![ORCID](https://img.shields.io/badge/ORCID-0000--0001--9387--8645-brightgreen?logo=orcid)](https://orcid.org/0000-0001-9387-8645)
+Instituto Nacional de Infectologia, Fundação Oswaldo Cruz, Rio de Janeiro, RJ, Brasil.
